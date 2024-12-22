@@ -76,7 +76,7 @@ export default function Publications({ user }) {
 	useEffect(() => mutateData(swrReactionsKey), [swrReactionsKey]);
 
 	return (
-		<div className='flex flex-col gap-4'>
+		<div className='flex flex-col gap-4 h-full'>
 			<div id='content-switcher' className='flex gap-6 text-white font-medium text-2xl px-5 overflow-x-auto'>
 				<button
 					onClick={() => switcherButton(0)}
@@ -126,19 +126,19 @@ export default function Publications({ user }) {
 				<SwiperSlide>
 					{publications?.length > 0 ? (
 						<InfiniteScroll hasMore={publications?.length < Number(user?.postsCount)}
-							next={() => setPublicationsPage(publicationsPage => publicationsPage + 1)}
-							dataLength={publications?.length} scrollableTarget="contentScroll" className="grid grid-cols-2 h-fit gap-5">
+							next={() => setPublicationsPage(publicationsPage => publicationsPage + 1)} scrollableTarget="profileScroll"
+							dataLength={publications?.length} className="grid grid-cols-2 h-fit gap-5">
 							{publications?.map(post => (
 								<Publication key={post?.id} post={post} />
 							))}
 						</InfiniteScroll>
 					) : null}
 				</SwiperSlide>
-				<SwiperSlide className='flex flex-col h-fit gap-5'>
+				<SwiperSlide>
 					{comments?.length > 0 ? (
 						<InfiniteScroll hasMore={comments?.length < Number(commentsRequest?.count)}
-							next={() => setCommentsPage(commentsPage => commentsPage + 1)}
-							dataLength={comments?.length} scrollableTarget="contentScroll" className='flex flex-col h-fit gap-5'>
+							next={() => setCommentsPage(commentsPage => commentsPage + 1)} scrollableTarget="profileScroll"
+							dataLength={comments?.length} className='flex flex-col h-fit gap-5'>
 							{comments?.map(comment => (
 								<Comment user={user} content={comment.text} date={comment?.date} />
 							))}
@@ -148,8 +148,8 @@ export default function Publications({ user }) {
 				<SwiperSlide>
 					{reactions?.length > 0 ? (
 						<InfiniteScroll hasMore={reactions?.length < Number(reactionsRequest?.count)}
-							next={() => setReactionsPage(reactionsPage => reactionsPage + 1)}
-							dataLength={reactions?.length} scrollableTarget="contentScroll" className='grid grid-cols-3 h-fit gap-5'>
+							next={() => setReactionsPage(reactionsPage => reactionsPage + 1)} scrollableTarget="profileScroll"
+							dataLength={reactions?.length} className='grid grid-cols-3 h-fit gap-5'>
 							{reactions?.map(reaction => (
 								<Reaction reaction={reaction.name} post={reaction.post}/>
 							))}

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Svg from "@/components/ui/icons/svg";
 import icons from "@/components/ui/icons/icons";
-import PixelAvatar from "../../pixels-avatar";
+import PixelAvatar from "../../../../pixels-avatar";
 import cdn from "@/constants/cdn";
 import { TimePassedFromDate } from "@/lib/utils";
 
