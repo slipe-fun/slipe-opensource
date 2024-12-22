@@ -131,7 +131,7 @@ export default function Publications({ user }) {
 					{comments?.length > 0 ? (
 						<InfiniteScroll hasMore={comments?.length < Number(commentsRequest?.count)}
 							next={() => setCommentsPage(commentsPage => commentsPage + 1)}
-							dataLength={comments?.length} scrollableTarget="contentScroll" className="grid grid-cols-2 h-fit gap-5">
+							dataLength={comments?.length} scrollableTarget="contentScroll" className='flex flex-col h-fit gap-5'>
 							{comments?.map(comment => (
 								<Comment user={user} content={comment.text} date={comment?.date} />
 							))}
