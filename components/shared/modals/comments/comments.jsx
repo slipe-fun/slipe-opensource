@@ -27,13 +27,12 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 
 	const swrKey = open ? `${api.v1}/comment/get?post_id=${postId}&page=${page}` : null;
 	// const date = Date.now();
-	const { cache, ...extraConfig } = useSWRConfig();
+	const { cache, mutate, ...extraConfig } = useSWRConfig();
 
 	const {
 		data: commentsRequest,
 		error,
-		isLoading,
-		mutate,
+		isLoading
 	} = useSWR(swrKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 	const {
 		data: user,
@@ -72,20 +71,6 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 		element.style.height = "48px";
 		element.style.height = `${element.scrollHeight}px`;
 	}
-
-	function removeDuplicates(jsonArray) {
-		const uniqueArray = [];
-		const uniqueIds = new Set();
-	  
-		jsonArray.forEach(item => {
-		  if (!uniqueIds.has(item.id)) {
-			uniqueIds.add(item.id);
-			uniqueArray.push(item);
-		  }
-		});
-	  
-		return uniqueArray;
-	  }
 
 	useEffect(() => {
 		if (commentsRequest?.success && !error) {
@@ -138,22 +123,14 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 											likes={comment.likes}
 											liked={comment.liked}
 											date={comment.date}
-											mutate={async () => {
-												mutate(
-													swrKey,
-													(async () => {
-														const updatedData = await fetcher(swrKey, "get", null, { Authorization: "Bearer " + token });
-														return updatedData;
-													})(),
-													true
-												);
-											}}
 											updateComment={async (id, likes, liked) => {
 												const commentsLocal = comments;
 												const comment = commentsLocal.find(comment => comment?.id === id);
 												const commentIndex = commentsLocal.indexOf(comment);
+												const commentPage =  [...Array(Math.ceil(commentsLocal?.length / 12)).keys()].map(key => key + 1).find(key => index < key * 12)
 												commentsLocal[commentIndex].likes = likes;
 												commentsLocal[commentIndex].liked = liked;
+												mutate(`${api.v1}/comment/get?post_id=${postId}&page=${commentPage}`);
 												setComments(commentsLocal);
 											}}
 										/>

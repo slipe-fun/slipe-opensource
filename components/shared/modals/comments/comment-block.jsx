@@ -9,7 +9,7 @@ import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
 import api from "@/constants/api";
 
-export default function CommentBlock({ id, user, content, likes, liked, date, mutate, updateComment }) {
+export default function CommentBlock({ id, user, content, likes, liked, date, updateComment }) {
 	const [localLikes, setLikes] = useState();
 	const [localLiked, setLiked] = useState();
 	const { token, storage } = useStorage();
@@ -28,7 +28,6 @@ export default function CommentBlock({ id, user, content, likes, liked, date, mu
 		const formData = new FormData();
 		formData.append("comment_id", id);
 		await fetcher(api.v1 + `/comment/like`, "post", formData, { Authorization: "Bearer " + token });
-		mutate()
 	}
 
 	useEffect(() => {
