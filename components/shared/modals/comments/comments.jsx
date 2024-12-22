@@ -15,6 +15,7 @@ import api from "@/constants/api";
 import cdn from "@/constants/cdn";
 import { Skeleton } from "@/components/ui/skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
+import updateCommentsLikes from "@/lib/comments/updateCommentsLikes";
 
 export default function CommentsModal({ children, postId, open, setOpen }) {
 	const [inputFocus, setInputFocus] = useState(false);
@@ -26,7 +27,6 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 	const { token, storage } = useStorage();
 
 	const swrKey = open ? `${api.v1}/comment/get?post_id=${postId}&page=${page}` : null;
-	// const date = Date.now();
 	const { cache, mutate, ...extraConfig } = useSWRConfig();
 
 	const {
@@ -52,8 +52,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 		if (result?.success) {
 			setComments([
 				{
-					id: 0,
-					text: commentText,
+					...result?.comment,
 					likes: 0,
 					liked: false,
 					author: user?.success[0],
@@ -72,13 +71,21 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 		element.style.height = `${element.scrollHeight}px`;
 	}
 
+	function getUniqueById(array) {
+		const seenIds = new Set();
+		return array.filter(item => {
+		  if (seenIds.has(item.id)) {
+			return false; // Если id уже есть, пропускаем
+		  }
+		  seenIds.add(item.id);
+		  return true; // Новый id добавляем
+		});
+	  }
+	
 	useEffect(() => {
 		if (commentsRequest?.success && !error) {
-			const newComments = commentsRequest.success.filter(newComment => !comments.some(existingComment => existingComment.id === newComment.id));
-
-			if (newComments.length > 0) {
-				setComments(prev => [...prev, ...newComments]);
-			}
+			console.log(comments, commentsRequest?.success)
+			setComments(prev => getUniqueById([...prev, ...commentsRequest.success]));
 			setCommentsCount(Number(commentsRequest?.count));
 		}
 	}, [commentsRequest, error]);
@@ -102,7 +109,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 						<InfiniteScroll
 							hasMore={comments?.length < Number(commentsCount)}
 							dataLength={Number(commentsCount)}
-							next={() => setPage(page + 1)}
+							next={() => comments?.length < Number(commentsCount) ? setPage(page + 1) : null}
 							scrollableTarget='commentsScroll'
 							className='flex flex-col gap-4'
 						>
@@ -123,16 +130,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 											likes={comment.likes}
 											liked={comment.liked}
 											date={comment.date}
-											updateComment={async (id, likes, liked) => {
-												const commentsLocal = comments;
-												const comment = commentsLocal.find(comment => comment?.id === id);
-												const commentIndex = commentsLocal.indexOf(comment);
-												const commentPage =  [...Array(Math.ceil(commentsLocal?.length / 12)).keys()].map(key => key + 1).find(key => index < key * 12)
-												commentsLocal[commentIndex].likes = likes;
-												commentsLocal[commentIndex].liked = liked;
-												mutate(`${api.v1}/comment/get?post_id=${postId}&page=${commentPage}`);
-												setComments(commentsLocal);
-											}}
+											updateComment={async (id, likes, liked) => setComments(updateCommentsLikes(comments, id, postId, likes, liked, mutate))}
 										/>
 									</motion.li>
 								))}
