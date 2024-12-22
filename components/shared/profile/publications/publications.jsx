@@ -144,8 +144,8 @@ export default function Publications({ user }) {
 							dataLength={publications?.length}
 							className='grid grid-cols-2 h-fit gap-5'
 						>
-							{publications?.map(post => (
-								<Publication key={post?.id} post={post} />
+							{publications?.map((post, index) => (
+								<Publication key={index} post={post} />
 							))}
 						</InfiniteScroll>
 					) : null}
@@ -159,8 +159,8 @@ export default function Publications({ user }) {
 							dataLength={comments?.length}
 							className='flex flex-col h-fit gap-5'
 						>
-							{comments?.map(comment => (
-								<Comment user={user} content={comment.text} date={comment?.date} />
+							{comments?.map((comment, index) => (
+								<Comment key={index} user={user} content={comment.text} date={comment?.date} />
 							))}
 						</InfiniteScroll>
 					) : null}
@@ -174,8 +174,8 @@ export default function Publications({ user }) {
 							dataLength={reactions?.length}
 							className='grid grid-cols-3 h-fit gap-5'
 						>
-							{reactions?.map(reaction => (
-								<Reaction reaction={reaction.name} post={reaction.post} />
+							{reactions?.map((reaction, index) => (
+								<Reaction key={index} reaction={reaction.name} post={reaction.post} />
 							))}
 						</InfiniteScroll>
 					) : null}
