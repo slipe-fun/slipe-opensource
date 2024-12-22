@@ -7,6 +7,7 @@ import useSWR from "swr";
 import api from "@/constants/api";
 import { fetcher } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useSWRConfig } from "swr";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
@@ -15,23 +16,34 @@ export default function Publications({ user }) {
 	const [swiper, setSwiper] = useState(null);
 	const [active, setActive] = useState(0);
 	const { token, storage } = useStorage();
+	const { cache, mutate, ...extraConfig } = useSWRConfig();
 
-	const [page, setPage] = useState(1);
+	const [publicationsPage, setPublicationsPage] = useState(1);
 	const [publications, setPublications] = useState([]);
 
-	const swrKey = `${api.v1}/post/get?page=${page}&user=${user?.id}`;
+	const [commentsPage, setCommentsPage] = useState(1);
+	const [comments, setComments] = useState([]);
 
-	const {
-		data: publicationsRequest,
-		error,
-		isLoading,
-		mutate
-	} = useSWR(swrKey, async url => await fetcher(url, "get"))
+	const swrPostsKey = user?.id ? `${api.v1}/post/get?page=${publicationsPage}&user=${user?.id}` : null;
+	const swrCommentsKey = user?.id ? `${api.v1}/comment/users/get?page=${commentsPage}` : null;
+
+	const { data: publicationsRequest, isPublicationsError, isPublicationsLoading } = useSWR(swrPostsKey, async url => await fetcher(url, "get"), {
+		revalidateOnFocus: false,
+		revalidateIfStale: false,
+	})
+	const { data: commentsRequest, isCommentsError, isCommentsLoading } = useSWR(swrCommentsKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }))
 
 	const switcherButton = index => {
 		setActive(index);
 		swiper?.slideTo(index);
 	};
+
+	const mutateData = (url) => {
+		mutate(swrPostsKey, (async () => {
+			const updatedData = await fetcher(swrPostsKey, "get", null, { Authorization: "Bearer " + token });
+			return updatedData;
+		})(), false);
+	}
 
 	useEffect(() => {
 		document.getElementById("content-switcher")?.scrollTo({
@@ -42,17 +54,18 @@ export default function Publications({ user }) {
 	}, [active]);
 
 	useEffect(() => {
-		if (publicationsRequest?.success && !error) {
+		if (publicationsRequest?.success && !isPublicationsError) {
 			setPublications((prev) => [...prev, ...publicationsRequest?.success]);
 		}
 	}, [publicationsRequest])
-
 	useEffect(() => {
-		mutate(swrKey, (async () => {
-			const updatedData = await fetcher(swrKey, "get");
-			return updatedData;
-		})(), true);
-	}, [swrKey])
+		if (commentsRequest?.success && !isCommentsError) {
+			setComments((prev) => [...prev, ...commentsRequest?.success]);
+		}
+	}, [commentsRequest])
+
+	useEffect(() => mutateData(swrPostsKey), [swrPostsKey]);
+	useEffect(() => mutateData(swrCommentsKey), [swrCommentsKey]);
 
 	return (
 		<div className='flex flex-col gap-4'>
@@ -105,29 +118,35 @@ export default function Publications({ user }) {
 				<SwiperSlide>
 					{publications?.length > 0 ? (
 						<InfiniteScroll hasMore={publications?.length < Number(user?.postsCount)}
-						next={() => setPage(page => page + 1)}
-						dataLength={publications?.length} scrollableTarget="contentScroll" className="grid grid-cols-2 h-fit gap-5">
+							next={() => setPublicationsPage(publicationsPage => publicationsPage + 1)}
+							dataLength={publications?.length} scrollableTarget="contentScroll" className="grid grid-cols-2 h-fit gap-5">
 							{publications?.map(post => (
-								<>{console.log(user?.postsCount, publications?.length, Number(user?.postsCount) >= publications?.length)}
-								<Publication key={post?.id} post={post}/></>
+								<Publication key={post?.id} post={post} />
 							))}
-						</InfiniteScroll>	
-						
+						</InfiniteScroll>
+
 					) : null}
 				</SwiperSlide>
 				<SwiperSlide className='flex flex-col h-fit gap-5'>
-					<Comment user={{avatar: "./static/testa-assets/mango.jpg", nickname: "Mango men"}} content="Yoooo Yoooo Yoooo Yoooo Yoooo Yoooo Yoooo " />
-					<Comment user={{avatar: "./static/testa-assets/mango.jpg", nickname: "Mango men"}} content="Yoooo Yoooo Yoooo Yoooo Yoooo Yoooo Yoooo " />
-					<Comment user={{avatar: "./static/testa-assets/mango.jpg", nickname: "Mango men"}} content="Yoooo Yoooo Yoooo Yoooo Yoooo Yoooo Yoooo " />
+					{comments?.length > 0 ? (
+						<InfiniteScroll hasMore={comments?.length < Number(commentsRequest?.count)}
+							next={() => setCommentsPage(commentsPage => commentsPage + 1)}
+							dataLength={comments?.length} scrollableTarget="contentScroll" className="grid grid-cols-2 h-fit gap-5">
+							{comments?.map(comment => (
+								<Comment user={user} content={comment.text} date={comment?.date} />
+							))}
+						</InfiniteScroll>
+
+					) : null}
 				</SwiperSlide>
 				<SwiperSlide className='grid grid-cols-3 h-fit gap-5'>
-					<Reaction/>
-					<Reaction/>
-					<Reaction/>
-					<Reaction/>
-					<Reaction/>
-					<Reaction/>
-					<Reaction/>
+					<Reaction />
+					<Reaction />
+					<Reaction />
+					<Reaction />
+					<Reaction />
+					<Reaction />
+					<Reaction />
 				</SwiperSlide>
 			</Swiper>
 		</div>
