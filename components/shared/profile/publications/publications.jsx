@@ -31,21 +31,33 @@ export default function Publications({ user }) {
 	const swrCommentsKey = user?.id ? `${api.v1}/comment/users/get?page=${commentsPage}` : null;
 	const swrReactionsKey = user?.id ? `${api.v1}/reactions/users/get?page=${reactionsPage}` : null;
 
-	const { data: publicationsRequest, isPublicationsError, isPublicationsLoading } = useSWR(swrPostsKey, async url => await fetcher(url, "get"))
-	const { data: commentsRequest, isCommentsError, isCommentsLoading } = useSWR(swrCommentsKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }))
-	const { data: reactionsRequest, isReactionsError, isReactionsLoading } = useSWR(swrReactionsKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }))
+	const { data: publicationsRequest, isPublicationsError, isPublicationsLoading } = useSWR(swrPostsKey, async url => await fetcher(url, "get"));
+	const {
+		data: commentsRequest,
+		isCommentsError,
+		isCommentsLoading,
+	} = useSWR(swrCommentsKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+	const {
+		data: reactionsRequest,
+		isReactionsError,
+		isReactionsLoading,
+	} = useSWR(swrReactionsKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	const switcherButton = index => {
 		setActive(index);
 		swiper?.slideTo(index);
 	};
 
-	const mutateData = (url) => {
-		mutate(swrPostsKey, (async () => {
-			const updatedData = await fetcher(swrPostsKey, "get", null, { Authorization: "Bearer " + token });
-			return updatedData;
-		})(), false);
-	}
+	const mutateData = url => {
+		mutate(
+			swrPostsKey,
+			(async () => {
+				const updatedData = await fetcher(swrPostsKey, "get", null, { Authorization: "Bearer " + token });
+				return updatedData;
+			})(),
+			false
+		);
+	};
 
 	useEffect(() => {
 		document.getElementById("content-switcher")?.scrollTo({
@@ -57,26 +69,26 @@ export default function Publications({ user }) {
 
 	useEffect(() => {
 		if (publicationsRequest?.success && !isPublicationsError) {
-			setPublications((prev) => [...prev, ...publicationsRequest?.success]);
+			setPublications(prev => [...prev, ...publicationsRequest?.success]);
 		}
-	}, [publicationsRequest])
+	}, [publicationsRequest]);
 	useEffect(() => {
 		if (commentsRequest?.success && !isCommentsError) {
-			setComments((prev) => [...prev, ...commentsRequest?.success]);
+			setComments(prev => [...prev, ...commentsRequest?.success]);
 		}
-	}, [commentsRequest])
+	}, [commentsRequest]);
 	useEffect(() => {
 		if (reactionsRequest?.success && !isReactionsError) {
-			setReactions((prev) => [...prev, ...reactionsRequest?.success]);
+			setReactions(prev => [...prev, ...reactionsRequest?.success]);
 		}
-	}, [reactionsRequest])
+	}, [reactionsRequest]);
 
 	useEffect(() => mutateData(swrPostsKey), [swrPostsKey]);
 	useEffect(() => mutateData(swrCommentsKey), [swrCommentsKey]);
 	useEffect(() => mutateData(swrReactionsKey), [swrReactionsKey]);
 
 	return (
-		<div className='flex flex-col gap-4 h-full'>
+		<div className='flex flex-col gap-4'>
 			<div id='content-switcher' className='flex gap-6 text-white font-medium text-2xl px-5 overflow-x-auto'>
 				<button
 					onClick={() => switcherButton(0)}
@@ -125,9 +137,13 @@ export default function Publications({ user }) {
 			>
 				<SwiperSlide>
 					{publications?.length > 0 ? (
-						<InfiniteScroll hasMore={publications?.length < Number(user?.postsCount)}
-							next={() => setPublicationsPage(publicationsPage => publicationsPage + 1)} scrollableTarget="profileScroll"
-							dataLength={publications?.length} className="grid grid-cols-2 h-fit gap-5">
+						<InfiniteScroll
+							hasMore={publications?.length < Number(user?.postsCount)}
+							next={() => setPublicationsPage(publicationsPage => publicationsPage + 1)}
+							scrollableTarget='profileScroll'
+							dataLength={publications?.length}
+							className='grid grid-cols-2 h-fit gap-5'
+						>
 							{publications?.map(post => (
 								<Publication key={post?.id} post={post} />
 							))}
@@ -136,9 +152,13 @@ export default function Publications({ user }) {
 				</SwiperSlide>
 				<SwiperSlide>
 					{comments?.length > 0 ? (
-						<InfiniteScroll hasMore={comments?.length < Number(commentsRequest?.count)}
-							next={() => setCommentsPage(commentsPage => commentsPage + 1)} scrollableTarget="profileScroll"
-							dataLength={comments?.length} className='flex flex-col h-fit gap-5'>
+						<InfiniteScroll
+							hasMore={comments?.length < Number(commentsRequest?.count)}
+							next={() => setCommentsPage(commentsPage => commentsPage + 1)}
+							scrollableTarget='profileScroll'
+							dataLength={comments?.length}
+							className='flex flex-col h-fit gap-5'
+						>
 							{comments?.map(comment => (
 								<Comment user={user} content={comment.text} date={comment?.date} />
 							))}
@@ -147,11 +167,15 @@ export default function Publications({ user }) {
 				</SwiperSlide>
 				<SwiperSlide>
 					{reactions?.length > 0 ? (
-						<InfiniteScroll hasMore={reactions?.length < Number(reactionsRequest?.count)}
-							next={() => setReactionsPage(reactionsPage => reactionsPage + 1)} scrollableTarget="profileScroll"
-							dataLength={reactions?.length} className='grid grid-cols-3 h-fit gap-5'>
+						<InfiniteScroll
+							hasMore={reactions?.length < Number(reactionsRequest?.count)}
+							next={() => setReactionsPage(reactionsPage => reactionsPage + 1)}
+							scrollableTarget='profileScroll'
+							dataLength={reactions?.length}
+							className='grid grid-cols-3 h-fit gap-5'
+						>
 							{reactions?.map(reaction => (
-								<Reaction reaction={reaction.name} post={reaction.post}/>
+								<Reaction reaction={reaction.name} post={reaction.post} />
 							))}
 						</InfiniteScroll>
 					) : null}
