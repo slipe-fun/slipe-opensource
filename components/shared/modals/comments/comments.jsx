@@ -75,10 +75,10 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 		const seenIds = new Set();
 		return array.filter(item => {
 		  if (seenIds.has(item.id)) {
-			return false; // Если id уже есть, пропускаем
+			return false;
 		  }
 		  seenIds.add(item.id);
-		  return true; // Новый id добавляем
+		  return true;
 		});
 	  }
 	

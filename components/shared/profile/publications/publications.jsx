@@ -24,14 +24,16 @@ export default function Publications({ user }) {
 	const [commentsPage, setCommentsPage] = useState(1);
 	const [comments, setComments] = useState([]);
 
+	const [reactionsPage, setReactionsPage] = useState(1);
+	const [reactions, setReactions] = useState([]);
+
 	const swrPostsKey = user?.id ? `${api.v1}/post/get?page=${publicationsPage}&user=${user?.id}` : null;
 	const swrCommentsKey = user?.id ? `${api.v1}/comment/users/get?page=${commentsPage}` : null;
+	const swrReactionsKey = user?.id ? `${api.v1}/reactions/users/get?page=${reactionsPage}` : null;
 
-	const { data: publicationsRequest, isPublicationsError, isPublicationsLoading } = useSWR(swrPostsKey, async url => await fetcher(url, "get"), {
-		revalidateOnFocus: false,
-		revalidateIfStale: false,
-	})
+	const { data: publicationsRequest, isPublicationsError, isPublicationsLoading } = useSWR(swrPostsKey, async url => await fetcher(url, "get"))
 	const { data: commentsRequest, isCommentsError, isCommentsLoading } = useSWR(swrCommentsKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }))
+	const { data: reactionsRequest, isReactionsError, isReactionsLoading } = useSWR(swrReactionsKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }))
 
 	const switcherButton = index => {
 		setActive(index);
@@ -63,9 +65,15 @@ export default function Publications({ user }) {
 			setComments((prev) => [...prev, ...commentsRequest?.success]);
 		}
 	}, [commentsRequest])
+	useEffect(() => {
+		if (reactionsRequest?.success && !isReactionsError) {
+			setReactions((prev) => [...prev, ...reactionsRequest?.success]);
+		}
+	}, [reactionsRequest])
 
 	useEffect(() => mutateData(swrPostsKey), [swrPostsKey]);
 	useEffect(() => mutateData(swrCommentsKey), [swrCommentsKey]);
+	useEffect(() => mutateData(swrReactionsKey), [swrReactionsKey]);
 
 	return (
 		<div className='flex flex-col gap-4'>
@@ -124,7 +132,6 @@ export default function Publications({ user }) {
 								<Publication key={post?.id} post={post} />
 							))}
 						</InfiniteScroll>
-
 					) : null}
 				</SwiperSlide>
 				<SwiperSlide className='flex flex-col h-fit gap-5'>
@@ -136,17 +143,18 @@ export default function Publications({ user }) {
 								<Comment user={user} content={comment.text} date={comment?.date} />
 							))}
 						</InfiniteScroll>
-
 					) : null}
 				</SwiperSlide>
-				<SwiperSlide className='grid grid-cols-3 h-fit gap-5'>
-					<Reaction />
-					<Reaction />
-					<Reaction />
-					<Reaction />
-					<Reaction />
-					<Reaction />
-					<Reaction />
+				<SwiperSlide>
+					{reactions?.length > 0 ? (
+						<InfiniteScroll hasMore={reactions?.length < Number(reactionsRequest?.count)}
+							next={() => setReactionsPage(reactionsPage => reactionsPage + 1)}
+							dataLength={reactions?.length} scrollableTarget="contentScroll" className='grid grid-cols-3 h-fit gap-5'>
+							{reactions?.map(reaction => (
+								<Reaction reaction={reaction.name} post={reaction.post}/>
+							))}
+						</InfiniteScroll>
+					) : null}
 				</SwiperSlide>
 			</Swiper>
 		</div>
