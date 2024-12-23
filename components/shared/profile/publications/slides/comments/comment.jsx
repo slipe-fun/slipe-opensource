@@ -4,8 +4,12 @@ import icons from "@/components/ui/icons/icons";
 import PixelAvatar from "../../../../pixels-avatar";
 import cdn from "@/constants/cdn";
 import { TimePassedFromDate } from "@/lib/utils";
+import { PostDeletingModal } from "@/components/shared/modals";
+import { useState } from "react";
 
 export default function Comment({ user, content, date }) {
+	const [isDelete, setIsDelete] = useState(false);
+
 	return (
 		<div className='p-4 bg-card flex rounded-[1.25rem] origin-center flex-col gap-2'>
 			<div className='w-full flex gap-3 items-center'>
@@ -24,9 +28,16 @@ export default function Comment({ user, content, date }) {
 						<span className='text-sm text-foreground/50'>{TimePassedFromDate(date)}</span>
 					</div>
 				</div>
-				<Button size='iconSm' className='rounded-full bg-red-foreground/35 hover:bg-red-foreground/30 text-red-foreground'>
-					<Svg className='!w-7 !h-7' icon={icons["trash"]} />
-				</Button>
+				<PostDeletingModal open={isDelete} setOpen={setIsDelete} content='comment' nested={false}>
+					<Button
+						data-active={isDelete}
+						onClick={() => setIsDelete(true)}
+						size='iconSm'
+						className='rounded-full data-[active=true]:bg-red-foreground data-[active=true]:text-white bg-red-foreground/35 text-red-foreground hover:bg-red-foreground/30'
+					>
+						<Svg className='!w-7 !h-7' icon={icons["trash"]} />
+					</Button>
+				</PostDeletingModal>
 			</div>
 			<p className='pl-[3.75rem] break-words'>{content}</p>
 		</div>
