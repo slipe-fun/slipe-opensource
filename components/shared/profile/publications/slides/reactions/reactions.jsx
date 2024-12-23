@@ -4,6 +4,7 @@ import { fetcher } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Reaction from "./reaction";
 import { useState, useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import mutateData from "@/lib/utils/mutateData";
 
 export default function Reactions({ token, mutate }) {
@@ -27,7 +28,14 @@ export default function Reactions({ token, mutate }) {
 	useEffect(() => mutateData(swrKey, mutate, token), [swrKey]);
 
 	if (isError) return <>Error</>;
-	if (isLoading) return <>Loading</>;
+	if (isLoading)
+		return (
+			<div className='grid grid-cols-3 h-fit gap-5'>
+				{Array.from({ length: 12 }, (_, i) => i).map(index => (
+					<Skeleton key={index} className="w-full aspect-square rounded-[1.125rem]" />
+				))}
+			</div>
+		);
 
 	return reactions?.length > 0 ? (
 		<InfiniteScroll

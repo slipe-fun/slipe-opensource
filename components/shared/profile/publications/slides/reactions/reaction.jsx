@@ -2,7 +2,7 @@ import cdn from "@/constants/cdn";
 
 export default function Reaction({ reaction, post }) {
 	return (
-		<div className='rounded-[1.25rem] relative w-full aspect-square overflow-hidden'>
+		<div className='rounded-[1.125rem] relative w-full aspect-square overflow-hidden'>
 			<img loading='lazy' src={cdn + "/posts/" + post?.image} className='w-full absolute -z-10 h-full object-cover' />
 
 			<div className='w-full h-full items-center flex flex-col justify-center p-6 bg-black/50'>

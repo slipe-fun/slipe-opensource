@@ -5,6 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Comment from "./comment";
 import { useState, useEffect } from "react";
 import mutateData from "@/lib/utils/mutateData";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Comments({ user, token, mutate }) {
 	const [page, setPage] = useState(1);
@@ -27,7 +28,14 @@ export default function Comments({ user, token, mutate }) {
 	useEffect(() => mutateData(swrKey, mutate, token), [swrKey]);
 
 	if (isError) return <>Error</>;
-	if (isLoading) return <>Loading</>;
+	if (isLoading)
+		return (
+			<div className='flex flex-col h-fit gap-5'>
+				{Array.from({ length: 6 }, (_, i) => i).map(index => (
+					<Skeleton key={index} className="w-full h-32 rounded-[1.25rem]" />
+				))}
+			</div>
+		);
 
 	return comments?.length > 0 ? (
 		<InfiniteScroll

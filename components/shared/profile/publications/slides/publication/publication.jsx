@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 export default function Publication({ className, post, ...props }) {
 	return (
-		<div className={cn("w-full aspect-[37/57] overflow-hidden relative flex items-end rounded-[1.125rem]", className)} {...props}>
+		<div className={cn("w-full aspect-[37/57] overflow-hidden relative flex animate-[fadeInOpacity_0.3s_ease-out] items-end rounded-[1.125rem]", className)} {...props}>
 			<img src={cdn + "/posts/" + post?.image} loading='lazy' className='w-full h-full object-cover absolute -z-20' />
 			<span className='w-full h-full absolute bg-gradient-to-t -z-10 from-[#00000040] to-[#00000000] block' />
 			<div className='p-4 gap-[0.125rem] flex w-full flex-col text-white'>

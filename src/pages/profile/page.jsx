@@ -17,7 +17,7 @@ export default function Profile() {
 	} = useSWR(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	return (
-		<div id="profileScroll" ref={profileRef} className='w-full h-full overflow-y-auto flex flex-col'>
+		<div id="profileScroll" ref={profileRef} className='w-full h-full animate-[fadeIn_0.3s_ease-out] overflow-y-auto flex flex-col'>
 			<Banner user={user?.success[0]} scrollProgress={scrollY} />{" "}
       <div className="w-full min-h-full flex flex-col gap-5">
 				<User user={user?.success[0]} scrollProgress={scrollY} />

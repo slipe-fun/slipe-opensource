@@ -4,6 +4,7 @@ import { fetcher } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Publication from "./publication";
 import { useState, useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import mutateData from "@/lib/utils/mutateData";
 
 export default function Posts({ user, token, mutate }) {
@@ -23,7 +24,14 @@ export default function Posts({ user, token, mutate }) {
 	useEffect(() => mutateData(swrKey, mutate, token), [swrKey]);
 
 	if (isError) return <>Error</>;
-	if (isLoading) return <>Loading</>;
+	if (isLoading)
+		return (
+			<div className='grid grid-cols-2 h-fit gap-5'>
+				{Array.from({ length: 8 }, (_, i) => i).map(index => (
+					<Skeleton key={index} className='w-full animate-[fadeInOpacity_0.3s_ease-out] aspect-[37/57] rounded-[1.125rem]' />
+				))}
+			</div>
+		);
 
 	return publications?.length > 0 ? (
 		<InfiniteScroll
