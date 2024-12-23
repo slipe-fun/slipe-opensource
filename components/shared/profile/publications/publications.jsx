@@ -139,7 +139,7 @@ export default function Publications({ user }) {
 					{publications?.length > 0 ? (
 						<InfiniteScroll
 							hasMore={publications?.length < Number(user?.postsCount)}
-							next={() => setPublicationsPage(publicationsPage => publicationsPage + 1)}
+							next={() => setPublicationsPage(prev => prev + 1)}
 							scrollableTarget='profileScroll'
 							dataLength={publications?.length}
 							className='grid grid-cols-2 h-fit gap-5'
@@ -154,7 +154,7 @@ export default function Publications({ user }) {
 					{comments?.length > 0 ? (
 						<InfiniteScroll
 							hasMore={comments?.length < Number(commentsRequest?.count)}
-							next={() => setCommentsPage(commentsPage => commentsPage + 1)}
+							next={() => setCommentsPage(prev => prev + 1)}
 							scrollableTarget='profileScroll'
 							dataLength={comments?.length}
 							className='flex flex-col h-fit gap-5'
@@ -169,7 +169,7 @@ export default function Publications({ user }) {
 					{reactions?.length > 0 ? (
 						<InfiniteScroll
 							hasMore={reactions?.length < Number(reactionsRequest?.count)}
-							next={() => setReactionsPage(reactionsPage => reactionsPage + 1)}
+							next={() => setReactionsPage(prev => prev + 1)}
 							scrollableTarget='profileScroll'
 							dataLength={reactions?.length}
 							className='grid grid-cols-3 h-fit gap-5'
