@@ -11,6 +11,9 @@ import { useSWRConfig } from "swr";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
+import Reactions from "./slides/reactions/reactions";
+import Comments from "./slides/comments/comments";
+import Posts from "./slides/publication/posts";
 
 export default function Publications({ user }) {
 	const [swiper, setSwiper] = useState(null);
@@ -18,45 +21,9 @@ export default function Publications({ user }) {
 	const { token, storage } = useStorage();
 	const { cache, mutate, ...extraConfig } = useSWRConfig();
 
-	const [publicationsPage, setPublicationsPage] = useState(1);
-	const [publications, setPublications] = useState([]);
-
-	const [commentsPage, setCommentsPage] = useState(1);
-	const [comments, setComments] = useState([]);
-
-	const [reactionsPage, setReactionsPage] = useState(1);
-	const [reactions, setReactions] = useState([]);
-
-	const swrPostsKey = user?.id ? `${api.v1}/post/get?page=${publicationsPage}&user=${user?.id}` : null;
-	const swrCommentsKey = user?.id ? `${api.v1}/comment/users/get?page=${commentsPage}` : null;
-	const swrReactionsKey = user?.id ? `${api.v1}/reactions/users/get?page=${reactionsPage}` : null;
-
-	const { data: publicationsRequest, isPublicationsError, isPublicationsLoading } = useSWR(swrPostsKey, async url => await fetcher(url, "get"));
-	const {
-		data: commentsRequest,
-		isCommentsError,
-		isCommentsLoading,
-	} = useSWR(swrCommentsKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
-	const {
-		data: reactionsRequest,
-		isReactionsError,
-		isReactionsLoading,
-	} = useSWR(swrReactionsKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
-
 	const switcherButton = index => {
 		setActive(index);
 		swiper?.slideTo(index);
-	};
-
-	const mutateData = url => {
-		mutate(
-			swrPostsKey,
-			(async () => {
-				const updatedData = await fetcher(swrPostsKey, "get", null, { Authorization: "Bearer " + token });
-				return updatedData;
-			})(),
-			false
-		);
 	};
 
 	useEffect(() => {
@@ -66,26 +33,6 @@ export default function Publications({ user }) {
 			block: "start",
 		});
 	}, [active]);
-
-	useEffect(() => {
-		if (publicationsRequest?.success && !isPublicationsError) {
-			setPublications(prev => [...prev, ...publicationsRequest?.success]);
-		}
-	}, [publicationsRequest]);
-	useEffect(() => {
-		if (commentsRequest?.success && !isCommentsError) {
-			setComments(prev => [...prev, ...commentsRequest?.success]);
-		}
-	}, [commentsRequest]);
-	useEffect(() => {
-		if (reactionsRequest?.success && !isReactionsError) {
-			setReactions(prev => [...prev, ...reactionsRequest?.success]);
-		}
-	}, [reactionsRequest]);
-
-	useEffect(() => mutateData(swrPostsKey), [swrPostsKey]);
-	useEffect(() => mutateData(swrCommentsKey), [swrCommentsKey]);
-	useEffect(() => mutateData(swrReactionsKey), [swrReactionsKey]);
 
 	return (
 		<div className='flex flex-col gap-4'>
@@ -136,49 +83,13 @@ export default function Publications({ user }) {
 				modules={[FreeMode, EffectCreative]}
 			>
 				<SwiperSlide>
-					{publications?.length > 0 ? (
-						<InfiniteScroll
-							hasMore={publications?.length < Number(user?.postsCount)}
-							next={() => setPublicationsPage(prev => prev + 1)}
-							scrollableTarget='profileScroll'
-							dataLength={publications?.length}
-							className='grid grid-cols-2 h-fit gap-5'
-						>
-							{publications?.map((post, index) => (
-								<Publication key={index} post={post} />
-							))}
-						</InfiniteScroll>
-					) : null}
+					<Posts user={user} token={token} mutate={mutate} />
 				</SwiperSlide>
 				<SwiperSlide>
-					{comments?.length > 0 ? (
-						<InfiniteScroll
-							hasMore={comments?.length < Number(commentsRequest?.count)}
-							next={() => setCommentsPage(prev => prev + 1)}
-							scrollableTarget='profileScroll'
-							dataLength={comments?.length}
-							className='flex flex-col h-fit gap-5'
-						>
-							{comments?.map((comment, index) => (
-								<Comment key={index} user={user} content={comment.text} date={comment?.date} />
-							))}
-						</InfiniteScroll>
-					) : null}
+					<Comments user={user} token={token} mutate={mutate} />
 				</SwiperSlide>
 				<SwiperSlide>
-					{reactions?.length > 0 ? (
-						<InfiniteScroll
-							hasMore={reactions?.length < Number(reactionsRequest?.count)}
-							next={() => setReactionsPage(prev => prev + 1)}
-							scrollableTarget='profileScroll'
-							dataLength={reactions?.length}
-							className='grid grid-cols-3 h-fit gap-5'
-						>
-							{reactions?.map((reaction, index) => (
-								<Reaction key={index} reaction={reaction.name} post={reaction.post} />
-							))}
-						</InfiniteScroll>
-					) : null}
+					<Reactions token={token} mutate={mutate} />
 				</SwiperSlide>
 			</Swiper>
 		</div>
