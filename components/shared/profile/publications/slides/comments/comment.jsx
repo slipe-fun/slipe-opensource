@@ -24,7 +24,7 @@ export default function Comment({ user, content, date }) {
 						<span className='text-sm text-foreground/50'>{TimePassedFromDate(date)}</span>
 					</div>
 				</div>
-				<Button size="iconSm" className='rounded-full bg-red-foreground/35 hover:bg-red-foreground/30 text-red-foreground'>
+				<Button size='iconSm' className='rounded-full bg-red-foreground/35 hover:bg-red-foreground/30 text-red-foreground'>
 					<Svg className='!w-7 !h-7' icon={icons["trash"]} />
 				</Button>
 			</div>

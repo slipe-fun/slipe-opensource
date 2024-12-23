@@ -1,14 +1,18 @@
 import cdn from "@/constants/cdn";
 import { ShufflePixels, PixelsColors } from "@/lib/utils";
 import { motion, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Banner({ user = {}, scrollProgress }) {
 	const invertInteger = (num, center = 0.5) => center * 2 - num;
 	const opacity = useTransform(scrollProgress, value => value * 0.01);
 	const bannerRef = useRef(null);
-	const bannerSize = bannerRef.current?.getBoundingClientRect()?.height;
+	const [bannerSize, setBannerSize] = useState(0);
 	const height = useTransform(scrollProgress, [0, 180], [bannerSize, 88]);
+
+	useEffect(() => {
+		setBannerSize(bannerRef.current?.getBoundingClientRect()?.height)
+	}, [])
 
 	return (
 		<>

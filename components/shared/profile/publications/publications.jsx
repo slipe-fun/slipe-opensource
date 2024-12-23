@@ -1,12 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative, FreeMode } from "swiper/modules";
-import { Publication, Comment, Reaction } from "../profile";
 import { useState, useEffect } from "react";
 import { useStorage } from "@/hooks/contexts/session";
-import useSWR from "swr";
-import api from "@/constants/api";
-import { fetcher } from "@/lib/utils";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useSWRConfig } from "swr";
 
 import "swiper/css";
