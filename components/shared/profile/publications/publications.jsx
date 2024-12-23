@@ -16,12 +16,8 @@ export default function Publications({ user }) {
 	const { token, storage } = useStorage();
 	const { cache, mutate, ...extraConfig } = useSWRConfig();
 
-	const switcherButton = index => {
-		setActive(index);
-		swiper?.slideTo(index);
-	};
-
 	useEffect(() => {
+		swiper?.slideTo(active);
 		document.getElementById("content-switcher")?.scrollTo({
 			left: document.getElementById(`switcher-button-${active}`).offsetLeft - 20,
 			behavior: "smooth",
@@ -33,7 +29,7 @@ export default function Publications({ user }) {
 		<div className='flex flex-col gap-4'>
 			<div id='content-switcher' className='flex gap-6 text-white font-medium text-2xl px-5 overflow-x-auto'>
 				<button
-					onClick={() => switcherButton(0)}
+					onClick={() => setActive(0)}
 					id='switcher-button-0'
 					data-active={active === 0}
 					className='duration-200 ease-out data-[active=true]:opacity-100 opacity-50'
@@ -41,7 +37,7 @@ export default function Publications({ user }) {
 					Publications
 				</button>
 				<button
-					onClick={() => switcherButton(1)}
+					onClick={() => setActive(1)}
 					id='switcher-button-1'
 					data-active={active === 1}
 					className='duration-200 ease-out data-[active=true]:opacity-100 opacity-50'
@@ -49,7 +45,7 @@ export default function Publications({ user }) {
 					Comments
 				</button>
 				<button
-					onClick={() => switcherButton(2)}
+					onClick={() => setActive(2)}
 					id='switcher-button-2'
 					data-active={active === 2}
 					className='duration-200 ease-out data-[active=true]:opacity-100 opacity-50'
@@ -60,6 +56,7 @@ export default function Publications({ user }) {
 			<Swiper
 				onSwiper={setSwiper}
 				resistance={true}
+				autoHeight
 				resistanceRatio={0}
 				onActiveIndexChange={slider => setActive(slider.activeIndex)}
 				creativeEffect={{
