@@ -27,7 +27,7 @@ export default function Publications({ user }) {
 
 	return (
 		<div className='flex flex-col gap-4'>
-			<div id='content-switcher' className='flex gap-6 text-white font-medium text-2xl px-5 overflow-x-auto'>
+			<div id='content-switcher' className='flex gap-6 font-medium text-2xl px-5 overflow-x-auto'>
 				<button
 					onClick={() => setActive(0)}
 					id='switcher-button-0'
