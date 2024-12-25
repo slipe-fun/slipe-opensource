@@ -1,6 +1,6 @@
 import api from "@/constants/api";
 import { fetcher } from "@/lib/utils";
-import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScroll from 'react-infinite-scroller';
 import Comment from "./comment";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -36,10 +36,10 @@ export default function Comments({ user, token }) {
 
 	return comments?.length > 0 ? (
 		<InfiniteScroll
+			pageStart={1}
+			loadMore={() => setPage(page + 1)}
 			hasMore={comments?.length < Number(commentsRequest?.count)}
-			next={() => setPage(prev => prev + 1)}
-			scrollableTarget='profileScroll'
-			dataLength={comments?.length}
+			loader={<div className="loader" key={0}>Loading ...</div>}
 			className='flex flex-col h-fit gap-5'
 		>
 			{comments?.map((comment, index) => (
