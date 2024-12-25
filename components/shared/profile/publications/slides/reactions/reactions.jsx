@@ -5,10 +5,12 @@ import Reaction from "./reaction";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
+import getUniqueById from "@/lib/utils/uniqueById";
 
 export default function Reactions({ token }) {
 	const [page, setPage] = useState(1);
 	const [reactions, setReactions] = useState([]);
+	const [hasMore, setHasMore] = useState(true);
 
 	const urlKey = `${api.v1}/reactions/users/get?page=${page}`;
 
@@ -20,9 +22,10 @@ export default function Reactions({ token }) {
 
 	useEffect(() => {
 		if (reactionsRequest?.success && !isError) {
-			setReactions(prev => [...prev, ...reactionsRequest?.success]);
+			setReactions(prev => getUniqueById([...prev, ...reactionsRequest?.success]));
 		}
-	}, [reactionsRequest]);
+		console.log(123);
+	}, [reactionsRequest, isError]);
 
 	if (isError) return <>Error</>;
 	if (isLoading)
@@ -36,7 +39,7 @@ export default function Reactions({ token }) {
 
 	return reactions?.length > 0 ? (
 		<InfiniteScroll
-			hasMore={reactions?.length < Number(reactionsRequest?.count)}
+			hasMore={reactionsRequest?.success.length < reactionsRequest?.count}
 			next={() => setPage(prev => prev + 1)}
 			scrollableTarget='profileScroll'
 			dataLength={reactions?.length}

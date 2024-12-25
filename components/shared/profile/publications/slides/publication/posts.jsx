@@ -5,6 +5,7 @@ import Publication from "./publication";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
+import getUniqueById from "@/lib/utils/uniqueById";
 
 export default function Posts({ user, token }) {
 	const [page, setPage] = useState(1);
@@ -16,7 +17,7 @@ export default function Posts({ user, token }) {
 
 	useEffect(() => {
 		if (publicationsRequest?.success && !isError) {
-			setPublications(prev => [...prev, ...publicationsRequest?.success]);
+			setPublications(prev => getUniqueById([...prev, ...publicationsRequest?.success]));
 		}
 	}, [publicationsRequest]);
 

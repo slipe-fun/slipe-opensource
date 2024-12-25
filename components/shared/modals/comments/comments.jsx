@@ -16,6 +16,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import updateCommentsLikes from "@/lib/comments/updateCommentsLikes";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
+import getUniqueById from "@/lib/utils/uniqueById";
 
 export default function CommentsModal({ children, postId, open, setOpen }) {
 	const [inputFocus, setInputFocus] = useState(false);
@@ -69,17 +70,6 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 		element.style.height = "48px";
 		element.style.height = `${element.scrollHeight}px`;
 	}
-
-	function getUniqueById(array) {
-		const seenIds = new Set();
-		return array.filter(item => {
-		  if (seenIds.has(item.id)) {
-			return false;
-		  }
-		  seenIds.add(item.id);
-		  return true;
-		});
-	  }
 	
 	useEffect(() => {
 		if (commentsRequest?.success && !error) {

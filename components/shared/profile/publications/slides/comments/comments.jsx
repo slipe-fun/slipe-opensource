@@ -1,26 +1,27 @@
 import api from "@/constants/api";
 import { fetcher } from "@/lib/utils";
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from "react-infinite-scroll-component";
 import Comment from "./comment";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
+import getUniqueById from "@/lib/utils/uniqueById";
 
 export default function Comments({ user, token }) {
 	const [page, setPage] = useState(1);
 	const [comments, setComments] = useState([]);
 
-	const urlKey = `${api.v1}/comment/users/get?page=${page}`;
+	const swrKey = `${api.v1}/comment/users/get?page=${page}`;
 
 	const {
 		data: commentsRequest,
 		error: isError,
 		isLoading: isLoading,
-	} = useCacheFetcher(urlKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+	} = useCacheFetcher(swrKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	useEffect(() => {
 		if (commentsRequest?.success && !isError) {
-			setComments(prev => [...prev, ...commentsRequest?.success]);
+			setComments(prev => getUniqueById([...prev, ...commentsRequest?.success]));
 		}
 	}, [commentsRequest]);
 
@@ -36,10 +37,10 @@ export default function Comments({ user, token }) {
 
 	return comments?.length > 0 ? (
 		<InfiniteScroll
-			pageStart={1}
-			loadMore={() => setPage(page + 1)}
 			hasMore={comments?.length < Number(commentsRequest?.count)}
-			loader={<div className="loader" key={0}>Loading ...</div>}
+			next={() => setPage(prev => prev + 1)}
+			scrollableTarget='profileScroll'
+			dataLength={comments?.length}
 			className='flex flex-col h-fit gap-5'
 		>
 			{comments?.map((comment, index) => (
