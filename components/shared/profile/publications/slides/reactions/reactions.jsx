@@ -1,31 +1,28 @@
 import api from "@/constants/api";
-import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Reaction from "./reaction";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import mutateData from "@/lib/utils/mutateData";
+import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 
-export default function Reactions({ token, mutate }) {
+export default function Reactions({ token }) {
 	const [page, setPage] = useState(1);
 	const [reactions, setReactions] = useState([]);
 
-	const swrKey = `${api.v1}/reactions/users/get?page=${page}`;
+	const urlKey = `${api.v1}/reactions/users/get?page=${page}`;
 
 	const {
 		data: reactionsRequest,
-		isError,
-		isLoading,
-	} = useSWR(swrKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+		error: isError,
+		isLoading: isLoading,
+	} = useCacheFetcher(urlKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	useEffect(() => {
 		if (reactionsRequest?.success && !isError) {
 			setReactions(prev => [...prev, ...reactionsRequest?.success]);
 		}
 	}, [reactionsRequest]);
-
-	useEffect(() => mutateData(swrKey, mutate, token), [swrKey]);
 
 	if (isError) return <>Error</>;
 	if (isLoading)

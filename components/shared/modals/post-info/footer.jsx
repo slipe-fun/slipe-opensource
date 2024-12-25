@@ -6,7 +6,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { DrawerFooter } from "@/components/ui/drawer";
 import { useStorage } from "@/hooks/contexts/session";
-import useSWR from "swr";
+import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import api from "@/constants/api";
 import { fetcher } from "@/lib/utils";
 
@@ -20,9 +20,9 @@ export default function Footer({ post, deleteBlog }) {
 
 	const {
 		data: user,
-		userError,
-		isUserLoading,
-	} = useSWR(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+		error: userError,
+		isLoading: isUserLoading,
+	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	const copyLink = () => {
 		toast.success("Post link copied!", { className: "bg-green text-green-foreground" });

@@ -1,7 +1,7 @@
 import { Banner, Description, Publications, User } from "@/components/shared/profile/profile";
-import useSWR from "swr";
 import api from "@/constants/api";
 import { useStorage } from "@/hooks/contexts/session";
+import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import { fetcher } from "@/lib/utils";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { useEffect, useRef } from "react";
@@ -12,9 +12,9 @@ export default function Profile() {
 	const { scrollY } = useScroll({ container: profileRef, offset: ["40%", "-0%"] });
 	const {
 		data: user,
-		error,
-		isLoading,
-	} = useSWR(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+		error: error,
+		isLoading: isLoading,
+	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	return (
 		<div id="profileScroll" ref={profileRef} className='w-full h-full animate-[fadeIn_0.3s_ease-out] overflow-y-auto flex flex-col'>

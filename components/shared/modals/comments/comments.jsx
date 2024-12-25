@@ -4,10 +4,9 @@ import Svg from "@/components/ui/icons/svg";
 import { Button } from "@/components/ui/button";
 import icons from "@/components/ui/icons/icons";
 import { Textarea } from "@/components/ui/textarea";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { fetcher } from "@/lib/utils";
 import { toast } from "sonner";
-import useSWR, { useSWRConfig } from "swr";
 import PixelAvatar from "../../pixels-avatar";
 import { useStorage } from "@/hooks/contexts/session";
 import { motion, AnimatePresence } from "motion/react";
@@ -16,6 +15,7 @@ import cdn from "@/constants/cdn";
 import { Skeleton } from "@/components/ui/skeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import updateCommentsLikes from "@/lib/comments/updateCommentsLikes";
+import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 
 export default function CommentsModal({ children, postId, open, setOpen }) {
 	const [inputFocus, setInputFocus] = useState(false);
@@ -26,19 +26,18 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 	const [isButtonLoading, setIsButtonLoading] = useState(false);
 	const { token, storage } = useStorage();
 
-	const swrKey = open ? `${api.v1}/comment/get?post_id=${postId}&page=${page}` : null;
-	const { cache, mutate, ...extraConfig } = useSWRConfig();
+	const urlKey = open ? `${api.v1}/comment/get?post_id=${postId}&page=${page}` : null;
 
 	const {
 		data: commentsRequest,
-		error,
-		isLoading
-	} = useSWR(swrKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+		error: error,
+		isLoading: isLoading
+	} = useCacheFetcher(urlKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 	const {
 		data: user,
-		userError,
-		isUserLoading,
-	} = useSWR(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+		error: userError,
+		isLoading: isUserLoading,
+	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	async function sendComment() {
 		setIsButtonLoading(true);
@@ -130,7 +129,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 											likes={comment.likes}
 											liked={comment.liked}
 											date={comment.date}
-											updateComment={async (id, likes, liked) => setComments(updateCommentsLikes(comments, id, postId, likes, liked, mutate))}
+											updateComment={async (id, likes, liked) => setComments(updateCommentsLikes(comments, id, likes, liked))}
 										/>
 									</motion.li>
 								))}

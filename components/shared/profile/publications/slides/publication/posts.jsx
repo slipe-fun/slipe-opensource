@@ -1,27 +1,24 @@
 import api from "@/constants/api";
-import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Publication from "./publication";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import mutateData from "@/lib/utils/mutateData";
+import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 
-export default function Posts({ user, token, mutate }) {
+export default function Posts({ user, token }) {
 	const [page, setPage] = useState(1);
 	const [publications, setPublications] = useState([]);
 
-	const swrKey = `${api.v1}/post/get?page=${page}&user=${user?.id}`;
+	const urlKey = `${api.v1}/post/get?page=${page}&user=${user?.id}`;
 
-	const { data: publicationsRequest, isLoading, isError } = useSWR(swrKey, async url => await fetcher(url, "get"));
+	const { data: publicationsRequest, isLoading: isLoading, error: isError } = useCacheFetcher(urlKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	useEffect(() => {
 		if (publicationsRequest?.success && !isError) {
 			setPublications(prev => [...prev, ...publicationsRequest?.success]);
 		}
 	}, [publicationsRequest]);
-
-	useEffect(() => mutateData(swrKey, mutate, token), [swrKey]);
 
 	if (isError) return <>Error</>;
 	if (isLoading)

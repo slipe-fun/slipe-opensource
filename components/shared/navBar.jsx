@@ -2,21 +2,21 @@ import icons from "../ui/icons/icons";
 import Svg from "../ui/icons/svg";
 import { useLocation } from "react-router";
 import { useStorage } from "@/hooks/contexts/session";
-import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 import PixelAvatar from "./pixels-avatar";
 import cdn from "@/constants/cdn";
 import { NavLink } from "react-router";
 import api from "@/constants/api";
+import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 
 export default function NavBar() {
 	const url = useLocation();
 	const { token, store } = useStorage();
 	const {
 		data: user,
-		error,
-		isLoading,
-	} = useSWR(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+		error: error,
+		isLoading: isLoading,
+	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	return (
 		<>

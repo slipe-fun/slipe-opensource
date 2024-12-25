@@ -2,7 +2,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative, FreeMode } from "swiper/modules";
 import { useState, useEffect } from "react";
 import { useStorage } from "@/hooks/contexts/session";
-import { useSWRConfig } from "swr";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
@@ -14,7 +13,6 @@ export default function Publications({ user }) {
 	const [swiper, setSwiper] = useState(null);
 	const [active, setActive] = useState(0);
 	const { token, storage } = useStorage();
-	const { cache, mutate, ...extraConfig } = useSWRConfig();
 
 	useEffect(() => {
 		swiper?.slideTo(active);
@@ -75,13 +73,13 @@ export default function Publications({ user }) {
 				modules={[FreeMode, EffectCreative]}
 			>
 				<SwiperSlide>
-					<Posts user={user} token={token} mutate={mutate} />
+					<Posts user={user} token={token}/>
 				</SwiperSlide>
 				<SwiperSlide>
-					<Comments user={user} token={token} mutate={mutate} />
+					<Comments user={user} token={token}/>
 				</SwiperSlide>
 				<SwiperSlide>
-					<Reactions token={token} mutate={mutate} />
+					<Reactions token={token}/>
 				</SwiperSlide>
 			</Swiper>
 		</div>

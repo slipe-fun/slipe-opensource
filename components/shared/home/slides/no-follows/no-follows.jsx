@@ -3,7 +3,7 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import { Pagination, EffectCreative } from "swiper/modules";
 import { fetcher } from "@/lib/utils";
 import api from "@/constants/api";
-import useSWR from "swr";
+import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import "swiper/css";
@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-creative";
 
 export default function NoFollows() {
-	const { data: users, isLoading, error } = useSWR(api.v1 + "/account/popular", async url => await fetcher(url, "get", null));
+	const { data: users, isLoading: isLoading, error: error } = useCacheFetcher(api.v1 + "/account/popular", async url => await fetcher(url, "get", null));
 
 	return (
 		<div className='w-full h-full flex-col flex justify-center animate-[fadeIn_0.3s_ease-out] items-center gap-4'>
