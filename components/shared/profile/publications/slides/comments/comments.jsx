@@ -28,7 +28,7 @@ export default function Comments({ user, token }) {
 	if (isError) return <>Error</>;
 	if (isLoading)
 		return (
-			<div className='flex flex-col h-fit gap-5'>
+			<div className='flex flex-col h-fit gap-4'>
 				{Array.from({ length: 6 }, (_, i) => i).map(index => (
 					<Skeleton key={index} className="w-full h-32 rounded-[1.25rem]" />
 				))}
@@ -41,7 +41,7 @@ export default function Comments({ user, token }) {
 			next={() => setPage(prev => prev + 1)}
 			scrollableTarget='profileScroll'
 			dataLength={comments?.length}
-			className='flex flex-col h-fit gap-5'
+			className='flex flex-col h-fit gap-4'
 		>
 			{comments?.map((comment, index) => (
 				<Comment key={index} user={user} content={comment.text} date={comment?.date} />

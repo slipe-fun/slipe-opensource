@@ -41,7 +41,7 @@ export default function ReportModal({ children, open, setOpen, post }) {
 		<NestedDrawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>{children}</DrawerTrigger>
 			<DrawerContent className='bg-modal border-0'>
-				<DrawerHeader className='p-5'>
+				<DrawerHeader className='p-4'>
 					<DrawerTitle className='font-medium'>Report post</DrawerTitle>
 				</DrawerHeader>
 				<ul className='w-full h-[32.5rem] overflow-y-scroll px-5 flex pb-24 flex-col gap-1'>
@@ -56,7 +56,7 @@ export default function ReportModal({ children, open, setOpen, post }) {
 						/>
 					))}
 				</ul>
-				<DrawerFooter className='p-5 fixed w-full z-10 bg-modal bottom-0'>
+				<DrawerFooter className='p-4 fixed w-full z-10 bg-modal bottom-0'>
 					<Button onClick={send} disabled={isLoading || choosenReport.length <= 1} size='full'>
 						Send report
 					</Button>

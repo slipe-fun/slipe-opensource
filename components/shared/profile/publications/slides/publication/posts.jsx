@@ -13,7 +13,11 @@ export default function Posts({ user, token }) {
 
 	const urlKey = `${api.v1}/post/get?page=${page}&user=${user?.id}`;
 
-	const { data: publicationsRequest, isLoading: isLoading, error: isError } = useCacheFetcher(urlKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+	const {
+		data: publicationsRequest,
+		isLoading: isLoading,
+		error: isError,
+	} = useCacheFetcher(urlKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	useEffect(() => {
 		if (publicationsRequest?.success && !isError) {
@@ -24,7 +28,7 @@ export default function Posts({ user, token }) {
 	if (isError) return <>Error</>;
 	if (isLoading)
 		return (
-			<div className='grid grid-cols-2 h-fit gap-5'>
+			<div className='grid grid-cols-2 h-fit gap-4'>
 				{Array.from({ length: 8 }, (_, i) => i).map(index => (
 					<Skeleton key={index} className='w-full animate-[fadeInOpacity_0.3s_ease-out] aspect-[37/57] rounded-[1.125rem]' />
 				))}
@@ -37,7 +41,7 @@ export default function Posts({ user, token }) {
 			next={() => setPage(prev => prev + 1)}
 			scrollableTarget='profileScroll'
 			dataLength={publications?.length}
-			className='grid grid-cols-2 h-fit gap-5'
+			className='grid grid-cols-2 h-fit gap-4'
 		>
 			{publications?.map((post, index) => (
 				<Publication key={index} post={post} />

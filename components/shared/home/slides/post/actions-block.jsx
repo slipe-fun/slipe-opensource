@@ -36,7 +36,7 @@ export default function ActionsBlock({ reactions, currentReaction, id }) {
 	};
 
 	return (
-		<div className='w-full z-10 p-5 pr-0 flex items-end overflow-hidden gap-5 bg-gradient-to-t from-[#00000060] to-[#00000000]'>
+		<div className='w-full z-10 p-5 pr-0 flex items-end overflow-hidden gap-4 bg-gradient-to-t from-[#00000060] to-[#00000000]'>
 			<div
 				data-isexpanded={isReactions}
 				className='relative flex text-white rounded-full ease-out duration-200 data-[isexpanded=false]:w-[3.125rem] data-[isexpanded=true]:w-[calc(100%-1rem)] data-[isexpanded=true]:p-2 data-[isexpanded=true]:bg-[#1f1f1f]'

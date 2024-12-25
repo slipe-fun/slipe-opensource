@@ -1,14 +1,9 @@
 import { useEffect, useState } from 'react';
 
 export function useCacheFetcher(url, fetcher) {
-  const [data, setData] = useState(() => {
-    // Инициализируем состояние значением из кеша, если оно есть
-    const cachedData = localStorage.getItem(url);
-    return cachedData ? JSON.parse(cachedData) : null;
-  });
-
+  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!url || typeof fetcher !== 'function') {
@@ -18,20 +13,28 @@ export function useCacheFetcher(url, fetcher) {
 
     const fetchData = async () => {
       try {
-        const fetchedData = await fetcher(url);
+        const cachedData = localStorage.getItem(url);
 
-        if (JSON.stringify(fetchedData) !== JSON.stringify(data)) {
+        if (cachedData) {
+          setData(JSON.parse(cachedData));
+        }
+
+        const fetchedData = await fetcher(url);
+        
+
+        if (JSON.stringify(fetchedData) !== cachedData) {
+          console.log(fetchedData, fetcher, data)
+          localStorage.setItem(url, JSON.stringify(fetchedData || {}));
           setData(fetchedData);
-          localStorage.setItem(url, JSON.stringify(fetchedData));
         }
       } catch (err) {
         setError(err.message || 'An error occurred');
       }
-      setIsLoading(false);
+      setLoading(true)
     };
 
     fetchData();
-  }, [url, fetcher]);
+  }, [url]);
 
-  return {data, error, isLoading}
+  return { data, error };
 }

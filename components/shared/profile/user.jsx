@@ -34,7 +34,7 @@ export default function User({ user = {}, scrollProgress }) {
 					</p>
 				</div>
 			</div>
-			<div className='flex items-center gap-5'>
+			<div className='flex items-center gap-4'>
 				<div className='flex flex-col w-full overflow-hidden'>
 					<div className='whitespace-nowrap max-w-fit text-2xl text-ellipsis font-medium'>
 						{user.nickname || user.username || "Anonymous"}

@@ -19,7 +19,7 @@ export default function Profile() {
 	return (
 		<div id="profileScroll" ref={profileRef} className='w-full h-full animate-[fadeIn_0.3s_ease-out] overflow-y-auto flex flex-col'>
 			<Banner user={user?.success[0]} scrollProgress={scrollY} />{" "}
-      <div className="w-full min-h-full flex flex-col gap-5">
+      <div className="w-full min-h-full flex flex-col gap-4">
 				<User user={user?.success[0]} scrollProgress={scrollY} />
 				<Description description={user?.success[0]?.description} />
 				<Publications user={user?.success[0]} />

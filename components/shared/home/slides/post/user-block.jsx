@@ -33,7 +33,7 @@ export default function UserBlock({ user, setUser, date }) {
 	}, [user]);
 
 	return (
-		<div className='w-full z-10 p-4 flex gap-3 bg-gradient-to-b from-[#00000060] to-[#00000000]'>
+		<div className='w-full z-10 p-5 flex gap-3 bg-gradient-to-b from-[#00000060] to-[#00000000]'>
 			<div className='w-full flex gap-3 duration-200 ease-out items-center overflow-hidden active:opacity-80'>
 				{localUser?.avatar ? (
 					<img loading="lazy" className='rounded-full w-12 h-12' src={`${cdn}/avatars/${localUser?.avatar}`} />

@@ -153,7 +153,7 @@ export default function Auth() {
 					</SwiperSlide>
 				</Swiper>
 			</div>
-			<div className='p-5 flex gap-4'>
+			<div className='p-4 flex gap-4'>
 				<Button
 					data-isexpanded={signUpStage == 1 || stage == 2}
 					className='data-[isexpanded=false]:-mr-[4.5rem] data-[isexpanded=false]:pointer-events-none data-[isexpanded=true]:-mr-0 data-[isexpanded=false]:opacity-0 data-[isexpanded=true]:opacity-100'
