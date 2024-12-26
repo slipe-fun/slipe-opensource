@@ -100,6 +100,9 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+	#root {
+		@apply duration-300 ease-out overflow-hidden;
+	}
 }
 
 ::-webkit-scrollbar {
