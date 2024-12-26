@@ -9,7 +9,7 @@ const PixelAvatar = forwardRef(({ size, pixels, username = "", animated = false,
 		<Element
 			ref={ref}
 			style={{ "--size": `${size}px` }}
-			className={cn("overflow-hidden animate-[fadeInOpacity_0.3s_ease-out] w-[--size] rounded-full grid bg-black grid-rows-4 grid-cols-4", className)}
+			className={cn("overflow-hidden animate-[fadeInOpacity_0.3s_ease-out] min-w-[--size] aspect-square w-[--size] rounded-full grid bg-black grid-rows-4 grid-cols-4", className)}
 			{...props}
 		>
 			{pixels?.map((pixel, index) => (

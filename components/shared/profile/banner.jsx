@@ -24,7 +24,7 @@ export default function Banner({ user = {}, scrollProgress }) {
 				{user?.banner ? (
 					<img loading='lazy' src={cdn + "/banners/" + user?.banner} className='w-full absolute -z-10 h-full object-cover' />
 				) : (
-					<div className='grid grid-cols-7 grid-rows-1 absolute -z-10 h-full w-full'>
+					<div className='grid grid-cols-7 bg-black grid-rows-1 absolute -z-10 h-full w-full'>
 						{ShufflePixels(user?.pixel_order)?.map((pixel, index) => (
 							<span
 								key={index}
@@ -42,7 +42,7 @@ export default function Banner({ user = {}, scrollProgress }) {
 					style={{ opacity, height }}
 					className='bottom-0 w-full flex items-center p-4 justify-center pointer-events-none text-white flex-col absolute bg-black/50'
 				>
-					<span className='font-medium text-xl'>{user?.nickname}</span>
+					<span className='font-medium text-xl'>{user?.nickname ? user?.nickname : user?.username}</span>
 					<span className='opacity-50'>@{user?.username}</span>
 				</motion.div>
 			</div>

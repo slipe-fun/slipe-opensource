@@ -61,7 +61,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 			]);
 			setCommentsCount(commentsCount + 1);
 			setCommentText("");
-		} else toast.error(result?.error, { className: "bg-red text-red-foreground" });
+		} else toast.error(result?.error, { className: "bg-red text-red-foreground z-50" });
 
 		setIsButtonLoading(false);
 	}

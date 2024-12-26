@@ -12,9 +12,15 @@ import { SessionContextProvider } from "@/hooks/contexts/session";
 
 import "./index.css";
 
-
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
+		<Toaster
+			gap={12}
+			toastOptions={{
+				className: "rounded-xl text-sm",
+			}}
+			position='top-center'
+		/>
 		<PagesContentTypeContextProvider>
 			<SessionContextProvider>
 				<BrowserRouter>
@@ -29,13 +35,6 @@ createRoot(document.getElementById("root")).render(
 					<NavBar />
 				</BrowserRouter>
 			</SessionContextProvider>
-			<Toaster
-				gap={12}
-				toastOptions={{
-					className: "rounded-xl text-sm",
-				}}
-				position='top-center'
-			/>
 		</PagesContentTypeContextProvider>
 	</StrictMode>
 );

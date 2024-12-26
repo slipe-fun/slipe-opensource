@@ -5,11 +5,11 @@ import { fetcher } from "@/lib/utils";
 import api from "@/constants/api";
 import clsx from "clsx";
 import { useStorage } from "@/hooks/contexts/session";
+import { PostInfoModal } from "../../modals";
+import Post from "../slides/post/post";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
-import { PostInfoModal } from "../../modals";
-import Post from "../slides/post/post";
 
 export default function BlogsSlider({ blogs }) {
 	const [allBlogs, setBlogs] = useState();
