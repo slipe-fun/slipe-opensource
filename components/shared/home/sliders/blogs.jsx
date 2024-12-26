@@ -92,7 +92,7 @@ export default function BlogsSlider({ blogs }) {
 						className={clsx("flex justify-center !overflow-visible", index == 0 || 5 ? "opacity-0" : "")}
 						virtualIndex={index}
 					>
-						<Post user={user} setUser={setUser} blog={blog} isBlogDeleted={deletedBlogs.includes(blog)}/>
+						<Post user={user} setUser={setUser} post={blog} isPostDeleted={deletedBlogs.includes(blog)}/>
 					</SwiperSlide>
 				))}
 			</Swiper>

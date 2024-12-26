@@ -23,7 +23,7 @@ export default function User({ user = {}, scrollProgress }) {
 	}, [isAvatar]);
 
 	return (
-		<motion.div data-covering={isCovering} className='w-full data-[covering=true]:z-10 flex flex-col -mb-16 z-40 -translate-y-16 gap-1 px-5'>
+		<motion.div data-covering={isCovering} className='w-full data-[covering=true]:z-10 flex flex-col -mb-16 z-40 -translate-y-16 gap-1 px-4'>
 			<div className='flex justify-between items-end'>
 				{user.avatar ? (
 					<motion.img

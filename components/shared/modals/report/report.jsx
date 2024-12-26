@@ -44,7 +44,7 @@ export default function ReportModal({ children, open, setOpen, post }) {
 				<DrawerHeader className='p-4'>
 					<DrawerTitle className='font-medium'>Report post</DrawerTitle>
 				</DrawerHeader>
-				<ul className='w-full h-[32.5rem] overflow-y-scroll px-5 flex pb-24 flex-col gap-1'>
+				<ul className='w-full h-[32.5rem] overflow-y-scroll px-4 flex pb-24 flex-col gap-1'>
 					{reports.map((report, index) => (
 						<ReportBlock
 							setReport={setChoosenReport}

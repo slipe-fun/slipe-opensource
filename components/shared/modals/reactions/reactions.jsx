@@ -41,7 +41,7 @@ export default function ReactionsModal({ children, currentReaction, onReactionCl
 
 	useEffect(() => {
 		document.getElementById("categories-scroller")?.scrollTo({
-			left: document.getElementById(`category-button-${activeCategory}`).offsetLeft - 20,
+			left: document.getElementById(`category-button-${activeCategory}`).offsetLeft - 16,
 			behavior: "smooth",
 			block: "start",
 		});
@@ -61,7 +61,7 @@ export default function ReactionsModal({ children, currentReaction, onReactionCl
 				<DrawerHeader className='p-4'>
 					<DrawerTitle className='font-medium'>Reactions</DrawerTitle>
 				</DrawerHeader>
-				<ul ref={scrollerRef} className='w-full h-[26rem] px-5 relative flex flex-col gap-4 overflow-y-auto'>
+				<ul ref={scrollerRef} className='w-full h-[26rem] px-4 relative flex flex-col gap-4 overflow-y-auto'>
 					<div ref={indicatorRef} className='w-full pointer-events-none fixed h-8 left-0' />
 					{categories.map((category, index) => (
 						<ReactionBlock category={category} setOpen={setOpen} key={index} currentReaction={currentReaction} onReactionClicked={onReactionClicked} />

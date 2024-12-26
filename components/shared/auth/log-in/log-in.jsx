@@ -29,7 +29,7 @@ export default function LogInSlider({ isAccount, password, setPassword }) {
 			className='w-full'
 		>
 			<SwiperSlide>
-				<div className='flex flex-col gap-4 px-5 items-center'>
+				<div className='flex flex-col gap-4 px-4 items-center'>
 					<SlideTemplate title='Welcome back!' img='/static/auth-assets/chain.png' />
 					<div className='bg-foreground/[0.12] flex items-center w-full rounded-2xl'>
 						<Input

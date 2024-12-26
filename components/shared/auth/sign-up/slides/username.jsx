@@ -7,7 +7,7 @@ export default function UsernameSlide({ username, setUsername, isAccount }) {
 
 	return (
 		<>
-			<div className='flex flex-col gap-4 px-5 items-center'>
+			<div className='flex flex-col gap-4 px-4 items-center'>
 				<SlideTemplate title='Your username here ' img='/static/auth-assets/pencil.png' />
 				<div className='bg-foreground/[0.12] flex items-center w-full rounded-2xl'>
 					<span className='text-foreground p-4 pr-0'>slipe.fun/</span>

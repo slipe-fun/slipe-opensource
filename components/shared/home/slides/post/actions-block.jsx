@@ -96,7 +96,7 @@ export default function ActionsBlock({ reactions, currentReaction, id }) {
 								reaction.name?.startsWith("emoji_") ? () => {} : () => reactionClicked(reaction.name[0], reaction.name.slice(2, reaction.name.length))
 							}
 							data-isactive={reaction.name === localCurrentReaction?.name}
-							className='rounded-full duration-200 bg-black/50 text-white ease-out data-[isactive=true]:bg-white data-[isactive=true]:text-black flex min-w-fit items-center font-medium gap-2 py-[0.625rem] px-5'
+							className='rounded-full duration-200 bg-black/50 text-white ease-out data-[isactive=true]:bg-white data-[isactive=true]:text-black flex min-w-fit items-center font-medium gap-2 py-[0.625rem] px-4'
 						>
 							<img
 								className='!w-7 !h-7'

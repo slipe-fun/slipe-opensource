@@ -92,7 +92,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 				<ul
 					id='commentsScroll'
 					data-shadowed={inputFocus}
-					className='w-full duration-200 !h-[31.5rem] overflow-y-auto ease-out data-[shadowed=true]:opacity-40 px-5 relative pb-[5.5rem] flex flex-col gap-4'
+					className='w-full duration-200 !h-[31.5rem] overflow-y-auto ease-out data-[shadowed=true]:opacity-40 px-4 relative pb-[5.5rem] flex flex-col gap-4'
 				>
 					{comments?.length > 0 ? (
 						<InfiniteScroll

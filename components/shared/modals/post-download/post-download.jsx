@@ -10,7 +10,7 @@ export default function PostDownloadModal({ children, open, setOpen, post }) {
 				<DrawerHeader className='p-4'>
 					<DrawerTitle className='font-medium'>Post download</DrawerTitle>
 				</DrawerHeader>
-				<div className='w-full h-[32.5rem] px-5 flex pb-24 flex-col gap-4 items-center justify-center'>
+				<div className='w-full h-[32.5rem] px-4 flex pb-24 flex-col gap-4 items-center justify-center'>
 					<div className='relative flex justify-center items-center'>
 						{/* <svg id='progress' width='256' height='256' viewBox='0 0 100 100'>
 							<circle cx='40' cy='40' r='40' pathLength='1' className='opacity-35 stroke-primary/35 [stroke-dashoffset:0] stroke-[15%] fill-none' />

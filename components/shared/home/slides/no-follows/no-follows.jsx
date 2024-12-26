@@ -37,7 +37,7 @@ export default function NoFollows() {
 				}}
 				autoHeight
 				modules={[Pagination, EffectCreative]}
-				className='w-full px-5 swiper-followers'
+				className='w-full px-4 swiper-followers'
 			>
 				{!isLoading && !error ? (
 					[...Array(4).keys()]

@@ -41,7 +41,7 @@ export default function PostDeletingModal({ children, open, setOpen, deleteBlog,
 				<DrawerHeader className='p-4'>
 					<DrawerTitle className='font-medium'>Post deleting</DrawerTitle>
 				</DrawerHeader>
-				<div className='w-full h-[32.5rem] px-5 flex pb-24 flex-col gap-4 items-center justify-center'>
+				<div className='w-full h-[32.5rem] px-4 flex pb-24 flex-col gap-4 items-center justify-center'>
 					<img loading='lazy' src='./static/states-assets/delete.png' className='w-40 h-40' />
 					<div className='flex flex-col gap-1'>
 						<span className='text-2xl text-center text-foreground font-medium'>{contentTexts[content]}</span>
