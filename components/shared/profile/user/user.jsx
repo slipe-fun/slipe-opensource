@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import cdn from "@/constants/cdn";
 import { motion, useTransform } from "framer-motion";
-import PixelAvatar from "../pixels-avatar";
+import PixelAvatar from "../../pixels-avatar";
 import { useEffect, useState } from "react";
-import PageModal from "../modals/page-modal/page-modal";
+import AvatarModal from "./avatarModal";
 
 export default function User({ user = {}, scrollProgress }) {
 	const invertInteger = (num, center = 0.5) => center * 2 - num;
@@ -19,21 +19,31 @@ export default function User({ user = {}, scrollProgress }) {
 	}, [covering]);
 
 	useEffect(() => {
-		console.log(isAvatar)
-	}, [isAvatar])
+		console.log(isAvatar);
+	}, [isAvatar]);
 
 	return (
 		<motion.div data-covering={isCovering} className='w-full data-[covering=true]:z-10 flex flex-col -mb-16 z-40 -translate-y-16 gap-1 px-5'>
 			<div className='flex justify-between items-end'>
 				{user.avatar ? (
 					<motion.img
+						data-covering={isCovering}
 						onClick={() => setIsAvatar(prev => !prev)}
 						style={{ scale, opacity }}
-						className='rounded-full z-40 w-32 aspect-square border-[6px] border-background object-cover'
+						className='rounded-full z-40 data-[covering=true]:pointer-events-none w-32 aspect-square border-[6px] border-background object-cover'
 						src={`${cdn}/avatars/${user.avatar}`}
 					/>
 				) : (
-					<PixelAvatar size={128} username={user.username} border pixels={user.pixel_order} />
+					<PixelAvatar
+						data-covering={isCovering}
+						onClick={() => setIsAvatar(prev => !prev)}
+						style={{ scale, opacity, "--size": '128px' }}
+						animated
+						size={128}
+						username={user.username}
+						className='border-[6px] data-[covering=true]:pointer-events-none border-background'
+						pixels={user.pixel_order}
+					/>
 				)}
 				<div className='h-1/2 flex items-center'>
 					<p className='text-lg font-medium'>
@@ -48,9 +58,7 @@ export default function User({ user = {}, scrollProgress }) {
 				</div>
 				<Button className='rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>Edit bio</Button>
 			</div>
-			<PageModal className="flex justify-center items-center" open={isAvatar}>
-				<div className="bg-green-600 w-32 aspect-square"></div>
-			</PageModal>
+			<AvatarModal user={user} open={isAvatar} setOpen={setIsAvatar} />
 		</motion.div>
 	);
 }

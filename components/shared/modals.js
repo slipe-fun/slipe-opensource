@@ -4,3 +4,4 @@ export { default as PostInfoModal } from "@/components/shared/modals/post-info/p
 export { default as PostDownloadModal } from "@/components/shared/modals/post-download/post-download"
 export { default as PostDeletingModal } from "@/components/shared/modals/post-deleting/post-deleting"
 export { default as ReportModal } from "@/components/shared/modals/report/report"
+export { default as PageModal } from "@/components/shared/modals/page-modal/page-modal"
