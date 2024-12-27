@@ -55,7 +55,7 @@ export default function CommentBlock({ id, user, content, likes, liked, date, up
 				</div>
 				<Button
 					data-liked={localLiked}
-					className='rounded-full data-[liked=true]:bg-red-foreground data-[liked=true]:text-white text-foreground hover:text-white hover:bg-red-foreground bg-foreground/[0.08] px-4 min-h-11 h-11 text-sm gap-2'
+					className='rounded-full data-[liked=true]:bg-red-foreground data-[liked=true]:text-white text-foreground hover:text-white hover:bg-red-foreground bg-foreground/[0.08] px-5 min-h-11 h-11 text-sm gap-2'
 					onClick={likeComment}
 				>
 					<Svg className='!w-6 !h-6' icon={icons["heart"]} />

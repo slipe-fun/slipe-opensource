@@ -10,7 +10,7 @@ export default function PasswordSlide({ password, setPassword }) {
 
 	return (
 		<>
-			<div className='flex flex-col gap-4 px-4 items-center'>
+			<div className='flex flex-col gap-5 px-5 items-center'>
 				<SlideTemplate title='Your password here' img='/static/auth-assets/lock.png' />
 				<div className='bg-foreground/[0.12] flex items-center w-full rounded-2xl'>
 					<Input

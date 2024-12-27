@@ -71,7 +71,7 @@ export default function UsersSlider({ users, blogs, type }) {
 					</Swiper>
 				</>
 			) : (
-				<div className="py-[6.5rem] animate-[fadeIn_0.3s_ease-out] w-full h-full px-4">
+				<div className="py-[6.5rem] animate-[fadeIn_0.3s_ease-out] w-full h-full px-5">
 					<Skeleton className="rounded-[2rem] h-full w-full"/>
 				</div>
 			)}

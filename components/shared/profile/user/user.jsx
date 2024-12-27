@@ -3,7 +3,7 @@ import cdn from "@/constants/cdn";
 import { motion, useTransform } from "framer-motion";
 import PixelAvatar from "../../pixels-avatar";
 import { useEffect, useState } from "react";
-import AvatarModal from "./avatarModal";
+import { AvatarModal } from "../profile";
 
 export default function User({ user = {}, scrollProgress }) {
 	const invertInteger = (num, center = 0.5) => center * 2 - num;
@@ -23,7 +23,7 @@ export default function User({ user = {}, scrollProgress }) {
 	}, [isAvatar]);
 
 	return (
-		<motion.div data-covering={isCovering} className='w-full data-[covering=true]:z-10 flex flex-col -mb-16 z-40 -translate-y-16 gap-1 px-4'>
+		<motion.div data-covering={isCovering} className='w-full data-[covering=true]:z-10 flex flex-col -mb-16 z-40 -translate-y-16 gap-1 px-5'>
 			<div className='flex justify-between items-end'>
 				{user.avatar ? (
 					<motion.img
@@ -37,7 +37,7 @@ export default function User({ user = {}, scrollProgress }) {
 					<PixelAvatar
 						data-covering={isCovering}
 						onClick={() => setIsAvatar(prev => !prev)}
-						style={{ scale, opacity, "--size": '128px' }}
+						style={{ scale, opacity, "--size": "128px" }}
 						animated
 						size={128}
 						username={user.username}
@@ -51,7 +51,7 @@ export default function User({ user = {}, scrollProgress }) {
 					</p>
 				</div>
 			</div>
-			<div className='flex items-center gap-4'>
+			<div className='flex items-center gap-5'>
 				<div className='flex flex-col w-full overflow-hidden'>
 					<div className='whitespace-nowrap max-w-fit text-2xl text-ellipsis font-medium'>{user.nickname || user.username || "Anonymous"}</div>
 					<span className='text-foreground/50 w-full text-lg'>@{user.username || "unknown"}</span>

@@ -11,7 +11,7 @@ export default function Comment({ user, content, date }) {
 	const [isDelete, setIsDelete] = useState(false);
 
 	return (
-		<div className='p-4 bg-card flex rounded-[1.25rem] origin-center flex-col gap-2'>
+		<div className='p-5 bg-card flex rounded-[1.25rem] origin-center flex-col gap-2'>
 			<div className='w-full flex gap-3 items-center'>
 				<div className='w-full flex gap-3 duration-200 ease-out items-center overflow-hidden'>
 					{user?.avatar ? (

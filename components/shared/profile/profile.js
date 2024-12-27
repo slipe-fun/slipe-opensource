@@ -5,3 +5,4 @@ export { default as Publications } from "@/components/shared/profile/publication
 export { default as Publication } from "@/components/shared/profile/publications/slides/publication/publication"
 export { default as Comment } from "@/components/shared/profile/publications/slides/comments/comment"
 export { default as Reaction } from "@/components/shared/profile/publications/slides/reactions/reaction"
+export { default as AvatarModal } from "@/components/shared/profile/user/avatar-modal"

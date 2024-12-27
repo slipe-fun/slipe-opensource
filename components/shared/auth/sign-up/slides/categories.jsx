@@ -17,7 +17,7 @@ export default function CategoriesSlide({ categoriesPack, setCategoriesPack }) {
 
 	return (
 		<>
-			<div className='flex flex-col gap-4 items-center'>
+			<div className='flex flex-col gap-5 items-center'>
 				<SlideTemplate title='Choose categories' img='/static/auth-assets/globe.png' />
 				<Swiper
 					slidesPerView={1.225}

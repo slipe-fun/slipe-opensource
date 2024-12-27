@@ -30,7 +30,7 @@ export default function Reactions({ token }) {
 	if (isError) return console.log(isError);
 	if (isLoading)
 		return (
-			<div className='grid grid-cols-3 h-fit gap-4'>
+			<div className='grid grid-cols-3 h-fit gap-5'>
 				{Array.from({ length: 12 }, (_, i) => i).map(index => (
 					<Skeleton key={index} className="w-full aspect-square rounded-[1.125rem]" />
 				))}
@@ -43,7 +43,7 @@ export default function Reactions({ token }) {
 			next={() => console.log(12)}
 			scrollableTarget='profileScroll'
 			dataLength={reactions?.length}
-			className='grid grid-cols-3 h-fit gap-4'
+			className='grid grid-cols-3 h-fit gap-5'
 		>
 			{reactions?.map((reaction, index) => (
 				<Reaction key={index} reaction={reaction.name} post={reaction.post} />

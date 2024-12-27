@@ -85,14 +85,14 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 			<DrawerContent className='bg-modal border-0'>
 				<DrawerHeader
 					data-shadowed={inputFocus}
-					className='p-4 duration-200 ease-out data-[shadowed=true]:opacity-30 data-[shadowed=true]:pointer-events-none'
+					className='p-5 duration-200 ease-out data-[shadowed=true]:opacity-30 data-[shadowed=true]:pointer-events-none'
 				>
 					<DrawerTitle className='font-medium'>{commentsCount ? commentsCount : 0} comments</DrawerTitle>
 				</DrawerHeader>
 				<ul
 					id='commentsScroll'
 					data-shadowed={inputFocus}
-					className='w-full duration-200 !h-[31.5rem] overflow-y-auto ease-out data-[shadowed=true]:opacity-40 px-4 relative pb-[5.5rem] flex flex-col gap-4'
+					className='w-full duration-200 !h-[31.5rem] overflow-y-auto ease-out data-[shadowed=true]:opacity-40 px-5 relative pb-[5.5rem] flex flex-col gap-5'
 				>
 					{comments?.length > 0 ? (
 						<InfiniteScroll
@@ -100,7 +100,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 							dataLength={Number(commentsCount)}
 							next={() => comments?.length < Number(commentsCount) ? setPage(page + 1) : null}
 							scrollableTarget='commentsScroll'
-							className='flex flex-col gap-4'
+							className='flex flex-col gap-5'
 						>
 							<AnimatePresence initial={false}>
 								{comments?.map((comment, index) => (
@@ -134,7 +134,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 					)}
 				</ul>
 
-				<DrawerFooter id='categories-scroller' className='p-4 w-full flex-row fixed items-end bottom-0 bg-modal z-10 flex gap-4'>
+				<DrawerFooter id='categories-scroller' className='p-5 w-full flex-row fixed items-end bottom-0 bg-modal z-10 flex gap-5'>
 					{!error ? (
 						<>
 							{user?.success[0].avatar ? (

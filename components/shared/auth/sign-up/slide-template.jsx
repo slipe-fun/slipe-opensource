@@ -11,7 +11,7 @@ export default function SlideTemplate({ title = "", img = "", isAvatar = false, 
 
 	return (
 		<>
-			<div className='flex flex-col gap-4 items-center'>
+			<div className='flex flex-col gap-5 items-center'>
 				{isAvatar ? (
 					<div className="relative">
 						<Input onChange={handleFileChange} className="opacity-0 absolute w-full h-full" type="file"/>

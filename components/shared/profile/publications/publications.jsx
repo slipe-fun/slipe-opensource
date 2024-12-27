@@ -24,8 +24,8 @@ export default function Publications({ user }) {
 	}, [active]);
 
 	return (
-		<div className='flex flex-col gap-4'>
-			<div id='content-switcher' className='flex gap-6 font-medium text-2xl px-4 overflow-x-auto'>
+		<div className='flex flex-col gap-5'>
+			<div id='content-switcher' className='flex gap-6 font-medium text-2xl px-5 overflow-x-auto'>
 				<button
 					onClick={() => setActive(0)}
 					id='switcher-button-0'
@@ -68,7 +68,7 @@ export default function Publications({ user }) {
 					},
 				}}
 				effect='creative'
-				className='w-full px-4 pb-[5.5rem]'
+				className='w-full px-5 pb-[5.5rem]'
 				slidesPerView={1}
 				modules={[FreeMode, EffectCreative]}
 			>

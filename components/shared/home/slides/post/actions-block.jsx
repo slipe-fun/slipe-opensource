@@ -36,7 +36,7 @@ export default function ActionsBlock({ reactions, currentReaction, id }) {
 	};
 
 	return (
-		<div className='w-full z-10 p-5 pr-0 flex items-end overflow-hidden gap-4 bg-gradient-to-t from-[#00000060] to-[#00000000]'>
+		<div className='w-full z-10 p-5 pr-0 flex items-end overflow-hidden gap-5 bg-gradient-to-t from-[#00000060] to-[#00000000]'>
 			<div
 				data-isexpanded={isReactions}
 				className='relative flex text-white rounded-full ease-out duration-200 data-[isexpanded=false]:w-[3.125rem] data-[isexpanded=true]:w-[calc(100%-1rem)] data-[isexpanded=true]:p-2 data-[isexpanded=true]:bg-[#1f1f1f]'
@@ -64,11 +64,7 @@ export default function ActionsBlock({ reactions, currentReaction, id }) {
 					open={isReactionsModal}
 					setOpen={setReactionsModal}
 				/>
-				<CommentsModal
-					setOpen={setComments}
-					open={isComments}
-					postId={id}
-				/>
+				<CommentsModal setOpen={setComments} open={isComments} postId={id} />
 			</div>
 
 			<button
@@ -82,21 +78,22 @@ export default function ActionsBlock({ reactions, currentReaction, id }) {
 			<div
 				data-ishidden={isReactions}
 				ref={reactionsRef}
-				className='w-full overflow-x-scroll flex duration-200 ease-out gap-4 data-[ishidden=true]:opacity-0 data-[ishidden=true]:-mr-[130%]'
+				className='w-full overflow-x-scroll flex duration-200 ease-out gap-5 data-[ishidden=true]:opacity-0 data-[ishidden=true]:-mr-[130%]'
 			>
-				<AnimatePresence>
-					{localReactions.map(reaction => (
+				<AnimatePresence mode='popLayout'>
+					{localReactions.map((reaction, index) => (
 						<motion.button
-							key={id + "-" + reaction.name}
+							layout='position'
+							key={index}
 							initial={{ opacity: 0, x: 4 }}
 							animate={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.2, ease: "easeOut" }}
-							exit={{ opacity: 0, scale: 0.9, }}
+							exit={{ opacity: 0, scale: 0.9 }}
 							onClick={
 								reaction.name?.startsWith("emoji_") ? () => {} : () => reactionClicked(reaction.name[0], reaction.name.slice(2, reaction.name.length))
 							}
 							data-isactive={reaction.name === localCurrentReaction?.name}
-							className='rounded-full duration-200 bg-black/50 text-white ease-out data-[isactive=true]:bg-white data-[isactive=true]:text-black flex min-w-fit items-center font-medium gap-2 py-[0.625rem] px-4'
+							className='rounded-full duration-200 bg-black/50 text-white ease-out data-[isactive=true]:bg-white data-[isactive=true]:text-black flex min-w-fit items-center font-medium gap-2 py-[0.625rem] px-5'
 						>
 							<img
 								className='!w-7 !h-7'

@@ -41,7 +41,7 @@ export default function UserCard({ user }) {
 					<PixelAvatar size={36} username={user?.username} pixels={user?.pixel_order} />
 				)}
 				
-				<span className='w-full text-center overflow-hidden overflow-ellipsis px-4 font-medium whitespace-nowrap text-white'>{user?.nickname ? user?.nickname : user?.username}</span>
+				<span className='w-full text-center overflow-hidden overflow-ellipsis px-5 font-medium whitespace-nowrap text-white'>{user?.nickname ? user?.nickname : user?.username}</span>
 				<Button data-subscribed={isFollowed} className="data-[subscribed=true]:!bg-[#1F1F1F] rounded-full" size='sm'>
 					{isFollowed ? "Followed" : "Follow"}
 				</Button>
