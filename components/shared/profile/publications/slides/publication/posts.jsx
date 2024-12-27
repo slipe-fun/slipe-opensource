@@ -44,7 +44,7 @@ export default function Posts({ user, token }) {
 			className='grid grid-cols-2 h-fit gap-5'
 		>
 			{publications?.map((post, index) => (
-				<Publication key={index} post={post} />
+				<Publication key={index} post={post} user={user}/>
 			))}
 		</InfiniteScroll>
 	) : null;
