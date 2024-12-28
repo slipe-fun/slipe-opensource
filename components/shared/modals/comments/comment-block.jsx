@@ -35,6 +35,7 @@ export default function CommentBlock({ id, user, content, likes, liked, date, up
 		setLiked(liked);
 	}, [likes, liked]);
 
+
 	return (
 		<>
 			<div className='w-full flex gap-3 items-center'>

@@ -42,8 +42,8 @@ export default function Banner({ user = {}, scrollProgress }) {
 					style={{ opacity, height }}
 					className='bottom-0 w-full flex items-center p-5 justify-center pointer-events-none text-white flex-col absolute bg-black/50'
 				>
-					<span className='font-medium text-xl'>{user?.nickname ? user?.nickname : user?.username}</span>
-					<span className='opacity-50'>@{user?.username}</span>
+					<span className='font-medium text-xl overflow-hidden w-full whitespace-nowrap max-w-fit text-ellipsis text-center'>{user?.nickname ? user?.nickname : user?.username}</span>
+					<span className='opacity-50 overflow-hidden w-full whitespace-nowrap max-w-fit text-ellipsis text-center'>@{user?.username}</span>
 				</motion.div>
 			</div>
 		</>
