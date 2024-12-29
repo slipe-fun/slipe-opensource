@@ -1,11 +1,9 @@
-import { cn } from "@/lib/utils";
+import { cn, fetcher, GetUniqueById } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import api from "@/constants/api";
-import { fetcher } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import getUniqueById from "@/lib/utils/uniqueById";
 import CommentBlock from "./comment-block";
 import updateCommentsLikes from "@/lib/comments/updateCommentsLikes";
 import { useState, useEffect } from "react";
@@ -35,7 +33,7 @@ export default function CommentsBlock({
 	useEffect(() => {
 		if (commentsRequest?.success && !error) {
 			console.log(comments, commentsRequest?.success);
-			setComments(prev => getUniqueById([...prev, ...commentsRequest.success]));
+			setComments(prev => GetUniqueById([...prev, ...commentsRequest.success]));
 			setCommentsCount(Number(commentsRequest?.count));
 		}
 	}, [commentsRequest, error]);

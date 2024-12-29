@@ -1,12 +1,10 @@
 import api from "@/constants/api";
-import { fetcher } from "@/lib/utils";
+import { fetcher, GetUniqueById } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Reaction from "./reaction";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
-import getUniqueById from "@/lib/utils/uniqueById";
-
 
 export default function Reactions({ token }) {
 	const [page, setPage] = useState(1);
@@ -23,7 +21,7 @@ export default function Reactions({ token }) {
 
 	useEffect(() => {
 		if (reactionsRequest?.success && !isError) {
-			setReactions(prev => getUniqueById([...prev, ...reactionsRequest?.success]));
+			setReactions(prev => GetUniqueById([...prev, ...reactionsRequest?.success]));
 		}
 	}, [reactionsRequest]);
 

@@ -1,11 +1,10 @@
 import api from "@/constants/api";
-import { fetcher } from "@/lib/utils";
+import { fetcher, GetUniqueById } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Comment from "./comment";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
-import getUniqueById from "@/lib/utils/uniqueById";
 
 export default function Comments({ user, token }) {
 	const [page, setPage] = useState(1);
@@ -21,7 +20,7 @@ export default function Comments({ user, token }) {
 
 	useEffect(() => {
 		if (commentsRequest?.success && !isError) {
-			setComments(prev => getUniqueById([...prev, ...commentsRequest?.success]));
+			setComments(prev => GetUniqueById([...prev, ...commentsRequest?.success]));
 		}
 	}, [commentsRequest]);
 

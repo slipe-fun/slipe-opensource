@@ -4,13 +4,9 @@ import PixelAvatar from "../../pixels-avatar";
 import Svg from "@/components/ui/icons/svg";
 import cdn from "@/constants/cdn";
 import icons from "@/components/ui/icons/icons";
-import { cn } from "@/lib/utils";
+import { AdjustHeight, cn } from "@/lib/utils";
 
 export default function CommentInput({ error, user, setInputFocus, commentText, setCommentText, sendComment, isButtonLoading, className }) {
-	function adjustHeight(element) {
-		element.style.height = "48px";
-		element.style.height = `${element.scrollHeight}px`;
-	}
 
 	return (
 		<>
@@ -34,7 +30,7 @@ export default function CommentInput({ error, user, setInputFocus, commentText, 
 				value={commentText}
 				onChange={e => {
 					setCommentText(e.target.value);
-					if (e.target.scrollHeight > e.target.offsetHeight) adjustHeight(e.target);
+					AdjustHeight(e.target, '48px');
 				}}
 				className={cn('bg-foreground/[0.08] h-12 max-h-32 resize-none rounded-3xl text-sm p-[0.875rem]', className)}
 				placeholder='Type something'

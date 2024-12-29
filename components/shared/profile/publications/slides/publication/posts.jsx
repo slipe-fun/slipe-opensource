@@ -1,11 +1,10 @@
 import api from "@/constants/api";
-import { fetcher } from "@/lib/utils";
+import { fetcher, GetUniqueById } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Publication from "./publication";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
-import getUniqueById from "@/lib/utils/uniqueById";
 
 export default function Posts({ user, token }) {
 	const [page, setPage] = useState(1);
@@ -21,7 +20,7 @@ export default function Posts({ user, token }) {
 
 	useEffect(() => {
 		if (publicationsRequest?.success && !isError) {
-			setPublications(prev => getUniqueById([...prev, ...publicationsRequest?.success]));
+			setPublications(prev => GetUniqueById([...prev, ...publicationsRequest?.success]));
 		}
 	}, [publicationsRequest]);
 
