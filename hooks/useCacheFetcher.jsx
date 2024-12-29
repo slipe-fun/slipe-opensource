@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 export function useCacheFetcher(url, fetcher) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!url || typeof fetcher !== 'function') {
@@ -17,24 +17,23 @@ export function useCacheFetcher(url, fetcher) {
 
         if (cachedData) {
           setData(JSON.parse(cachedData));
+          setLoading(false)
         }
 
         const fetchedData = await fetcher(url);
         
-
-        if (JSON.stringify(fetchedData) !== cachedData) {
-          console.log(fetchedData, fetcher, data)
+        if (JSON.stringify(fetchedData) !== JSON.stringify(cachedData)) {
           localStorage.setItem(url, JSON.stringify(fetchedData || {}));
           setData(fetchedData);
+          setLoading(false)
         }
       } catch (err) {
         setError(err.message || 'An error occurred');
       }
-      setLoading(true)
     };
 
     fetchData();
   }, [url]);
 
-  return { data, error };
+  return { data, error, isLoading };
 }

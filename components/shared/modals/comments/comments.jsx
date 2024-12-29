@@ -73,7 +73,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 						isButtonLoading={isButtonLoading}
 						commentText={commentText}
 						error={userError}
-						user={user}
+						user={user?.success[0]}
 						setInputFocus={setInputFocus}
 					/>
 				</DrawerFooter>

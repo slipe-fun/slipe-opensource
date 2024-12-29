@@ -39,8 +39,8 @@ export default function CommentsBlock({
 	}, [commentsRequest, error]);
 
     useEffect(() => {
-        console.log(postId, urlKey, commentsRequest)
-    }, [postId, urlKey, commentsRequest])
+        console.log(urlKey, commentsRequest)
+    }, [commentsRequest])
 
 	return (
 		<ul
