@@ -16,14 +16,14 @@ export default function CommentInput({ error, user, setInputFocus, commentText, 
 		<>
 			{!error ? (
 				<>
-					{user?.success[0].avatar ? (
+					{user?.avatar ? (
 						<img
 							loading='lazy'
 							className='rounded-full min-w-12 object-cover bg-center w-12 h-12'
-							src={`${cdn}/avatars/${user?.success[0]?.avatar}`}
+							src={`${cdn}/avatars/${user?.avatar}`}
 						/>
 					) : (
-						<PixelAvatar size={48} username={user?.success[0]?.username} pixels={user?.success[0]?.pixel_order} />
+						<PixelAvatar size={48} username={user?.username} pixels={user?.pixel_order} />
 					)}
 				</>
 			) : null}

@@ -34,15 +34,14 @@ export default function CommentsBlock({
 
 	useEffect(() => {
 		if (commentsRequest?.success && !error) {
-			console.log(comments, commentsRequest?.success);
 			setComments(prev => getUniqueById([...prev, ...commentsRequest.success]));
 			setCommentsCount(Number(commentsRequest?.count));
 		}
 	}, [commentsRequest, error]);
 
     useEffect(() => {
-        console.log(postId, urlKey, commentsRequest)
-    }, [postId, urlKey, commentsRequest])
+        console.log(urlKey, commentsRequest)
+    }, [commentsRequest])
 
 	return (
 		<ul

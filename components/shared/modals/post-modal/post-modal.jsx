@@ -20,12 +20,6 @@ export default function PostModal({ post, open, setOpen, user, setUser }) {
 	const [progess, setProgess] = useState(0);
 	const { token, storage } = useStorage();
 
-	const {
-		data: userData,
-		error: userError,
-		isLoading: isUserLoading,
-	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
-
 	async function sendComment() {
 		setIsButtonLoading(true);
 
@@ -41,7 +35,7 @@ export default function PostModal({ post, open, setOpen, user, setUser }) {
 					...result?.comment,
 					likes: 0,
 					liked: false,
-					author: user?.success[0],
+					author: user,
 				},
 				...comments,
 			]);
@@ -78,7 +72,7 @@ export default function PostModal({ post, open, setOpen, user, setUser }) {
 					sendComment={sendComment}
 					isButtonLoading={isButtonLoading}
 					setInputFocus={setInputFocus}
-					user={userData}
+					user={user}
 					commentText={commentText}
 					setCommentText={setCommentText}
 				/>
