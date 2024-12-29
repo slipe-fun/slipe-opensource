@@ -48,7 +48,7 @@ export default function BlogsSlider({ blogs }) {
 		}
 	}
 
-	async function deleteBlog (id) {
+	async function deleteBlog(id) {
 		const post = blogs.find(post => post?.id === id);
 		
 		setDeletedBlogs(posts => [...posts, post]);

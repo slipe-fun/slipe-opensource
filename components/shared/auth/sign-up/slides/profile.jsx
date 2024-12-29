@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import Counter from "@/components/shared/counter";
 import SlideTemplate from "../slide-template";
 import { useState } from "react";
 
@@ -20,12 +21,12 @@ export default function ProfileSlide({ displayname, setDisplayname, avatar, setA
 						className='bg-transparent rounded-none h-auto p-4 pr-0'
 						placeholder='Display name here'
 					/>
-					<span
+					<Counter
 						data-focused={isFocused}
-						className='text-foreground/50 duration-200 ease-out data-[focused=true]:opacity-100 data-[focused=true]:translate-x-0 data-[focused=false]:opacity-0 data-[focused=false]:translate-x-4 p-4'
-					>
-						{displayname.length}/32
-					</span>
+						value={displayname.length}
+						className='text-base duration-200 ease-out data-[focused=true]:opacity-100 data-[focused=false]:opacity-0 p-4'
+						maxValue={32}
+					/>
 				</div>
 			</div>
 		</>

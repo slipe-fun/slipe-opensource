@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import Counter from "@/components/shared/counter";
 import SlideTemplate from "../slide-template";
 import { useState } from "react";
 
@@ -21,12 +22,12 @@ export default function UsernameSlide({ username, setUsername, isAccount }) {
 						className='bg-transparent rounded-none h-auto py-4 px-0'
 						placeholder='Username here'
 					/>
-					<span
+					<Counter
 						data-focused={isFocused}
-						className='text-foreground/50 duration-200 ease-out data-[focused=true]:opacity-100 data-[focused=true]:translate-x-0 data-[focused=false]:opacity-0 data-[focused=false]:translate-x-4 p-4'
-					>
-						{username.length}/24
-					</span>
+						value={username.length}
+						className='text-base duration-200 ease-out data-[focused=true]:opacity-100 data-[focused=false]:opacity-0 p-4'
+						maxValue={20}
+					/>
 				</div>
 			</div>
 		</>
