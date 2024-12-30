@@ -33,8 +33,6 @@ export default function DescriptionModal({ children, open, setOpen, user, change
 		if (user?.displayname) formData.append('nickname', user?.displayname || "");
 		formData.append('description', description);
 
-		formData.forEach(value => console.log(value))
-
 		const request = await fetcher(api.v1 + `/settings/profile`, "post", formData, { "Authorization": "Bearer " + token });
 
 		if (request?.message) {

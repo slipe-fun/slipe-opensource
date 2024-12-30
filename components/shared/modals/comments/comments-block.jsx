@@ -32,15 +32,10 @@ export default function CommentsBlock({
 
 	useEffect(() => {
 		if (commentsRequest?.success && !error) {
-			console.log(comments, commentsRequest?.success);
 			setComments(prev => GetUniqueById([...prev, ...commentsRequest.success]));
 			setCommentsCount(Number(commentsRequest?.count));
 		}
 	}, [commentsRequest, error]);
-
-    useEffect(() => {
-        console.log(urlKey, commentsRequest)
-    }, [commentsRequest])
 
 	return (
 		<ul
