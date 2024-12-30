@@ -22,7 +22,9 @@ export default function Footer({ post, deleteBlog }) {
 		data: user,
 		error: userError,
 		isLoading: isUserLoading,
-	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
+		cache: true
+	});
 
 	const copyLink = () => {
 		toast.success("Post link copied!", { className: "bg-green text-green-foreground" });

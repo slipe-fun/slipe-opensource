@@ -32,7 +32,7 @@ export default function Comments({ user, token }) {
 
 	useEffect(() => {
 		if (commentsRequest?.success && !isError) {
-			setComments(prev => GetUniqueById([...prev, ...commentsRequest?.success], commentsRequest?.success, page));
+			setComments(prev => GetUniqueById([...prev, ...commentsRequest?.success]));
 		}
 	}, [commentsRequest]);
 
@@ -49,7 +49,7 @@ export default function Comments({ user, token }) {
 	return comments?.filter(isCommentDeleted)?.length > 0 ? (
 		<InfiniteScroll
 			hasMore={comments?.length < Number(commentsRequest?.count)}
-			next={() => setPage(prev => prev + 1)}
+			next={() => {setPage(prev => prev + 1)}}
 			scrollableTarget='profileScroll'
 			dataLength={comments?.length}
 			className='flex flex-col h-fit gap-5'

@@ -20,7 +20,9 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 		data: user,
 		error: userError,
 		isLoading: isUserLoading,
-	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
+		cache: true
+	});
 
 	async function sendComment() {
 		setIsButtonLoading(true);

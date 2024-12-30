@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export function useCacheFetcher(url, fetcher) {
+export function useCacheFetcher(url, fetcher, params) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -13,16 +13,18 @@ export function useCacheFetcher(url, fetcher) {
 
     const fetchData = async () => {
       try {
-        const cachedData = localStorage.getItem(url);
+        const cachedData = params?.cache ? localStorage.getItem(url) : null;
 
-        if (cachedData) {
-          setData(JSON.parse(cachedData));
-          setLoading(false)
+        if (params?.cache) {
+          if (cachedData) {
+            setData(JSON.parse(cachedData));
+            setLoading(false)
+          }
         }
 
         const fetchedData = await fetcher(url);
 
-        if (JSON.stringify(fetchedData) !== JSON.stringify(cachedData)) {
+        if (fetchedData || (params?.cache && JSON.stringify(fetchedData) !== JSON.stringify(cachedData))) {
           localStorage.setItem(url, JSON.stringify(fetchedData || {}));
           setData(fetchedData);
           setLoading(false)

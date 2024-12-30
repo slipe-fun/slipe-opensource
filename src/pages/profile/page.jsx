@@ -15,7 +15,9 @@ export default function Profile() {
 		data: userReq,
 		error: error,
 		isLoading: isLoading,
-	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
+		cache: true
+	});
 
 	useEffect(() => setUser(userReq?.success[0]), [userReq])
 

@@ -32,7 +32,7 @@ export default function CommentsBlock({
 
 	useEffect(() => {
 		if (commentsRequest?.success && !error) {
-			setComments(prev => GetUniqueById([...prev, ...commentsRequest.success], commentsRequest.success, page));
+			setComments(prev => GetUniqueById([...prev, ...commentsRequest.success]));
 			setCommentsCount(Number(commentsRequest?.count));
 		}
 	}, [commentsRequest, error]);
