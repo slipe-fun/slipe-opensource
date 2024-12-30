@@ -2,7 +2,7 @@ export { default as ReactionsModal } from "@/components/shared/modals/reactions/
 export { default as CommentsModal } from "@/components/shared/modals/comments/comments"
 export { default as PostInfoModal } from "@/components/shared/modals/post-info/post-info"
 export { default as PostDownloadModal } from "@/components/shared/modals/post-download/post-download"
-export { default as PostDeletingModal } from "@/components/shared/modals/post-deleting/post-deleting"
+export { default as DeleteModal } from "@/components/shared/modals/delete/delete-modal"
 export { default as ReportModal } from "@/components/shared/modals/report/report"
 export { default as PageModal } from "@/components/shared/modals/page-modal/page-modal"
 export { default as PostModal } from "@/components/shared/modals/post-modal/post-modal"

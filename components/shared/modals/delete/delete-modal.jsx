@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { fetcher } from "@/lib/utils";
 import api from "@/constants/api";
 import { useStorage } from "@/hooks/contexts/session";
+import { toast } from "sonner";
 
-export default function PostDeletingModal({ children, open, setOpen, deleteBlog, post, nested = true, content = "post" }) {
+export default function DeleteModal({ children, open, setOpen, deleteBlog, deleteComment, object, nested = true, content = "post" }) {
 	const { token, storage } = useStorage();
 
 	const contentTexts = {
@@ -12,21 +13,37 @@ export default function PostDeletingModal({ children, open, setOpen, deleteBlog,
 		comment: "Are you sure you want to delete the comment?",
 	};
 
-	async function deletePost() {
+	async function deleteBlogRequest() {
 		const form_data = new FormData();
-		form_data.append("post_id", post?.id);
+		form_data.append("post_id", object?.id);
 
 		const request = await fetcher(api.v1 + "/post/delete", "post", form_data, {
 			Authorization: "Bearer " + token,
 		});
 
 		if (request?.success) {
-			deleteBlog(post?.id);
-			//success toast
-			//request?.success
+			deleteBlog(object?.id);
+			toast.success("Post deleted!", { className: "bg-green text-green-foreground" });
 		} else {
-			//error toast
-			//request?.error
+			toast.error(request?.error, { className: "bg-red text-red-foreground z-50" });
+		}
+
+		setOpen(false);
+	}
+
+	async function deleteCommentRequest() {
+		const form_data = new FormData();
+		form_data.append("comment_id", object?.id);
+
+		const request = await fetcher(api.v1 + "/comment/delete", "post", form_data, {
+			Authorization: "Bearer " + token,
+		});
+
+		if (request?.success) {
+			deleteComment(object?.id);
+			toast.success("Comment deleted!", { className: "bg-green text-green-foreground" });
+		} else {
+			toast.error(request?.error, { className: "bg-red text-red-foreground z-50" });
 		}
 
 		setOpen(false);
@@ -52,7 +69,7 @@ export default function PostDeletingModal({ children, open, setOpen, deleteBlog,
 					<Button variant='secondary' className='rounded-full' size='full'>
 						Cancel
 					</Button>
-					<Button variant='deleting' className='rounded-full font-semibold' size='full' onClick={deletePost}>
+					<Button variant='deleting' className='rounded-full font-semibold' size='full' onClick={content === "post" ? deleteBlogRequest : deleteCommentRequest}>
 						Delete
 					</Button>
 				</DrawerFooter>

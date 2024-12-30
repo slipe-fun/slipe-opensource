@@ -4,10 +4,10 @@ import icons from "@/components/ui/icons/icons";
 import PixelAvatar from "../../../../pixels-avatar";
 import cdn from "@/constants/cdn";
 import { TimePassedFromDate } from "@/lib/utils";
-import { PostDeletingModal } from "@/components/shared/modals";
+import { DeleteModal } from "@/components/shared/modals";
 import { useState } from "react";
 
-export default function Comment({ user, content, date }) {
+export default function Comment({ user, comment, date, deleteComment }) {
 	const [isDelete, setIsDelete] = useState(false);
 
 	return (
@@ -28,7 +28,7 @@ export default function Comment({ user, content, date }) {
 						<span className='text-sm text-foreground/50'>{TimePassedFromDate(date)}</span>
 					</div>
 				</div>
-				<PostDeletingModal open={isDelete} setOpen={setIsDelete} content='comment' nested={false}>
+				<DeleteModal open={isDelete} setOpen={setIsDelete} object={comment} deleteComment={deleteComment} content='comment' nested={false}>
 					<Button
 						data-active={isDelete}
 						onClick={() => setIsDelete(true)}
@@ -37,9 +37,9 @@ export default function Comment({ user, content, date }) {
 					>
 						<Svg className='!w-7 !h-7' icon={icons["trash"]} />
 					</Button>
-				</PostDeletingModal>
+				</DeleteModal>
 			</div>
-			<p className='pl-[3.75rem] break-words'>{content}</p>
+			<p className='pl-[3.75rem] break-words'>{comment?.text} {comment?.deleted || "notoewfo"}</p>
 		</div>
 	);
 }

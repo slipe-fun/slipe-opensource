@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Svg from "@/components/ui/icons/svg";
 import icons from "@/components/ui/icons/icons";
-import { ReportModal, PostDownloadModal, PostDeletingModal } from "../../modals";
+import { ReportModal, PostDownloadModal, DeleteModal } from "../../modals";
 import { useState } from "react";
 import { toast } from "sonner";
 import { DrawerFooter } from "@/components/ui/drawer";
@@ -46,7 +46,7 @@ export default function Footer({ post, deleteBlog }) {
 				</Button>
 			</ReportModal>
 			{user?.success[0].id === post?.author_id ? (
-				<PostDeletingModal open={isDelete} setOpen={setIsDelete} post={post} deleteBlog={deleteBlog}>
+				<DeleteModal open={isDelete} setOpen={setIsDelete} object={post} deleteBlog={deleteBlog}>
 					<Button
 						data-active={isDelete}
 						onClick={() => setIsDelete(true)}
@@ -56,7 +56,7 @@ export default function Footer({ post, deleteBlog }) {
 					>
 						<Svg icon={icons["trash"]} className='!w-8 !h-8' />
 					</Button>
-				</PostDeletingModal>				
+				</DeleteModal>				
 			) : null}
 			<Button
 				data-copied={isCopied}

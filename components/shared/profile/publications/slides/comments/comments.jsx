@@ -9,6 +9,7 @@ import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 export default function Comments({ user, token }) {
 	const [page, setPage] = useState(1);
 	const [comments, setComments] = useState([]);
+	const [deletedComments, setDeletedComments] = useState([]);
 
 	const swrKey = `${api.v1}/comment/users/get?page=${page}`;
 
@@ -17,6 +18,16 @@ export default function Comments({ user, token }) {
 		error: isError,
 		isLoading: isLoading,
 	} = useCacheFetcher(swrKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
+
+	function deleteComment(id) {
+		const comment = comments.find(comment => comment?.id === id);
+		
+		setDeletedComments(prev => [...prev, comment]);
+	}
+
+	function isCommentDeleted (comment) {
+		return !deletedComments.find(comm => comm?.id === comment?.id);
+	}
 
 	useEffect(() => {
 		if (commentsRequest?.success && !isError) {
@@ -34,7 +45,7 @@ export default function Comments({ user, token }) {
 			</div>
 		);
 
-	return comments?.length > 0 ? (
+	return comments?.filter(isCommentDeleted)?.length > 0 ? (
 		<InfiniteScroll
 			hasMore={comments?.length < Number(commentsRequest?.count)}
 			next={() => setPage(prev => prev + 1)}
@@ -42,8 +53,8 @@ export default function Comments({ user, token }) {
 			dataLength={comments?.length}
 			className='flex flex-col h-fit gap-5'
 		>
-			{comments?.map((comment, index) => (
-				<Comment key={index} user={user} content={comment.text} date={comment?.date} />
+			{comments?.filter(isCommentDeleted)?.map((comment, index) => (
+				<Comment key={index} user={user} comment={comment} date={comment?.date} deleteComment={deleteComment} />
 			))}
 		</InfiniteScroll>
 	) : null;
