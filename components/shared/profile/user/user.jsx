@@ -32,6 +32,7 @@ export default function User({ user = {}, scrollProgress }) {
 						style={{ scale, opacity }}
 						className='rounded-full z-40 data-[covering=true]:pointer-events-none w-32 aspect-square border-[6px] border-background object-cover'
 						src={`${cdn}/avatars/${user.avatar}`}
+						id="profile-avatar"
 					/>
 				) : (
 					<PixelAvatar

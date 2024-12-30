@@ -16,6 +16,7 @@ import api from "@/constants/api";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
+import { useClearCache } from "@/hooks/useCacheFetcher";
 
 export default function Auth() {
 	const [stage, setStage] = useState(0);
@@ -26,6 +27,8 @@ export default function Auth() {
 	const [avatar, setAvatar] = useState("");
 	const [isContinue, setIsContinue] = useState(true);
 	const { token, store } = useStorage();
+	const [clear, setClear] = useState(null);
+	const { isClearing, error } = useClearCache(clear);
 
 	const swiperRef = useRef(null);
 
@@ -78,6 +81,8 @@ export default function Auth() {
 					} else {
 						window.location.href = "/";
 					}
+
+					setClear("*")
 				},
 				error => {
 					setIsContinue(true);
@@ -85,12 +90,13 @@ export default function Auth() {
 				}
 			);
 		} else if (signUpStage === 2) {
-			const profileAvatar = await fetch(avatar).then(async res => await res.blob())
+			const profileAvatar = await fetch(avatar).then(async res => await res.blob()).catch(() => null)
 
 			const formData = new FormData();
-			formData.append('avatar', new File([profileAvatar], "avatar.png", {
-				type: profileAvatar?.type
-			}));
+			if (profileAvatar) 
+				formData.append('avatar', new File([profileAvatar], "avatar.png", {
+					type: profileAvatar?.type
+				}));
 			formData.append('username', username);
 			formData.append('nickname', displayname);
 	
