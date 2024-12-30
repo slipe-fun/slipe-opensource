@@ -24,12 +24,15 @@ export default function Reactions({ token }) {
 		}
 	}, [reactionsRequest]);
 
-	if (isError) return <NoContent image="error.png" title="No data" primary="Try reloading the page or app" className="py-12 animate-[fadeIn_0.3s_ease-out]"/>;
+	if (isError)
+		return (
+			<NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]' />
+		);
 	if (isLoading)
 		return (
 			<div className='grid grid-cols-3 h-fit gap-5'>
 				{Array.from({ length: 12 }, (_, i) => i).map(index => (
-					<Skeleton key={index} className="w-full aspect-square rounded-[1.125rem]" />
+					<Skeleton key={index} className='w-full aspect-square rounded-[1.125rem]' />
 				))}
 			</div>
 		);
@@ -46,5 +49,12 @@ export default function Reactions({ token }) {
 				<Reaction key={index} reaction={reaction.name} post={reaction.post} />
 			))}
 		</InfiniteScroll>
-	) : <NoContent title="No reactions here yet" image="reaction.png" className="py-12 animate-[fadeIn_0.3s_ease-out]" primary="You haven't set any reactions yet"/>;
+	) : (
+		<NoContent
+			title='No reactions here yet'
+			image='reaction.png'
+			className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]'
+			primary="You haven't set any reactions yet"
+		/>
+	);
 }

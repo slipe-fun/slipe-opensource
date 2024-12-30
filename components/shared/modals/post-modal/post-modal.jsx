@@ -14,6 +14,7 @@ export default function PostModal({ post, open, setOpen, user, setUser }) {
 	const [comments, setComments] = useState([]);
 	const [commentText, setCommentText] = useState("");
 	const [commentsCount, setCommentsCount] = useState(0);
+	const [deletedPost, setDeletedPost] = useState();
 	const [isTransition, setIsTransition] = useState(false);
 	const [isButtonLoading, setIsButtonLoading] = useState(false);
 	const [progess, setProgess] = useState(0);
@@ -47,11 +48,12 @@ export default function PostModal({ post, open, setOpen, user, setUser }) {
 
 	return (
 		<PageModal className='flex justify-center flex-col items-center bg-background backdrop-blur-lg' open={open}>
-			<Header inputFocus={inputFocus} setOpen={setOpen} post={post} user={user} />
+			<Header inputFocus={inputFocus} setOpen={setOpen} post={post} setDeletedBlog={setDeletedPost} user={user} />
 			<ContentSlider
 				comments={comments}
 				setComments={setComments}
 				inputFocus={inputFocus}
+				deletedPost={deletedPost}
 				setProgess={setProgess}
 				setIsTransition={setIsTransition}
 				user={user}

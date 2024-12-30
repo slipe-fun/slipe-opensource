@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { TimePassedFromDate } from "@/lib/utils";
-import { fetcher } from "@/lib/utils";
 import { useStorage } from "@/hooks/contexts/session";
-import api from "@/constants/api";
 import { Button } from "@/components/ui/button";
 import cdn from "@/constants/cdn";
 import PixelAvatar from "@/components/shared/pixels-avatar";

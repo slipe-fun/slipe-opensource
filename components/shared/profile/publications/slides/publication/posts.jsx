@@ -26,7 +26,7 @@ export default function Posts({ user, token }) {
 	}, [publicationsRequest]);
 
 	if (isError)
-		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
+		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]' />;
 	if (isLoading)
 		return (
 			<div className='grid grid-cols-2 h-fit gap-5'>
@@ -52,7 +52,7 @@ export default function Posts({ user, token }) {
 		<NoContent
 			title='No posts here yet'
 			image='post.png'
-			className='py-12 animate-[fadeIn_0.3s_ease-out]'
+			className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]'
 			primary="You haven't published any posts yet"
 		/>
 	);

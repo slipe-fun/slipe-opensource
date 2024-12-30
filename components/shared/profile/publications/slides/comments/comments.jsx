@@ -38,7 +38,7 @@ export default function Comments({ user, token }) {
 	}, [commentsRequest]);
 
 	if (isError)
-		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
+		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]' />;
 	if (isLoading)
 		return (
 			<div className='flex flex-col h-fit gap-5'>
@@ -66,7 +66,7 @@ export default function Comments({ user, token }) {
 		<NoContent
 			title='No comments here yet'
 			image='comment.png'
-			className='py-12 animate-[fadeIn_0.3s_ease-out]'
+			className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]'
 			primary="You haven't written any comments yet"
 		/>
 	);

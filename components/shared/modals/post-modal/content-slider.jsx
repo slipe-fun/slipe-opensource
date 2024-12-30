@@ -7,7 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-creative";
 
-export default function ContentSlider({ setProgess, setIsTransition, user, setUser, post, commentsCount, comments, setComments, setCommentsCount, inputFocus }) {
+export default function ContentSlider({ setProgess, setIsTransition, user, setUser, post, commentsCount, comments, setComments, setCommentsCount, inputFocus, deletedPost }) {
 	return (
 		<Swiper
 			onProgress={swiper => setProgess(swiper.progress)}
@@ -33,7 +33,7 @@ export default function ContentSlider({ setProgess, setIsTransition, user, setUs
 			className='w-full h-full px-5 data-[shadowed=true]:opacity-40 duration-200 ease-out'
 		>
 			<SwiperSlide className='pt-24'>
-				<Post className='w-full relative min-h-[calc(100%-6rem)] h-[calc(100%-6rem)]' user={user} isPostModal setUser={setUser} post={post} />
+				<Post isPostDeleted={deletedPost} className='w-full relative min-h-[calc(100%-6rem)] h-[calc(100%-6rem)]' user={user} isPostModal setUser={setUser} post={post} />
 			</SwiperSlide>
 			<SwiperSlide id='postModalScroller' className='flex flex-col pt-24 gap-4 pb-[6.75rem] !overflow-y-auto'>
 				<p className='text-3xl font-medium'>

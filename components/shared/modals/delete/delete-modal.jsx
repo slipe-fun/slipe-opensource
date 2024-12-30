@@ -8,11 +8,6 @@ import { toast } from "sonner";
 export default function DeleteModal({ children, open, setOpen, deleteBlog, deleteComment, object, nested = true, content = "post" }) {
 	const { token, storage } = useStorage();
 
-	const contentTexts = {
-		post: "Are you sure you want to delete the post?",
-		comment: "Are you sure you want to delete the comment?",
-	};
-
 	async function deleteBlogRequest() {
 		const form_data = new FormData();
 		form_data.append("post_id", object?.id);
@@ -61,7 +56,9 @@ export default function DeleteModal({ children, open, setOpen, deleteBlog, delet
 				<div className='w-full h-[32.5rem] px-5 flex pb-24 flex-col gap-5 items-center justify-center'>
 					<img loading='lazy' src='./static/states-assets/delete.png' className='w-40 h-40' />
 					<div className='flex flex-col gap-1'>
-						<span className='text-2xl text-center text-foreground font-medium'>{contentTexts[content]}</span>
+						<span className='text-2xl text-center text-foreground font-medium'>
+							Are you sure you want to delete the {content === "post" ? "post?" : "comment?"}
+						</span>
 						<span className='text-lg text-center text-foreground/50'>This action cannot be undone</span>
 					</div>
 				</div>
@@ -69,7 +66,12 @@ export default function DeleteModal({ children, open, setOpen, deleteBlog, delet
 					<Button variant='secondary' className='rounded-full' size='full'>
 						Cancel
 					</Button>
-					<Button variant='deleting' className='rounded-full font-semibold' size='full' onClick={content === "post" ? deleteBlogRequest : deleteCommentRequest}>
+					<Button
+						variant='deleting'
+						className='rounded-full font-semibold'
+						size='full'
+						onClick={content === "post" ? deleteBlogRequest : deleteCommentRequest}
+					>
 						Delete
 					</Button>
 				</DrawerFooter>
