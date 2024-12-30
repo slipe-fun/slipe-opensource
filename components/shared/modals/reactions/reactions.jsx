@@ -41,7 +41,7 @@ export default function ReactionsModal({ children, currentReaction, onReactionCl
 
 	useEffect(() => {
 		document.getElementById("categories-scroller")?.scrollTo({
-			left: document.getElementById(`category-button-${activeCategory}`).offsetLeft - 20,
+			left: document.getElementById(`category-button-${activeCategory}`)?.offsetLeft - 20,
 			behavior: "smooth",
 			block: "start",
 		});

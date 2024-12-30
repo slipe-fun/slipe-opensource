@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { PageModal } from "../../modals";
-import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
 import Header from "./header";

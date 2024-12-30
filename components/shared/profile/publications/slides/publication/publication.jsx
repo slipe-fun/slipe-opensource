@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function Publication({ className, post, user, ...props }) {
 	const [open, setOpen] = useState(false);
-	const [ss, setUser] = useState(false);
+	const [_, setUser] = useState(false);
 
 	return (
 		<>

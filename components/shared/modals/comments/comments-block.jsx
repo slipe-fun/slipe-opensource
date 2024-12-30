@@ -8,6 +8,7 @@ import CommentBlock from "./comment-block";
 import updateCommentsLikes from "@/lib/comments/updateCommentsLikes";
 import { useState, useEffect } from "react";
 import { useStorage } from "@/hooks/contexts/session";
+import NoContent from "../../no-content";
 
 export default function CommentsBlock({
 	inputFocus,
@@ -46,8 +47,9 @@ export default function CommentsBlock({
 				className
 			)}
 		>
-			{comments?.length > 0 ? (
-				<InfiniteScroll
+			{!isLoading ? (
+				comments?.length > 0 ? (
+<InfiniteScroll
 					hasMore={comments?.length < Number(commentsCount)}
 					dataLength={Number(commentsCount)}
 					next={() => (comments?.length < Number(commentsCount) ? setPage(page + 1) : null)}
@@ -78,6 +80,10 @@ export default function CommentsBlock({
 						))}
 					</AnimatePresence>
 				</InfiniteScroll>
+				) : (
+					<NoContent title="No comments here yet" primary="Be the first to write a comment" className="h-full animate-[fadeIn_0.3s_ease-out]" image="comment.png"/>
+				)
+				
 			) : (
 				<>
 					{Array.from({ length: 10 }, (_, i) => i).map(index => (

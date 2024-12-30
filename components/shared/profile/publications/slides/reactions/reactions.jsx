@@ -5,19 +5,18 @@ import Reaction from "./reaction";
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
+import NoContent from "@/components/shared/no-content";
 
 export default function Reactions({ token }) {
 	const [page, setPage] = useState(1);
 	const [reactions, setReactions] = useState([]);
-	const has = async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token })
-
 	const urlKey = `${api.v1}/reactions/users/get?page=${page}`;
 
 	const {
 		data: reactionsRequest,
 		isLoading: isLoading,
 		error: isError,
-	} = useCacheFetcher(urlKey, has);
+	} = useCacheFetcher(urlKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	useEffect(() => {
 		if (reactionsRequest?.success && !isError) {
@@ -25,7 +24,7 @@ export default function Reactions({ token }) {
 		}
 	}, [reactionsRequest]);
 
-	if (isError) return console.log(isError);
+	if (isError) return <NoContent image="error.png" title="No data" primary="Try reloading the page or app" className="py-12 animate-[fadeIn_0.3s_ease-out]"/>;
 	if (isLoading)
 		return (
 			<div className='grid grid-cols-3 h-fit gap-5'>
@@ -38,7 +37,7 @@ export default function Reactions({ token }) {
 	return reactions?.length > 0 ? (
 		<InfiniteScroll
 			hasMore={reactions?.length < Number(reactionsRequest?.count)}
-			next={() => console.log(12)}
+			next={() => setPage(page => page + 1)}
 			scrollableTarget='profileScroll'
 			dataLength={reactions?.length}
 			className='grid grid-cols-3 h-fit gap-5'
@@ -47,5 +46,5 @@ export default function Reactions({ token }) {
 				<Reaction key={index} reaction={reaction.name} post={reaction.post} />
 			))}
 		</InfiniteScroll>
-	) : null;
+	) : <NoContent title="No reactions here yet" image="reaction.png" className="py-12 animate-[fadeIn_0.3s_ease-out]" primary="You haven't set any reactions yet"/>;
 }

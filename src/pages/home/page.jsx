@@ -6,13 +6,14 @@ import { PagesContentTypeContext } from "@/hooks/contexts/posts-type";
 import { useStorage } from "@/hooks/contexts/session";
 import { Skeleton } from "@/components/ui/skeleton";
 import NoFollows from "@/components/shared/home/slides/no-follows/no-follows";
+import NoContent from "@/components/shared/no-content";
 
 export default function Home() {
 	const { token, store } = useStorage();
 	if (!token) window.location.href = "/auth";
 
 	const [startData, setStartData] = useState();
-	const [isLoading, setIsLoading] = useState();
+	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState();
 
 	const [users, setUsers] = useState([]);
@@ -61,7 +62,7 @@ export default function Home() {
 				) : activeContent === "follows" ? (
 					<NoFollows />
 				) : (
-					<h1>No data</h1>
+					<NoContent image="error.png" title="No data" primary="Try reloading the page or app" className="h-screen px-5 animate-[fadeIn_0.3s_ease-out]"/>
 				)
 			) : (
 				<div className="py-[6.5rem] animate-[fadeIn_0.3s_ease-out] w-full h-full px-5">

@@ -3,6 +3,7 @@ import { fetcher, GetUniqueById } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Publication from "./publication";
 import { useState, useEffect } from "react";
+import NoContent from "@/components/shared/no-content";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 
@@ -24,7 +25,8 @@ export default function Posts({ user, token }) {
 		}
 	}, [publicationsRequest]);
 
-	if (isError) return <>Error</>;
+	if (isError)
+		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
 	if (isLoading)
 		return (
 			<div className='grid grid-cols-2 h-fit gap-5'>
@@ -43,8 +45,15 @@ export default function Posts({ user, token }) {
 			className='grid grid-cols-2 h-fit gap-5'
 		>
 			{publications?.map((post, index) => (
-				<Publication key={index} post={post} user={user}/>
+				<Publication key={index} post={post} user={user} />
 			))}
 		</InfiniteScroll>
-	) : null;
+	) : (
+		<NoContent
+			title='No posts here yet'
+			image='post.png'
+			className='py-12 animate-[fadeIn_0.3s_ease-out]'
+			primary="You haven't published any posts yet"
+		/>
+	);
 }
