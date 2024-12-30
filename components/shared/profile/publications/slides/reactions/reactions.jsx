@@ -40,7 +40,7 @@ export default function Reactions({ token }) {
 			next={() => setPage(page => page + 1)}
 			scrollableTarget='profileScroll'
 			dataLength={reactions?.length}
-			className='grid grid-cols-3 h-fit gap-5'
+			className='grid grid-cols-3 h-fit min-h-[50vh] gap-5'
 		>
 			{reactions?.map((reaction, index) => (
 				<Reaction key={index} reaction={reaction.name} post={reaction.post} />

@@ -42,7 +42,7 @@ export default function Posts({ user, token }) {
 			next={() => setPage(prev => prev + 1)}
 			scrollableTarget='profileScroll'
 			dataLength={publications?.length}
-			className='grid grid-cols-2 h-fit gap-5'
+			className='grid grid-cols-2 h-fit min-h-[50vh] gap-5'
 		>
 			{publications?.map((post, index) => (
 				<Publication key={index} post={post} user={user} />

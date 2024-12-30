@@ -56,7 +56,7 @@ export default function Comments({ user, token }) {
 			}}
 			scrollableTarget='profileScroll'
 			dataLength={comments?.length}
-			className='flex flex-col h-fit gap-5'
+			className='flex flex-col h-fit min-h-[50vh] gap-5'
 		>
 			{comments?.filter(isCommentDeleted)?.map((comment, index) => (
 				<Comment key={index} user={user} comment={comment} date={comment?.date} deleteComment={deleteComment} />
