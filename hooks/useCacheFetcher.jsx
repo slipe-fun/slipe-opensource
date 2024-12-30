@@ -21,7 +21,7 @@ export function useCacheFetcher(url, fetcher) {
         }
 
         const fetchedData = await fetcher(url);
-        
+
         if (JSON.stringify(fetchedData) !== JSON.stringify(cachedData)) {
           localStorage.setItem(url, JSON.stringify(fetchedData || {}));
           setData(fetchedData);
@@ -35,7 +35,16 @@ export function useCacheFetcher(url, fetcher) {
     fetchData();
   }, [url]);
 
-  return { data, error, isLoading };
+  const mutate = (url, value) => {
+    const cachedItem = localStorage.getItem(url);
+
+    if (cachedItem) {
+      localStorage.setItem(url, JSON.stringify(value));
+      return true;
+    } else return `Cache for ${url} doesnt exist`;
+  }
+
+  return { data, error, isLoading, mutate };
 }
 
 export function useClearCache(url) {
@@ -53,7 +62,7 @@ export function useClearCache(url) {
           if (cachedItem) {
             localStorage.removeItem(url);
           } else setError(`Cache for ${url} doesnt exist`);
-        }        
+        }
       }
       setIsClearing(false);
     } catch (err) {

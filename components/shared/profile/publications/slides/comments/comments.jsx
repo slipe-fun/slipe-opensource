@@ -17,21 +17,22 @@ export default function Comments({ user, token }) {
 		data: commentsRequest,
 		error: isError,
 		isLoading: isLoading,
+		mutate: mutate
 	} = useCacheFetcher(swrKey, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	function deleteComment(id) {
 		const comment = comments.find(comment => comment?.id === id);
-		
+
 		setDeletedComments(prev => [...prev, comment]);
 	}
 
-	function isCommentDeleted (comment) {
+	function isCommentDeleted(comment) {
 		return !deletedComments.find(comm => comm?.id === comment?.id);
 	}
 
 	useEffect(() => {
 		if (commentsRequest?.success && !isError) {
-			setComments(prev => GetUniqueById([...prev, ...commentsRequest?.success]));
+			setComments(prev => GetUniqueById([...prev, ...commentsRequest?.success], commentsRequest?.success, page));
 		}
 	}, [commentsRequest]);
 

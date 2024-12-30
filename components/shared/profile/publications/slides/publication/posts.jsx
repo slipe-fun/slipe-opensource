@@ -20,7 +20,7 @@ export default function Posts({ user, token }) {
 
 	useEffect(() => {
 		if (publicationsRequest?.success && !isError) {
-			setPublications(prev => GetUniqueById([...prev, ...publicationsRequest?.success]));
+			setPublications(prev => GetUniqueById([...prev, ...publicationsRequest?.success], publicationsRequest?.success, page));
 		}
 	}, [publicationsRequest]);
 

@@ -21,7 +21,7 @@ export default function Reactions({ token }) {
 
 	useEffect(() => {
 		if (reactionsRequest?.success && !isError) {
-			setReactions(prev => GetUniqueById([...prev, ...reactionsRequest?.success]));
+			setReactions(prev => GetUniqueById([...prev, ...reactionsRequest?.success], reactionsRequest?.success, page));
 		}
 	}, [reactionsRequest]);
 

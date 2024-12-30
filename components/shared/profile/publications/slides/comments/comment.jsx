@@ -39,7 +39,7 @@ export default function Comment({ user, comment, date, deleteComment }) {
 					</Button>
 				</DeleteModal>
 			</div>
-			<p className='pl-[3.75rem] break-words'>{comment?.text} {comment?.deleted || "notoewfo"}</p>
+			<p className='pl-[3.75rem] break-words'>{comment?.text}</p>
 		</div>
 	);
 }
