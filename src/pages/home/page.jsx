@@ -4,6 +4,8 @@ import { useState, useEffect, useContext } from "react";
 import UsersSlider from "@/components/shared/home/sliders/users";
 import { PagesContentTypeContext } from "@/hooks/contexts/posts-type";
 import { useStorage } from "@/hooks/contexts/session";
+import { Skeleton } from "@/components/ui/skeleton";
+import NoFollows from "@/components/shared/home/slides/no-follows/no-follows";
 
 export default function Home() {
 	const { token, store } = useStorage();
@@ -24,6 +26,8 @@ export default function Home() {
 	}, [activeContent]);
 
 	useEffect(() => {
+		setUsers([]);
+		setBlogs([]);
 		(async () => {
 			setIsLoading(true);
 			const request = await fetcher(api.v1 + `/post/get?after=0&region=slavic${activeContent === "follows" ? "&subscribed=true" : ""}`, "get", null, {
@@ -49,5 +53,22 @@ export default function Home() {
 		}
 	}, [startData, isLoading, error]);
 
-	return <UsersSlider users={users} blogs={blogs} type={activeContent} />;
+	return (
+		<>
+			{!isLoading ? (
+				blogs?.length > 0 ? (
+					<UsersSlider users={users} blogs={blogs} type={activeContent} />
+				) : activeContent === "follows" ? (
+					<NoFollows />
+				) : (
+					<h1>No data</h1>
+				)
+			) : (
+				<div className="py-[6.5rem] animate-[fadeIn_0.3s_ease-out] w-full h-full px-5">
+					<Skeleton className="rounded-[2rem] h-full w-full" />
+				</div>
+			)}
+		</>
+	);
+	
 }

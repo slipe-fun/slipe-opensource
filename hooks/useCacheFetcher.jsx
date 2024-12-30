@@ -6,6 +6,8 @@ export function useCacheFetcher(url, fetcher, params) {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
+    
     if (!url || typeof fetcher !== 'function') {
       console.error('Invalid arguments passed to useCustomHook');
       return;
@@ -24,10 +26,10 @@ export function useCacheFetcher(url, fetcher, params) {
 
         const fetchedData = await fetcher(url);
 
-        if (fetchedData || (params?.cache && JSON.stringify(fetchedData) !== JSON.stringify(cachedData))) {
+        if (fetchedData || (params?.cache && JSON?.stringify(fetchedData) !== JSON?.stringify(cachedData))) {
           localStorage.setItem(url, JSON.stringify(fetchedData || {}));
           setData(fetchedData);
-          setLoading(false)
+          setLoading(false);
         }
       } catch (err) {
         setError(err.message || 'An error occurred');

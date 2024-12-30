@@ -7,19 +7,12 @@ import api from "@/constants/api";
 import { fetcher } from "@/lib/utils";
 
 import "swiper/css";
-import NoFollows from "../slides/no-follows/no-follows";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export default function UsersSlider({ users, blogs, type }) {
 	const [allUsers, setUsers] = useState();
 	const [allBlogs, setBlogs] = useState();
 
 	const { token, store } = useStorage();
-
-	useEffect(() => {
-		setUsers(users);
-		setBlogs(blogs);
-	}, [users, blogs]);
 
 	async function onSlideChange(slide) {
 		const currentSlide = slide.activeIndex;
@@ -53,28 +46,20 @@ export default function UsersSlider({ users, blogs, type }) {
 		setBlogs([]);
 	}, [type]);
 
+	useEffect(() => {
+		setUsers(users);
+		setBlogs(blogs);
+	}, [users, blogs, type]);
+
 	return (
 		<>
-			{allBlogs?.length === 0 && type === "follows" ? (
-				<>
-					<NoFollows />
-				</>
-			) : null}
-			{allBlogs?.length > 0 ? (
-				<>
-					<Swiper slidesPerView={1} modules={[Virtual]} direction='vertical' className='!w-full !h-full' onSlideChange={onSlideChange} virtual>
-						{allUsers?.map((username, index) => (
-							<SwiperSlide key={index} virtualIndex={index} className='w-full h-full'>
-								<BlogsSlider blogs={allBlogs.filter(blog => blog.author.username === username)} />
-							</SwiperSlide>
-						))}
-					</Swiper>
-				</>
-			) : (
-				<div className="py-[6.5rem] animate-[fadeIn_0.3s_ease-out] w-full h-full px-5">
-					<Skeleton className="rounded-[2rem] h-full w-full"/>
-				</div>
-			)}
+			<Swiper slidesPerView={1} modules={[Virtual]} direction='vertical' className='!w-full !h-full' onSlideChange={onSlideChange} virtual>
+				{allUsers?.map((username, index) => (
+					<SwiperSlide key={index} virtualIndex={index} className='w-full h-full'>
+						<BlogsSlider blogs={allBlogs.filter(blog => blog.author.username === username)} />
+					</SwiperSlide>
+				))}
+			</Swiper>
 		</>
 	);
 }
