@@ -61,7 +61,7 @@ export default function DescriptionModal({ children, open, setOpen, user, change
 							setDescription(e.target.value);
 							AdjustHeight(e.target, '192px');
 						}}
-						className='bg-foreground/[0.08] h-40 resize-none text-lg rounded-[1.25rem] p-4'
+						className='bg-foreground/[0.08] h-48 resize-none text-lg rounded-[1.25rem] p-4'
 						placeholder='Description here'
 					/>
 					<Counter value={description.length} maxValue={165} />
