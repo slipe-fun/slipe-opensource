@@ -31,12 +31,13 @@ export default function Reactions({ token }) {
 
 	return (
 		<>
-			{isLoading ? <div className='grid grid-cols-3 h-fit gap-5'>
-				{Array.from({ length: 12 }, (_, i) => i).map(index => (
-					<Skeleton key={index} className='w-full aspect-square rounded-[1.125rem]' />
-				))}
-			</div> : null}
-			{reactions?.length > 0 ? (
+			{isLoading ? (
+				<div className='grid grid-cols-3 h-fit gap-5'>
+					{Array.from({ length: 12 }, (_, i) => i).map(index => (
+						<Skeleton key={index} className='w-full aspect-square rounded-[1.125rem]' />
+					))}
+				</div>
+			) : reactions ? (
 				<InfiniteScroll
 					hasMore={reactions?.length < Number(reactionsRequest?.count)}
 					next={() => setPage(page => page + 1)}
@@ -57,5 +58,5 @@ export default function Reactions({ token }) {
 				/>
 			)}
 		</>
-	)
+	);
 }

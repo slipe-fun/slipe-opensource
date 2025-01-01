@@ -42,12 +42,13 @@ export default function Comments({ user, token }) {
 
 	return (
 		<>
-			{isLoading ? <div className='flex flex-col h-fit gap-5'>
-				{Array.from({ length: 6 }, (_, i) => i).map(index => (
-					<Skeleton key={index} className='w-full h-32 rounded-[1.25rem]' />
-				))}
-			</div> : null}
-			{comments?.filter(isCommentDeleted)?.length > 0 ? (
+			{isLoading ? (
+				<div className='flex flex-col h-fit gap-5'>
+					{Array.from({ length: 6 }, (_, i) => i).map(index => (
+						<Skeleton key={index} className='w-full h-32 rounded-[1.25rem]' />
+					))}
+				</div>
+			) : comments?.filter(isCommentDeleted) ? (
 				<InfiniteScroll
 					hasMore={comments?.length < Number(commentsRequest?.count)}
 					next={() => {
@@ -70,5 +71,5 @@ export default function Comments({ user, token }) {
 				/>
 			)}
 		</>
-	)
+	);
 }
