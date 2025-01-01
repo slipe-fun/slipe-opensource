@@ -26,34 +26,35 @@ export default function Posts({ user, token }) {
 	}, [publicationsRequest]);
 
 	if (isError)
-		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]' />;
-	if (isLoading)
-		return (
-			<div className='grid grid-cols-2 h-fit gap-5'>
+		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
+
+	return (
+		<>
+			{isLoading ? <div className='grid grid-cols-2 h-fit gap-5'>
 				{Array.from({ length: 8 }, (_, i) => i).map(index => (
 					<Skeleton key={index} className='w-full animate-[fadeInOpacity_0.3s_ease-out] aspect-[37/57] rounded-[1.125rem]' />
 				))}
-			</div>
-		);
-
-	return publications?.length > 0 ? (
-		<InfiniteScroll
-			hasMore={publications?.length < Number(user?.postsCount)}
-			next={() => setPage(prev => prev + 1)}
-			scrollableTarget='profileScroll'
-			dataLength={publications?.length}
-			className='grid grid-cols-2 h-fit min-h-[50vh] gap-5'
-		>
-			{publications?.map((post, index) => (
-				<Publication key={index} post={post} user={user} />
-			))}
-		</InfiniteScroll>
-	) : (
-		<NoContent
-			title='No posts here yet'
-			image='post.png'
-			className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]'
-			primary="You haven't published any posts yet"
-		/>
-	);
+			</div> : null}
+			{publications?.length > 0 ? (
+				<InfiniteScroll
+					hasMore={publications?.length < Number(user?.postsCount)}
+					next={() => setPage(prev => prev + 1)}
+					scrollableTarget='profileScroll'
+					dataLength={publications?.length}
+					className='grid grid-cols-2 h-fit gap-5'
+				>
+					{publications?.map((post, index) => (
+						<Publication key={index} post={post} user={user} />
+					))}
+				</InfiniteScroll>
+			) : (
+				<NoContent
+					title='No posts here yet'
+					image='post.png'
+					className='py-12 animate-[fadeIn_0.3s_ease-out]'
+					primary="You haven't published any posts yet"
+				/>
+			)}
+		</>
+	)
 }

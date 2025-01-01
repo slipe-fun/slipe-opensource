@@ -38,36 +38,37 @@ export default function Comments({ user, token }) {
 	}, [commentsRequest]);
 
 	if (isError)
-		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]' />;
-	if (isLoading)
-		return (
-			<div className='flex flex-col h-fit gap-5'>
+		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
+
+	return (
+		<>
+			{isLoading ? <div className='flex flex-col h-fit gap-5'>
 				{Array.from({ length: 6 }, (_, i) => i).map(index => (
 					<Skeleton key={index} className='w-full h-32 rounded-[1.25rem]' />
 				))}
-			</div>
-		);
-
-	return comments?.filter(isCommentDeleted)?.length > 0 ? (
-		<InfiniteScroll
-			hasMore={comments?.length < Number(commentsRequest?.count)}
-			next={() => {
-				setPage(prev => prev + 1);
-			}}
-			scrollableTarget='profileScroll'
-			dataLength={comments?.length}
-			className='flex flex-col h-fit min-h-[50vh] gap-5'
-		>
-			{comments?.filter(isCommentDeleted)?.map((comment, index) => (
-				<Comment key={index} user={user} comment={comment} date={comment?.date} deleteComment={deleteComment} />
-			))}
-		</InfiniteScroll>
-	) : (
-		<NoContent
-			title='No comments here yet'
-			image='comment.png'
-			className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]'
-			primary="You haven't written any comments yet"
-		/>
-	);
+			</div> : null}
+			{comments?.filter(isCommentDeleted)?.length > 0 ? (
+				<InfiniteScroll
+					hasMore={comments?.length < Number(commentsRequest?.count)}
+					next={() => {
+						setPage(prev => prev + 1);
+					}}
+					scrollableTarget='profileScroll'
+					dataLength={comments?.length}
+					className='flex flex-col h-fit gap-5'
+				>
+					{comments?.filter(isCommentDeleted)?.map((comment, index) => (
+						<Comment key={index} user={user} comment={comment} date={comment?.date} deleteComment={deleteComment} />
+					))}
+				</InfiniteScroll>
+			) : (
+				<NoContent
+					title='No comments here yet'
+					image='comment.png'
+					className='py-12 animate-[fadeIn_0.3s_ease-out]'
+					primary="You haven't written any comments yet"
+				/>
+			)}
+		</>
+	)
 }

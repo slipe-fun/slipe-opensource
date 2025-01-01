@@ -28,33 +28,34 @@ export default function Reactions({ token }) {
 		return (
 			<NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]' />
 		);
-	if (isLoading)
-		return (
-			<div className='grid grid-cols-3 h-fit gap-5'>
+
+	return (
+		<>
+			{isLoading ? <div className='grid grid-cols-3 h-fit gap-5'>
 				{Array.from({ length: 12 }, (_, i) => i).map(index => (
 					<Skeleton key={index} className='w-full aspect-square rounded-[1.125rem]' />
 				))}
-			</div>
-		);
-
-	return reactions?.length > 0 ? (
-		<InfiniteScroll
-			hasMore={reactions?.length < Number(reactionsRequest?.count)}
-			next={() => setPage(page => page + 1)}
-			scrollableTarget='profileScroll'
-			dataLength={reactions?.length}
-			className='grid grid-cols-3 h-fit min-h-[50vh] gap-5'
-		>
-			{reactions?.map((reaction, index) => (
-				<Reaction key={index} reaction={reaction.name} post={reaction.post} />
-			))}
-		</InfiniteScroll>
-	) : (
-		<NoContent
-			title='No reactions here yet'
-			image='reaction.png'
-			className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]'
-			primary="You haven't set any reactions yet"
-		/>
-	);
+			</div> : null}
+			{reactions?.length > 0 ? (
+				<InfiniteScroll
+					hasMore={reactions?.length < Number(reactionsRequest?.count)}
+					next={() => setPage(page => page + 1)}
+					scrollableTarget='profileScroll'
+					dataLength={reactions?.length}
+					className='grid grid-cols-3 h-fit min-h-[50vh] gap-5'
+				>
+					{reactions?.map((reaction, index) => (
+						<Reaction key={index} reaction={reaction.name} post={reaction.post} />
+					))}
+				</InfiniteScroll>
+			) : (
+				<NoContent
+					title='No reactions here yet'
+					image='reaction.png'
+					className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]'
+					primary="You haven't set any reactions yet"
+				/>
+			)}
+		</>
+	)
 }
