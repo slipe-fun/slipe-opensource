@@ -30,13 +30,7 @@ export default function Posts({ user, token }) {
 
 	return (
 		<>
-			{isLoading ? (
-				<div className='grid grid-cols-2 h-fit gap-5'>
-					{Array.from({ length: 8 }, (_, i) => i).map(index => (
-						<Skeleton key={index} className='w-full animate-[fadeInOpacity_0.3s_ease-out] aspect-[37/57] rounded-[1.125rem]' />
-					))}
-				</div>
-			) : publications ? (
+			{publications ? (
 				<InfiniteScroll
 					hasMore={publications?.length < Number(user?.postsCount)}
 					next={() => setPage(prev => prev + 1)}
@@ -56,6 +50,13 @@ export default function Posts({ user, token }) {
 					primary="You haven't published any posts yet"
 				/>
 			)}
+			{isLoading ? (
+				<div className='grid grid-cols-2 h-fit gap-5'>
+					{Array.from({ length: 8 }, (_, i) => i).map(index => (
+						<Skeleton key={index} className='w-full animate-[fadeInOpacity_0.3s_ease-out] aspect-[37/57] rounded-[1.125rem]' />
+					))}
+				</div>
+			) : null}
 		</>
 	);
 }

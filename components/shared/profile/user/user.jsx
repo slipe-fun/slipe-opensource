@@ -4,6 +4,7 @@ import { motion, useTransform } from "framer-motion";
 import PixelAvatar from "../../pixels-avatar";
 import { useEffect, useState } from "react";
 import { AvatarModal } from "../profile";
+import FollowersModal from "../../modals/followers/followers";
 
 export default function User({ user = {}, scrollProgress }) {
 	const invertInteger = (num, center = 0.5) => center * 2 - num;
@@ -28,7 +29,7 @@ export default function User({ user = {}, scrollProgress }) {
 						style={{ scale, opacity }}
 						className='rounded-full z-40 data-[covering=true]:pointer-events-none w-32 aspect-square border-[6px] border-background object-cover'
 						src={`${cdn}/avatars/${user.avatar}`}
-						id="profile-avatar"
+						id='profile-avatar'
 					/>
 				) : (
 					<PixelAvatar
@@ -42,11 +43,13 @@ export default function User({ user = {}, scrollProgress }) {
 						pixels={user.pixel_order}
 					/>
 				)}
-				<div className='h-1/2 flex items-center'>
-					<p className='text-lg font-medium'>
-						<span>{user.subscribers || 0}</span> <span className='text-foreground/50'>Followers</span>
-					</p>
-				</div>
+				<FollowersModal user={{ username: "sigma"}}>
+					<div className='h-1/2 flex items-center active:opacity-80 duration-200 ease-out'>
+						<p className='text-lg font-medium'>
+							<span>{user.subscribers || 0}</span> <span className='text-foreground/50'>Followers</span>
+						</p>
+					</div>
+				</FollowersModal>
 			</div>
 			<div className='flex items-center gap-5'>
 				<div className='flex flex-col w-full overflow-hidden'>

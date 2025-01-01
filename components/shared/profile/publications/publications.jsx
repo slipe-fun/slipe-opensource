@@ -73,13 +73,13 @@ export default function Publications({ user }) {
 				modules={[FreeMode, EffectCreative]}
 			>
 				<SwiperSlide>
-					<Posts user={user} token={token}/>
+					<Posts user={user} token={token} />
 				</SwiperSlide>
 				<SwiperSlide>
-					<Comments user={user} token={token}/>
+					<Comments user={user} token={token} />
 				</SwiperSlide>
 				<SwiperSlide>
-					<Reactions token={token}/>
+					<Reactions token={token} />
 				</SwiperSlide>
 			</Swiper>
 		</div>
