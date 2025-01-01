@@ -7,7 +7,7 @@ import NoContent from "@/components/shared/no-content";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 
-export default function Posts({ user, token }) {
+export default function Posts({ user, token, isModal }) {
 	const [page, setPage] = useState(1);
 	const [publications, setPublications] = useState([]);
 
@@ -39,7 +39,7 @@ export default function Posts({ user, token }) {
 					className='grid grid-cols-2 h-fit gap-5'
 				>
 					{publications?.map((post, index) => (
-						<Publication key={index} post={post} user={user} />
+						<Publication isModal={isModal} key={index} post={post} user={user} />
 					))}
 				</InfiniteScroll>
 			) : (

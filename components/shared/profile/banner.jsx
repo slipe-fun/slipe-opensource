@@ -22,7 +22,7 @@ export default function Banner({ user = {}, scrollProgress }) {
 				className='sticky -top-[--top-sticking] w-full overflow-hidden aspect-[16/11] min-h-fit z-30 rounded-b-[1.25rem]'
 			>
 				{user?.banner ? (
-					<img loading='lazy' src={cdn + "/banners/" + user?.banner} className='w-full absolute -z-10 h-full object-cover' id="profile-banner"/>
+					<img loading='lazy' src={cdn + "/banners/" + user?.banner} className='w-full absolute -z-10 h-full object-cover'/>
 				) : (
 					<div className='grid grid-cols-7 bg-black grid-rows-1 absolute -z-10 h-full w-full'>
 						{ShufflePixels(user?.pixel_order)?.map((pixel, index) => (

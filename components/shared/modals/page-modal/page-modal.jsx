@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, forwardRef } from "react";
 import { createPortal } from "react-dom";
 
-const PageModal = forwardRef(({ children, open, className, ...props }, ref) => {
-	const root = document?.getElementById("root")?.style;
+const PageModal = forwardRef(({ children, open, className, scaleElement, ...props }, ref) => {
+	const root = scaleElement ? scaleElement : document?.getElementById("root")?.style;
 
 	useEffect(() => {
 		root.transform = `scale(${open ? 0.95 : 1})`;

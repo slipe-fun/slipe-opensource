@@ -3,7 +3,7 @@ import cdn from "@/constants/cdn";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-export default function Publication({ className, post, user, ...props }) {
+export default function Publication({ className, post, user, isModal, ...props }) {
 	const [open, setOpen] = useState(false);
 	const [_, setUser] = useState(false);
 
@@ -26,7 +26,7 @@ export default function Publication({ className, post, user, ...props }) {
 					<span className='opacity-75'>{post?.views || 0} views</span>
 				</div>
 			</div>
-			<PostModal setUser={setUser} setOpen={setOpen} open={open} user={user} post={post} />
+			<PostModal isModal={isModal} setUser={setUser} setOpen={setOpen} open={open} user={user} post={post} />
 		</>
 	);
 }

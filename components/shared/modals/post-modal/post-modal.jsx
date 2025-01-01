@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import CommentInput from "../comments/comment-input";
 import ContentSlider from "./content-slider";
 
-export default function PostModal({ post, open, setOpen, user, setUser }) {
+export default function PostModal({ post, open, setOpen, user, setUser, isModal }) {
 	const [inputFocus, setInputFocus] = useState(false);
 	const [comments, setComments] = useState([]);
 	const [commentText, setCommentText] = useState("");
@@ -47,7 +47,7 @@ export default function PostModal({ post, open, setOpen, user, setUser }) {
 	}
 
 	return (
-		<PageModal className='flex justify-center flex-col items-center bg-background backdrop-blur-lg' open={open}>
+		<PageModal scaleElement={isModal ? document?.getElementById('profileScrollModal')?.style : null} className='flex justify-center flex-col items-center bg-background' open={open}>
 			<Header inputFocus={inputFocus} setOpen={setOpen} post={post} setDeletedBlog={setDeletedPost} user={user} />
 			<ContentSlider
 				comments={comments}

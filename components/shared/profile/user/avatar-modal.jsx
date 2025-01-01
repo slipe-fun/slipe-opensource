@@ -7,7 +7,7 @@ import icons from "@/components/ui/icons/icons";
 import Svg from "@/components/ui/icons/svg";
 import { Button } from "@/components/ui/button";
 
-export default function AvatarModal({ user, open, setOpen }) {
+export default function AvatarModal({ user, open, setOpen, isModal }) {
 	const avatarModalRef = useRef(null);
 
 	useClickAway(avatarModalRef, () => {
@@ -15,7 +15,7 @@ export default function AvatarModal({ user, open, setOpen }) {
 	});
 
 	return (
-		<PageModal className='flex justify-center flex-col items-center bg-background/35 p-12 backdrop-blur-lg' open={open}>
+		<PageModal scaleElement={isModal ? document?.getElementById('profileScrollModal')?.style : null} className='flex justify-center flex-col items-center bg-background/35 p-12 backdrop-blur-lg' open={open}>
 			<div className='flex w-full justify-center h-full items-center'>
 				{user.avatar ? (
 					<img ref={avatarModalRef} className='rounded-full w-full aspect-square object-cover' src={`${cdn}/avatars/${user.avatar}`} />

@@ -1,23 +1,21 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative, FreeMode } from "swiper/modules";
 import { useState, useEffect } from "react";
+import { Reactions, Comments, Posts } from "../profile";
 import { useStorage } from "@/hooks/contexts/session";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
-import Reactions from "./slides/reactions/reactions";
-import Comments from "./slides/comments/comments";
-import Posts from "./slides/publication/posts";
 
-export default function Publications({ user }) {
+export default function Publications({ user, isModal }) {
 	const [swiper, setSwiper] = useState(null);
 	const [active, setActive] = useState(0);
 	const { token, storage } = useStorage();
 
 	useEffect(() => {
 		swiper?.slideTo(active);
-		document.getElementById("content-switcher")?.scrollTo({
-			left: document.getElementById(`switcher-button-${active}`).offsetLeft - 20,
+		document.getElementById(isModal ? "content-switcher-modal" : "content-switcher")?.scrollTo({
+			left: document.getElementById(isModal ? `switcher-modal-button-${active}` : `switcher-button-${active}`).offsetLeft - 20,
 			behavior: "smooth",
 			block: "start",
 		});
@@ -25,31 +23,44 @@ export default function Publications({ user }) {
 
 	return (
 		<div className='flex flex-col gap-5'>
-			<div id='content-switcher' className='flex gap-6 font-medium text-2xl px-5 overflow-x-auto'>
+			<div id={isModal ? "content-switcher-modal" : "content-switcher"} className='flex gap-6 font-medium text-2xl px-5 overflow-x-auto'>
 				<button
 					onClick={() => setActive(0)}
-					id='switcher-button-0'
+					id={isModal ? "switcher-modal-button-0" : "switcher-button-0"}
 					data-active={active === 0}
 					className='duration-200 ease-out data-[active=true]:opacity-100 opacity-50'
 				>
 					Publications
 				</button>
-				<button
-					onClick={() => setActive(1)}
-					id='switcher-button-1'
-					data-active={active === 1}
-					className='duration-200 ease-out data-[active=true]:opacity-100 opacity-50'
-				>
-					Comments
-				</button>
-				<button
-					onClick={() => setActive(2)}
-					id='switcher-button-2'
-					data-active={active === 2}
-					className='duration-200 ease-out data-[active=true]:opacity-100 opacity-50'
-				>
-					Reactions
-				</button>
+				{isModal ? (
+					<button
+						onClick={() => setActive(1)}
+						id={isModal ? "switcher-modal-button-1" : "switcher-button-1"}
+						data-active={active === 1}
+						className='duration-200 ease-out data-[active=true]:opacity-100 opacity-50'
+					>
+						Similar users
+					</button>
+				) : (
+					<>
+						<button
+							onClick={() => setActive(1)}
+							id={isModal ? "switcher-modal-button-1" : "switcher-button-1"}
+							data-active={active === 1}
+							className='duration-200 ease-out data-[active=true]:opacity-100 opacity-50'
+						>
+							Comments
+						</button>
+						<button
+							onClick={() => setActive(2)}
+							id={isModal ? "switcher-modal-button-2" : "switcher-button-2"}
+							data-active={active === 2}
+							className='duration-200 ease-out data-[active=true]:opacity-100 opacity-50'
+						>
+							Reactions
+						</button>
+					</>
+				)}
 			</div>
 			<Swiper
 				onSwiper={setSwiper}
@@ -73,14 +84,20 @@ export default function Publications({ user }) {
 				modules={[FreeMode, EffectCreative]}
 			>
 				<SwiperSlide>
-					<Posts user={user} token={token} />
+					<Posts isModal={isModal} user={user} token={token} />
 				</SwiperSlide>
-				<SwiperSlide>
-					<Comments user={user} token={token} />
-				</SwiperSlide>
-				<SwiperSlide>
-					<Reactions token={token} />
-				</SwiperSlide>
+				{isModal ? (
+					<SwiperSlide>{/*Similar users slide here*/}</SwiperSlide>
+				) : (
+					<>
+						<SwiperSlide>
+							<Comments user={user} token={token} />
+						</SwiperSlide>
+						<SwiperSlide>
+							<Reactions token={token} />
+						</SwiperSlide>
+					</>
+				)}
 			</Swiper>
 		</div>
 	);

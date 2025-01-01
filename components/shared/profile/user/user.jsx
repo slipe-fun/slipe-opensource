@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { AvatarModal } from "../profile";
 import FollowersModal from "../../modals/followers/followers";
 
-export default function User({ user = {}, scrollProgress }) {
+export default function User({ user = {}, scrollProgress, isModal }) {
 	const invertInteger = (num, center = 0.5) => center * 2 - num;
 	const scale = useTransform(scrollProgress, value => invertInteger(value * 0.001));
 	const opacity = useTransform(scrollProgress, value => invertInteger(value * 0.008));
@@ -56,9 +56,14 @@ export default function User({ user = {}, scrollProgress }) {
 					<div className='whitespace-nowrap max-w-fit text-2xl text-ellipsis font-medium'>{user.nickname || user.username || "Anonymous"}</div>
 					<span className='text-foreground/50 w-full text-lg'>@{user.username || "unknown"}</span>
 				</div>
-				<Button className='rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>Edit bio</Button>
+				{isModal ? (
+					<Button className='rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>Follow</Button>
+				) : (
+					<Button className='rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>Edit bio</Button>
+				)}
+				
 			</div>
-			<AvatarModal user={user} open={isAvatar} setOpen={setIsAvatar} />
+			<AvatarModal isModal user={user} open={isAvatar} setOpen={setIsAvatar} />
 		</motion.div>
 	);
 }
