@@ -30,7 +30,7 @@ export default function DescriptionModal({ children, open, setOpen, user, change
 				type: banner?.type
 			}));
 		formData.append('username', user?.username);
-		if (user?.displayname) formData.append('nickname', user?.displayname || "");
+		if (user?.nickname) formData.append('nickname', user?.nickname || "");
 		formData.append('description', description);
 
 		const request = await fetcher(api.v1 + `/settings/profile`, "post", formData, { "Authorization": "Bearer " + token });
