@@ -7,7 +7,7 @@ import { useStorage } from "@/hooks/contexts/session";
 import "swiper/css";
 import "swiper/css/effect-creative";
 
-export default function Publications({ user, isModal }) {
+export default function Publications({ user, isModal, dateId }) {
 	const [swiper, setSwiper] = useState(null);
 	const [active, setActive] = useState(0);
 	const { token, storage } = useStorage();
@@ -84,17 +84,17 @@ export default function Publications({ user, isModal }) {
 				modules={[FreeMode, EffectCreative]}
 			>
 				<SwiperSlide>
-					<Posts isModal={isModal} user={user} token={token} />
+					<Posts dateId={dateId} isModal={isModal} user={user} token={token} />
 				</SwiperSlide>
 				{isModal ? (
 					<SwiperSlide>{/*Similar users slide here*/}</SwiperSlide>
 				) : (
 					<>
 						<SwiperSlide>
-							<Comments isModal={isModal} user={user} token={token} />
+							<Comments dateId={dateId} isModal={isModal} user={user} token={token} />
 						</SwiperSlide>
 						<SwiperSlide>
-							<Reactions isModal={isModal} token={token} />
+							<Reactions dateId={dateId} isModal={isModal} token={token} />
 						</SwiperSlide>
 					</>
 				)}

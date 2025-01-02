@@ -7,7 +7,7 @@ import NoContent from "@/components/shared/no-content";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 
-export default function Posts({ user, token, isModal }) {
+export default function Posts({ user, token, isModal, dateId }) {
 	const [page, setPage] = useState(1);
 	const [publications, setPublications] = useState([]);
 
@@ -34,7 +34,7 @@ export default function Posts({ user, token, isModal }) {
 				<InfiniteScroll
 					hasMore={publications?.length < Number(user?.postsCount)}
 					next={() => setPage(prev => prev + 1)}
-					scrollableTarget={isModal ? `profileScrollModal-${user?.id}` : 'profileScroll'}
+					scrollableTarget={isModal ? `profileScrollModal-${dateId}` : 'profileScroll'}
 					dataLength={publications?.length}
 					className='grid grid-cols-2 h-fit gap-5'
 				>

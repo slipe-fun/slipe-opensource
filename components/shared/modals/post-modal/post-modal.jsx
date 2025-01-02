@@ -88,7 +88,7 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 					sendComment={sendComment}
 					isButtonLoading={isButtonLoading}
 					setInputFocus={setInputFocus}
-					user={sessionUser?.success[0]}
+					user={isModal ? sessionUser?.success[0] : user}
 					commentText={commentText}
 					setCommentText={setCommentText}
 				/>
