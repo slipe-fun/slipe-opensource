@@ -8,6 +8,7 @@ import api from "@/constants/api";
 import { toast } from "sonner";
 import CommentInput from "../comments/comment-input";
 import ContentSlider from "./content-slider";
+import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 
 export default function PostModal({ post, open, setOpen, user, setUser, isModal }) {
 	const [inputFocus, setInputFocus] = useState(false);
@@ -19,6 +20,14 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 	const [isButtonLoading, setIsButtonLoading] = useState(false);
 	const [progess, setProgess] = useState(0);
 	const { token, storage } = useStorage();
+
+	const {
+		data: sessionUser,
+		error: error,
+		isLoading: isLoading,
+	} = useCacheFetcher(isModal ? api.v1 + "/account/info/get" : null, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
+		cache: true
+	});
 
 	async function sendComment() {
 		setIsButtonLoading(true);
@@ -35,7 +44,7 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 					...result?.comment,
 					likes: 0,
 					liked: false,
-					author: user,
+					author: sessionUser?.success[0],
 				},
 				...comments,
 			]);
@@ -69,11 +78,11 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 				className='w-full p-5 gap-5 data-[touchable=true]:pointer-events-auto items-end pointer-events-none data-[transition=true]:duration-200 flex bottom-0 z-50 bg-background/90 fixed backdrop-blur-2xl'
 			>
 				<CommentInput
-				className="bg-foreground/[0.12]"
+					className="bg-foreground/[0.12]"
 					sendComment={sendComment}
 					isButtonLoading={isButtonLoading}
 					setInputFocus={setInputFocus}
-					user={user}
+					user={sessionUser?.success[0]}
 					commentText={commentText}
 					setCommentText={setCommentText}
 				/>

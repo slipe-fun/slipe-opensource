@@ -7,7 +7,6 @@ import icons from "@/components/ui/icons/icons";
 import { AdjustHeight, cn } from "@/lib/utils";
 
 export default function CommentInput({ error, user, setInputFocus, commentText, setCommentText, sendComment, isButtonLoading, className }) {
-
 	return (
 		<>
 			{!error ? (
