@@ -91,10 +91,10 @@ export default function Publications({ user, isModal }) {
 				) : (
 					<>
 						<SwiperSlide>
-							<Comments user={user} token={token} />
+							<Comments isModal={isModal} user={user} token={token} />
 						</SwiperSlide>
 						<SwiperSlide>
-							<Reactions token={token} />
+							<Reactions isModal={isModal} token={token} />
 						</SwiperSlide>
 					</>
 				)}

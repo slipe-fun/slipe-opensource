@@ -8,7 +8,7 @@ export default function Banner({ user = {}, scrollProgress }) {
 	const opacity = useTransform(scrollProgress, value => value * 0.01);
 	const bannerRef = useRef(null);
 	const [bannerSize, setBannerSize] = useState(0);
-	const height = useTransform(scrollProgress, [0, 180], [bannerSize, 88]);
+	const height = useTransform(scrollProgress, [0, bannerSize <= 0 ? bannerSize : bannerSize - 88], [bannerSize, 88]);
 
 	useEffect(() => {
 		setTimeout(() => {

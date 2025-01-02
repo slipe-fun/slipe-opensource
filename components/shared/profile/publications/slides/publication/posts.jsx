@@ -34,7 +34,7 @@ export default function Posts({ user, token, isModal }) {
 				<InfiniteScroll
 					hasMore={publications?.length < Number(user?.postsCount)}
 					next={() => setPage(prev => prev + 1)}
-					scrollableTarget='profileScroll'
+					scrollableTarget={isModal ? `profileScrollModal-${user?.id}` : 'profileScroll'}
 					dataLength={publications?.length}
 					className='grid grid-cols-2 h-fit gap-5'
 				>

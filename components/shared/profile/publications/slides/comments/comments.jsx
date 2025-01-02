@@ -7,7 +7,7 @@ import NoContent from "@/components/shared/no-content";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 
-export default function Comments({ user, token }) {
+export default function Comments({ user, token, isModal }) {
 	const [page, setPage] = useState(1);
 	const [comments, setComments] = useState([]);
 	const [deletedComments, setDeletedComments] = useState([]);
@@ -48,7 +48,7 @@ export default function Comments({ user, token }) {
 					next={() => {
 						setPage(prev => prev + 1);
 					}}
-					scrollableTarget='profileScroll'
+					scrollableTarget={isModal ? `profileScrollModal-${user?.id}` : 'profileScroll'}
 					dataLength={comments?.length}
 					className='flex flex-col h-fit gap-5'
 				>

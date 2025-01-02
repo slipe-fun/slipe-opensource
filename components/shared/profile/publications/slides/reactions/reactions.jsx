@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import NoContent from "@/components/shared/no-content";
 
-export default function Reactions({ token }) {
+export default function Reactions({ token, isModal }) {
 	const [page, setPage] = useState(1);
 	const [reactions, setReactions] = useState([]);
 	const urlKey = `${api.v1}/reactions/users/get?page=${page}`;
@@ -35,7 +35,7 @@ export default function Reactions({ token }) {
 				<InfiniteScroll
 					hasMore={reactions?.length < Number(reactionsRequest?.count)}
 					next={() => setPage(page => page + 1)}
-					scrollableTarget='profileScroll'
+					scrollableTarget={isModal ? `profileScrollModal-${user?.id}` : 'profileScroll'}
 					dataLength={reactions?.length}
 					className='grid grid-cols-3 h-fit min-h-[50vh] gap-5'
 				>
