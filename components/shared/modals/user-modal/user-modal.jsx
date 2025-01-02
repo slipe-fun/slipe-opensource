@@ -1,19 +1,23 @@
 import { Banner, Description, Publications, User } from "@/components/shared/profile/profile";
 import { useScroll } from "framer-motion";
 import { PageModal } from "../../modals";
-import { useEffect, useRef } from "react";
+import { useRef, useEffect } from "react";
+import Header from "./header";
 
 export default function UserModal({ open, setOpen, user }) {
 	const profileModalRef = useRef(null);
 	const { scrollY } = useScroll({ container: open ? profileModalRef : null, offset: ["40%", "-0%"] });
+	const root = document?.getElementById("root")?.style;
 
 	useEffect(() => {
-		console.log(profileModalRef, scrollY);
-	}, [scrollY, profileModalRef]);
+		root.transform = `scale(${open ? 0.95 : 1})`;
+		root.borderRadius = open ? "24px" : "0px";
+	}, [open]);
 
 	return (
-		<PageModal className='bg-background' open={open}>
-			<div id='profileScrollModal' ref={open ? profileModalRef : null} className='overflow-y-auto duration-300 ease-out flex flex-col w-full h-full'>
+		<PageModal id="profileModal" className='bg-background duration-300 ease-out overflow-hidden' open={open}>
+			<Header user={user} setOpen={setOpen} />
+			<div id='profileScrollModal' ref={open ? profileModalRef : null} className='overflow-y-auto flex flex-col w-full h-full'>	
 				<Banner user={user} scrollProgress={scrollY} />
 				<div className='w-full min-h-full flex flex-col gap-5'>
 					<User user={user} scrollProgress={scrollY} isModal />

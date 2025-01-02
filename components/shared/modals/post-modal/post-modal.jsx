@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PageModal } from "../../modals";
 import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
@@ -20,6 +20,7 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 	const [isButtonLoading, setIsButtonLoading] = useState(false);
 	const [progess, setProgess] = useState(0);
 	const { token, storage } = useStorage();
+	const root = isModal ? document?.getElementById('profileModal')?.style : document?.getElementById("root")?.style;
 
 	const {
 		data: sessionUser,
@@ -55,8 +56,13 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 		setIsButtonLoading(false);
 	}
 
+	useEffect(() => {
+		root.transform = `scale(${open ? 0.95 : 1})`;
+		root.borderRadius = open ? "24px" : "0px";
+	}, [open]);
+
 	return (
-		<PageModal scaleElement={isModal ? document?.getElementById('profileScrollModal')?.style : null} className='flex justify-center flex-col items-center bg-background' open={open}>
+		<PageModal className='flex justify-center flex-col items-center bg-background' open={open}>
 			<Header inputFocus={inputFocus} setOpen={setOpen} post={post} setDeletedBlog={setDeletedPost} user={user} />
 			<ContentSlider
 				comments={comments}

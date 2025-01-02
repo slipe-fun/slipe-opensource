@@ -63,7 +63,7 @@ export default function User({ user = {}, scrollProgress, isModal }) {
 				)}
 				
 			</div>
-			<AvatarModal isModal user={user} open={isAvatar} setOpen={setIsAvatar} />
+			<AvatarModal isModal={isModal} user={user} open={isAvatar} setOpen={setIsAvatar} />
 		</motion.div>
 	);
 }
