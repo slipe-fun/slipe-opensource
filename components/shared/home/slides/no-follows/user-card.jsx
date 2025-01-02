@@ -38,7 +38,7 @@ export default function UserCard({ user }) {
 				{user?.avatar ? (
 					<img loading="lazy" src={cdn + `/avatars/${user?.avatar}`} className='aspect-square w-16 max-[384px]:w-14 min-[420px]:w-[4.5rem] rounded-full object-cover' />
 				) : (
-					<PixelAvatar size={36} username={user?.username} pixels={user?.pixel_order} />
+					<PixelAvatar className="aspect-square w-16 max-[384px]:w-14 min-[420px]:w-[4.5rem]" username={user?.username} pixels={user?.pixel_order} />
 				)}
 				
 				<span className='w-full text-center overflow-hidden overflow-ellipsis px-5 font-medium whitespace-nowrap text-white'>{user?.nickname ? user?.nickname : user?.username}</span>
