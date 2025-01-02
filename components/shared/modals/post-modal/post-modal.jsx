@@ -44,7 +44,7 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 					...result?.comment,
 					likes: 0,
 					liked: false,
-					author: sessionUser?.success[0],
+					author: isModal ? sessionUser?.success[0] : user,
 				},
 				...comments,
 			]);
