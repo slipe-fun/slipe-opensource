@@ -6,6 +6,7 @@ import { useStorage } from "@/hooks/contexts/session";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
+import Similar from "./slides/similar/similar";
 
 export default function Publications({ user, isModal, dateId }) {
 	const [swiper, setSwiper] = useState(null);
@@ -87,7 +88,9 @@ export default function Publications({ user, isModal, dateId }) {
 					<Posts dateId={dateId} isModal={isModal} user={user} token={token} />
 				</SwiperSlide>
 				{isModal ? (
-					<SwiperSlide>{/*Similar users slide here*/}</SwiperSlide>
+					<SwiperSlide>
+						<Similar token={token} user_id={user?.id} />
+					</SwiperSlide>
 				) : (
 					<>
 						<SwiperSlide>
