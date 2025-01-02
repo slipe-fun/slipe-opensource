@@ -42,25 +42,25 @@ Official repository of Slipe app contains code, assets and etc.
 ## Third-party
 
 ```bash
-    @radix-ui/react-checkbox
-    @radix-ui/react-dialog
-    @radix-ui/react-slot
-    @tauri-apps/plugin-store
-    class-variance-authority
-    clsx
-    framer-motion
-    lucide-react
-    motion
-    next-themes
-    react
-    react-dom
-    react-infinite-scroll-component
-    react-infinite-scroller
-    react-router
-    react-use
-    sonner
-    swiper
-    tailwind-merge
-    tailwindcss-animate
-    vaul
+@radix-ui/react-checkbox
+@radix-ui/react-dialog
+@radix-ui/react-slot
+@tauri-apps/plugin-store
+class-variance-authority
+clsx
+framer-motion
+lucide-react
+motion
+next-themes
+react
+react-dom
+react-infinite-scroll-component
+react-infinite-scroller
+react-router
+react-use
+sonner
+swiper
+tailwind-merge
+tailwindcss-animate
+vaul
 ```
