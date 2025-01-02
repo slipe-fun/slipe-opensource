@@ -57,7 +57,7 @@ export default function User({ user = {}, scrollProgress, isModal }) {
 					<span className='text-foreground/50 w-full text-lg'>@{user.username || "unknown"}</span>
 				</div>
 				{isModal ? (
-					<Button className='rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>Follow</Button>
+					<Button data-subscribed={user?.subscribed} className='data-[subscribed=true]:!bg-foreground/[0.12] rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>{user?.subscribed ? "Unfollow" : "Follow"}</Button>
 				) : (
 					<Button className='rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>Edit bio</Button>
 				)}
