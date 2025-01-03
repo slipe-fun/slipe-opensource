@@ -68,7 +68,7 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 							className='w-full overflow-y-auto flex flex-col gap-5'
 						>
 							{followers.map(follower => (
-								<User user={follower} />
+								<User setModalOpen={setOpen} user={follower} />
 							))}
 						</InfiniteScroll>
 					) : (
