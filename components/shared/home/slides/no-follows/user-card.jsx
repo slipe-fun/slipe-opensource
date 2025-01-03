@@ -3,7 +3,7 @@ import PixelAvatar from "@/components/shared/pixels-avatar";
 import cdn from "@/constants/cdn";
 import follow from "@/lib/users/follow";
 import { useStorage } from "@/hooks/contexts/session";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShufflePixels, PixelsColors } from "@/lib/utils";
 
 export default function UserCard({ user }) {
@@ -21,6 +21,8 @@ export default function UserCard({ user }) {
 			else setIsFollowed(false);
 		}
 	}
+
+	useEffect(() => setIsFollowed(user?.subscribed), [user])
 
 	return (
 		<div onClick={followUser} className='rounded-3xl relative w-full aspect-square overflow-hidden'>
