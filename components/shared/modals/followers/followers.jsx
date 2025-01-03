@@ -10,6 +10,7 @@ import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Skeleton } from "@/components/ui/skeleton";
+import UserModal from "../user-modal/user-modal";
 
 export default function FollowersModal({ children, user, open, scrollableTarget, setOpen }) {
 	const [searchValue, setSearchValue] = useState();
@@ -17,6 +18,8 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 
 	const [followers, setFollowers] = useState([]);
 	const [page, setPage] = useState(1);
+	const [currentUser, setCurrentUser] = useState();
+	const [userModalOpen, setUserModalOpen] = useState(false);
 
 	const { token, store } = useStorage();
 
@@ -45,7 +48,7 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
 
 	return (
-		<Drawer open={open} onOpenChange={setOpen}>
+		<><Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>{children}</DrawerTrigger>
 			<DrawerContent className='bg-modal border-0'>
 				<DrawerHeader
@@ -68,7 +71,7 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 							className='w-full overflow-y-auto flex flex-col gap-5'
 						>
 							{followers.map(follower => (
-								<User setModalOpen={setOpen} user={follower} />
+								<User setCurrentUser={setCurrentUser} setUserModalOpen={setUserModalOpen} setModalOpen={setOpen} user={follower} />
 							))}
 						</InfiniteScroll>
 					) : (
@@ -81,17 +84,17 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 					)}
 					{isLoading
 						? [...Array(8).keys()].map(index => (
-								<div className='flex justify-between' key={index}>
-									<div className='flex gap-2'>
-										<Skeleton className='rounded-full w-12 h-12' />
-										<div className="h-12 flex flex-col gap-[0.375rem]">
-											<Skeleton className='h-full w-28' />
-											<Skeleton className='h-full w-20' />
-										</div>
+							<div className='flex justify-between' key={index}>
+								<div className='flex gap-2'>
+									<Skeleton className='rounded-full w-12 h-12' />
+									<div className="h-12 flex flex-col gap-[0.375rem]">
+										<Skeleton className='h-full w-28' />
+										<Skeleton className='h-full w-20' />
 									</div>
-									<Skeleton className='h-12 w-24 rounded-full' />
 								</div>
-						  ))
+								<Skeleton className='h-12 w-24 rounded-full' />
+							</div>
+						))
 						: null}
 				</ul>
 				<DrawerFooter
@@ -109,5 +112,7 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 				</DrawerFooter>
 			</DrawerContent>
 		</Drawer>
+		<UserModal setOpen={setUserModalOpen} open={userModalOpen} user={currentUser} />
+		</>
 	);
 }

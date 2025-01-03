@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/button";
 import cdn from "@/constants/cdn";
 import PixelAvatar from "@/components/shared/pixels-avatar";
 import follow from "@/lib/users/follow";
-import UserModal from "../user-modal/user-modal";
 
-export default function User({ user, setModalOpen }) {
+export default function User({ user, setCurrentUser, setModalOpen, setUserModalOpen }) {
 	const [localUser, setLocalUser] = useState(user);
-	const [open, setOpen] = useState(false);
 	const [state, setState] = useState(localUser?.subscribed);
 	const { token, store } = useStorage();
 
@@ -29,14 +27,9 @@ export default function User({ user, setModalOpen }) {
 		setState(user?.subscribed);
 	}, [user]);
 
-	const dd = () => {
-		setOpen(true)
-		setModalOpen(false)	
-	}
-
 	return (
 		<div className='w-full flex gap-3 duration-200 ease-out '>
-			<div onClick={() => dd()} className='w-full flex gap-3 active:opacity-80 items-center overflow-hidden'>
+			<div onClick={() => {setCurrentUser(localUser); setModalOpen(false); setUserModalOpen(true)}} className='w-full flex gap-3 active:opacity-80 items-center overflow-hidden'>
 				{localUser?.avatar ? (
 					<img loading='lazy' className='rounded-full w-12 h-12' src={`${cdn}/avatars/${localUser?.avatar}`} />
 				) : (
@@ -54,7 +47,6 @@ export default function User({ user, setModalOpen }) {
 			<Button data-subscribed={state} className='data-[subscribed=true]:!bg-[#1F1F1F] rounded-full' onClick={subscribe}>
 				{state ? "Unfollow" : "Follow"}
 			</Button>
-			<UserModal setOpen={setOpen} open={open} user={user} />
 		</div>
 	);
 }
