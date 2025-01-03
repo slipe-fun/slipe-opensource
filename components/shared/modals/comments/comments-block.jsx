@@ -40,7 +40,7 @@ export default function CommentsBlock({
 
 	return (
 		<ul
-			id="commentsScroll"
+			id={id}
 			data-shadowed={inputFocus}
 			className={cn(
 				"w-full duration-200 !h-[31.5rem] overflow-y-auto ease-out data-[shadowed=true]:opacity-40 px-5 relative pb-[5.5rem] flex flex-col gap-5",

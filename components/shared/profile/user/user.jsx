@@ -13,6 +13,12 @@ export default function User({ user = {}, scrollProgress, isModal }) {
 	const covering = useTransform(scrollProgress, value => value >= 160);
 	const [isCovering, setIsCovering] = useState(covering.get());
 	const [isAvatar, setIsAvatar] = useState(false);
+	const [isFollowers, setIsFollowers] = useState(false);
+	const [dateId, setDateId] = useState(0);
+
+	useEffect(() => {
+		setDateId(new Date().getTime());
+	}, []);
 
 	useEffect(() => {
 		const unsubscribe = covering.on("change", setIsCovering);
@@ -43,7 +49,7 @@ export default function User({ user = {}, scrollProgress, isModal }) {
 						pixels={user.pixel_order}
 					/>
 				)}
-				<FollowersModal user={{ username: "sigma"}}>
+				<FollowersModal user={user} open={isFollowers} setOpen={setIsFollowers} scrollableTarget={isModal ? `followersScrollModal-${dateId}` : 'followersScroll'}>
 					<div className='h-1/2 flex items-center active:opacity-80 duration-200 ease-out'>
 						<p className='text-lg font-medium'>
 							<span>{user.subscribers || 0}</span> <span className='text-foreground/50'>Followers</span>
