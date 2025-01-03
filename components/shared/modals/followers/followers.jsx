@@ -9,6 +9,7 @@ import api from "@/constants/api";
 import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function FollowersModal({ children, user, open, scrollableTarget, setOpen }) {
 	const [searchValue, setSearchValue] = useState();
@@ -19,13 +20,13 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 
 	const { token, store } = useStorage();
 
-	const url = open ? `${api.v2}/user/${user?.id}/followers?page=${page}` : null
+	const url = open ? `${api.v2}/user/${user?.id}/followers?page=${page}` : null;
 
 	const {
 		data: followersRequest,
 		isLoading: isLoading,
-		error: error
-	} = useCacheFetcher(url, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }))
+		error: error,
+	} = useCacheFetcher(url, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
 	useEffect(() => {
 		if (followersRequest?.success && !error) {
@@ -38,7 +39,7 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 			setFollowers([]);
 			setPage(1);
 		}
-	}, [open])
+	}, [open]);
 
 	if (error)
 		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
@@ -66,7 +67,9 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 							dataLength={followers?.length}
 							className='w-full overflow-y-auto flex flex-col gap-5'
 						>
-							{followers.map(follower => <User user={follower} />)}
+							{followers.map(follower => (
+								<User user={follower} />
+							))}
 						</InfiniteScroll>
 					) : (
 						<NoContent
@@ -76,7 +79,20 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 							image='nothing.png'
 						/>
 					)}
-					{isLoading ? <h1>Loading...</h1> : null}
+					{isLoading
+						? [...Array(8).keys()].map(index => (
+								<div className='flex justify-between' key={index}>
+									<div className='flex gap-2'>
+										<Skeleton className='rounded-full w-12 h-12' />
+										<div className="h-12 flex flex-col gap-[0.375rem]">
+											<Skeleton className='h-full w-28' />
+											<Skeleton className='h-full w-20' />
+										</div>
+									</div>
+									<Skeleton className='h-12 w-24 rounded-full' />
+								</div>
+						  ))
+						: null}
 				</ul>
 				<DrawerFooter
 					data-shadowed={user?.subscribers === "1"}
