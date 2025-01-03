@@ -5,6 +5,8 @@ import PixelAvatar from "../../pixels-avatar";
 import { useEffect, useState } from "react";
 import { AvatarModal } from "../profile";
 import FollowersModal from "../../modals/followers/followers";
+import { useStorage } from "@/hooks/contexts/session";
+import follow from "@/lib/users/follow";
 
 export default function User({ user = {}, scrollProgress, isModal }) {
 	const invertInteger = (num, center = 0.5) => center * 2 - num;
@@ -15,15 +17,28 @@ export default function User({ user = {}, scrollProgress, isModal }) {
 	const [isAvatar, setIsAvatar] = useState(false);
 	const [isFollowers, setIsFollowers] = useState(false);
 	const [dateId, setDateId] = useState(0);
+	const { token, store } = useStorage();
+	const [isSubscribed, setIsSubscribed] = useState(false);
 
-	useEffect(() => {
-		setDateId(new Date().getTime());
-	}, []);
+	async function subscribe() {
+		if (isSubscribed) setIsSubscribed(false);
+		else setIsSubscribed(true);
+
+		const followRequest = await follow(user?.id, token);
+
+		if (followRequest?.error) {
+			if (isSubscribed) setIsSubscribed(true);
+			else setIsSubscribed(false);
+		}
+	}
+
+	useEffect(() => setDateId(new Date().getTime()), []);
 
 	useEffect(() => {
 		const unsubscribe = covering.on("change", setIsCovering);
 		return () => unsubscribe();
 	}, [covering]);
+	useEffect(() => setIsSubscribed(user?.subscribed), [user])
 
 	return (
 		<motion.div data-covering={isCovering} className='w-full data-[covering=true]:z-10 flex flex-col -mb-16 z-40 -translate-y-16 gap-1 px-5'>
@@ -63,7 +78,7 @@ export default function User({ user = {}, scrollProgress, isModal }) {
 					<span className='text-foreground/50 w-full text-lg'>@{user.username || "unknown"}</span>
 				</div>
 				{isModal ? (
-					<Button data-subscribed={user?.subscribed} className='data-[subscribed=true]:!bg-foreground/[0.12] rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>{user?.subscribed ? "Unfollow" : "Follow"}</Button>
+					<Button onClick={subscribe} data-subscribed={isSubscribed} className='data-[subscribed=true]:!bg-foreground/[0.12] rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>{isSubscribed ? "Unfollow" : "Follow"}</Button>
 				) : (
 					<Button className='rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>Edit bio</Button>
 				)}

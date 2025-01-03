@@ -15,9 +15,7 @@ export default function UserModal({ open, setOpen, user }) {
 		root.borderRadius = open ? "24px" : "0px";
 	}, [open]);
 
-	useEffect(() => {
-		setDateId(new Date().getTime());
-	}, []);
+	useEffect(() => setDateId(new Date().getTime()); []);
 
 	return (
 		<PageModal id='profileModal' className='bg-background duration-300 ease-out overflow-hidden' open={open}>
