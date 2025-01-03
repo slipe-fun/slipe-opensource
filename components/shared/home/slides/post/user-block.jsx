@@ -52,7 +52,7 @@ export default function UserBlock({ user, setUser, date }) {
 			<Button data-subscribed={state} className='data-[subscribed=true]:!bg-[#1F1F1F] rounded-full' onClick={subscribe}>
 				{state ? "Unfollow" : "Follow"}
 			</Button>
-			<UserModal setOpen={setOpen} user={localUser} open={open} />
+			<UserModal setOpen={setOpen} user={localUser} open={open} subscribe={subscribe} />
 		</div>
 	);
 }

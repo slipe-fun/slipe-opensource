@@ -8,7 +8,7 @@ import FollowersModal from "../../modals/followers/followers";
 import { useStorage } from "@/hooks/contexts/session";
 import follow from "@/lib/users/follow";
 
-export default function User({ user = {}, scrollProgress, isModal }) {
+export default function User({ user = {}, scrollProgress, subscribe, isModal }) {
 	const invertInteger = (num, center = 0.5) => center * 2 - num;
 	const scale = useTransform(scrollProgress, value => invertInteger(value * 0.001));
 	const opacity = useTransform(scrollProgress, value => invertInteger(value * 0.008));
@@ -20,7 +20,8 @@ export default function User({ user = {}, scrollProgress, isModal }) {
 	const { token, store } = useStorage();
 	const [isSubscribed, setIsSubscribed] = useState(false);
 
-	async function subscribe() {
+	async function subscribeUser() {
+		if (subscribe) subscribe()
 		if (isSubscribed) setIsSubscribed(false);
 		else setIsSubscribed(true);
 
@@ -78,7 +79,7 @@ export default function User({ user = {}, scrollProgress, isModal }) {
 					<span className='text-foreground/50 w-full text-lg'>@{user.username || "unknown"}</span>
 				</div>
 				{isModal ? (
-					<Button onClick={subscribe} data-subscribed={isSubscribed} className='data-[subscribed=true]:!bg-foreground/[0.12] rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>{isSubscribed ? "Unfollow" : "Follow"}</Button>
+					<Button onClick={subscribeUser} data-subscribed={isSubscribed} className='data-[subscribed=true]:!bg-foreground/[0.12] rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>{isSubscribed ? "Unfollow" : "Follow"}</Button>
 				) : (
 					<Button className='rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>Edit bio</Button>
 				)}

@@ -4,7 +4,7 @@ import { PageModal } from "../../modals";
 import { useRef, useEffect, useState } from "react";
 import Header from "./header";
 
-export default function UserModal({ open, setOpen, user }) {
+export default function UserModal({ open, setOpen, user, subscribe }) {
 	const profileModalRef = useRef(null);
 	const { scrollY } = useScroll({ container: open ? profileModalRef : null, offset: ["40%", "-0%"] });
 	const root = document?.getElementById("root")?.style;
@@ -23,7 +23,7 @@ export default function UserModal({ open, setOpen, user }) {
 			<div id={`profileScrollModal-${dateId}`} ref={open ? profileModalRef : null} className='overflow-y-auto flex flex-col w-full h-full'>
 				<Banner user={user} scrollProgress={scrollY} />
 				<div className='w-full min-h-full flex flex-col gap-5'>
-					<User user={user} scrollProgress={scrollY} isModal />
+					<User user={user} scrollProgress={scrollY} subscribe={subscribe} isModal />
 					<Description user={user} isModal />
 					<Publications dateId={dateId} user={user} isModal />
 				</div>{" "}
