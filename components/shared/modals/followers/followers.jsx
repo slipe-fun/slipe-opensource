@@ -1,6 +1,6 @@
 import { Drawer, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import SearchBar from "../search-modal/search-bar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import User from "./user";
 import NoContent from "../../no-content";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
@@ -13,39 +13,60 @@ import { Skeleton } from "@/components/ui/skeleton";
 import UserModal from "../user-modal/user-modal";
 
 export default function FollowersModal({ children, user, open, scrollableTarget, setOpen }) {
-	const [searchValue, setSearchValue] = useState();
+	const [searchValue, setSearchValue] = useState("");
 	const [focus, setFocus] = useState(false);
-
 	const [followers, setFollowers] = useState([]);
 	const [page, setPage] = useState(1);
 	const [currentUser, setCurrentUser] = useState();
 	const [userModalOpen, setUserModalOpen] = useState(false);
-
-	const { token, store } = useStorage();
-
-	const url = open ? `${api.v2}/user/${user?.id}/followers?page=${page}` : null;
-
-	const {
-		data: followersRequest,
-		isLoading: isLoading,
-		error: error,
-	} = useCacheFetcher(url, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
-
+	const { token } = useStorage();
+  
+	const requestRef = useRef(0);
+  
+	const url = open
+	  ? searchValue?.trim()?.length > 0
+		? `${api.v2}/user/${user?.id}/followers/search?q=${searchValue}&page=${page}`
+		: `${api.v2}/user/${user?.id}/followers?page=${page}`
+	  : null;
+  
+	const { data: followersRequest, isLoading, error } = useCacheFetcher(url, async url => {
+	  requestRef.current += 1;
+	  const currentRequest = requestRef.current;
+	  const response = await fetcher(url, "get", null, { Authorization: "Bearer " + token });
+	  if (currentRequest === requestRef.current) {
+		return response;
+	  }
+	  return null;
+	});
+  
 	useEffect(() => {
-		if (followersRequest?.success && !error) {
-			setFollowers(prev => GetUniqueById([...prev, ...followersRequest?.success]));
-		}
-	}, [followersRequest]);
-
-	useEffect(() => {
-		if (!open) {
-			setFollowers([]);
-			setPage(1);
-		}
+	  if (!open) {
+		setFollowers([]);
+		setPage(1);
+	  }
 	}, [open]);
-
-	if (error)
-		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
+  
+	useEffect(() => {
+	  setPage(1);
+	  setFollowers([]);
+	}, [searchValue]);
+  
+	useEffect(() => {
+	  if (followersRequest?.success && !error) {
+		setFollowers(prev => GetUniqueById([...prev, ...followersRequest?.success]));
+	  }
+	}, [followersRequest]);
+  
+	if (error) {
+	  return (
+		<NoContent
+		  image="error.png"
+		  title="No data"
+		  primary="Try reloading the page or app"
+		  className="py-12 animate-[fadeIn_0.3s_ease-out]"
+		/>
+	  );
+	}
 
 	return (
 		<><Drawer open={open} onOpenChange={setOpen}>
