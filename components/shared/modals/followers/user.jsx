@@ -28,8 +28,8 @@ export default function User({ user }) {
 	}, [user]);
 
 	return (
-		<div className='w-full flex gap-3 duration-200 ease-out active:opacity-80'>
-			<div className='w-full flex gap-3 items-center overflow-hidden'>
+		<div className='w-full flex gap-3 duration-200 ease-out '>
+			<div className='w-full flex gap-3 active:opacity-80 items-center overflow-hidden'>
 				{localUser?.avatar ? (
 					<img loading='lazy' className='rounded-full w-12 h-12' src={`${cdn}/avatars/${localUser?.avatar}`} />
 				) : (
