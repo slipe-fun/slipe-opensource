@@ -1,9 +1,28 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { forwardRef } from "react";
+import { forwardRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-const PageModal = forwardRef(({ children, open, className, ...props }, ref) => {
+export function Sffd({element}) {
+	const root = document?.getElementById(element ? element : "root")?.style;
+
+	useEffect(() => {
+		if (root) {
+			root.transform = `scale(0.95)`;
+			root.borderRadius = "24px";
+		}
+		return () => {
+			if (root) {
+				root.transform = `scale(1)`;
+				root.borderRadius = "0px";
+			}
+		};
+	}, [root]);
+
+	return <></>;
+}
+
+const PageModal = forwardRef(({ children, open, className, element, ...props }, ref) => {
 	return (
 		<>
 			{createPortal(
@@ -25,9 +44,10 @@ const PageModal = forwardRef(({ children, open, className, ...props }, ref) => {
 				</AnimatePresence>,
 				document.body
 			)}
+			{open ? <Sffd element={element}/> : null}
 		</>
 	);
 });
 
-PageModal.displayName = "PageModal"
-export default PageModal
+PageModal.displayName = "PageModal";
+export default PageModal;

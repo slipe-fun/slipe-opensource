@@ -2,29 +2,21 @@ import { useClickAway } from "react-use";
 import { PageModal } from "../../modals";
 import PixelAvatar from "../../pixels-avatar";
 import cdn from "@/constants/cdn";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import icons from "@/components/ui/icons/icons";
 import Svg from "@/components/ui/icons/svg";
 import { Button } from "@/components/ui/button";
 
 export default function AvatarModal({ user, open, setOpen, isModal }) {
 	const avatarModalRef = useRef(null);
-	const root = isModal ? document?.getElementById("profileModal")?.style : document?.getElementById("root")?.style;
 
 	useClickAway(avatarModalRef, () => {
 		setOpen(false);
 	});
 
-	useEffect(() => {
-		if (root) {
-			root.transform = `scale(${open ? 0.95 : 1})`;
-			root.borderRadius = open ? "24px" : "0px";
-		}
-	}, [open]);
-
 	return (
 		<PageModal
-			scaleElement={isModal ? document?.getElementById("profileModal")?.style : null}
+			element={isModal ? "profileModal" : null}
 			className='flex justify-center flex-col items-center bg-background/35 p-12 backdrop-blur-lg'
 			open={open}
 		>
