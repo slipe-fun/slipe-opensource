@@ -29,7 +29,14 @@ export default function User({ user, setCurrentUser, setModalOpen, setUserModalO
 
 	return (
 		<div className='w-full flex gap-3 duration-200 ease-out '>
-			<div onClick={() => {setCurrentUser(localUser); setModalOpen(false); setUserModalOpen(true)}} className='w-full flex gap-3 active:opacity-80 items-center overflow-hidden'>
+			<div
+				onClick={() => {
+					setCurrentUser(localUser);
+					setModalOpen(false);
+					setUserModalOpen(true);
+				}}
+				className='w-full flex gap-3 active:opacity-80 items-center overflow-hidden'
+			>
 				{localUser?.avatar ? (
 					<img loading='lazy' className='rounded-full w-12 h-12' src={`${cdn}/avatars/${localUser?.avatar}`} />
 				) : (
@@ -44,7 +51,7 @@ export default function User({ user, setCurrentUser, setModalOpen, setUserModalO
 					<span className='text-sm text-white/50'>{user.username}</span>
 				</div>
 			</div>
-			<Button data-subscribed={state} className='data-[subscribed=true]:!bg-[#1F1F1F] rounded-full' onClick={subscribe}>
+			<Button data-subscribed={state} className='data-[subscribed=true]:!bg-foreground/[0.08] rounded-full' onClick={subscribe}>
 				{state ? "Unfollow" : "Follow"}
 			</Button>
 		</div>
