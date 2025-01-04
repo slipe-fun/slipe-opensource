@@ -60,10 +60,6 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 		}
 	}, [followersRequest]);
 
-	if (error) {
-		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
-	}
-
 	return (
 		<>
 			<Drawer open={open} onOpenChange={setOpen}>
@@ -73,40 +69,44 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 						<DrawerTitle className='font-medium'>{user.username}'s followers</DrawerTitle>
 					</DrawerHeader>
 					<ul id={scrollableTarget} className='w-full duration-200 !h-[32.5rem] overflow-y-auto ease-out px-5 relative pb-24 flex flex-col gap-5'>
-						{followers.length > 0 ? (
-							<InfiniteScroll
-								hasMore={followers?.length < Number(user?.subscribers)}
-								next={() => setPage(prev => prev + 1)}
-								scrollableTarget={scrollableTarget}
-								dataLength={followers?.length}
-								className='w-full overflow-y-auto flex flex-col gap-5'
-							>
-								{followers.map(follower => (
-									<User setCurrentUser={setCurrentUser} setUserModalOpen={setUserModalOpen} setModalOpen={setOpen} user={follower} />
-								))}
-							</InfiniteScroll>
-						) : (
-							<NoContent
-								className='h-full p-0 animate-[fadeIn_0.3s_ease-out]'
-								title="You don't have subscribers yet"
-								primary='Perhaps the first subscribers will be here soon'
-								image='nothing.png'
-							/>
-						)}
-						{isLoading
-							? [...Array(8).keys()].map(index => (
-									<div className='flex justify-between' key={index}>
-										<div className='flex gap-2'>
-											<Skeleton className='rounded-full w-12 h-12' />
-											<div className='h-12 flex flex-col gap-[0.375rem]'>
-												<Skeleton className='h-full w-28' />
-												<Skeleton className='h-full w-20' />
-											</div>
-										</div>
-										<Skeleton className='h-12 w-24 rounded-full' />
-									</div>
-							  ))
-							: null}
+						{!error ?
+							<>
+								{user.subscribers > 0 ?
+									<>{followers.length > 0 ? (
+										<InfiniteScroll
+											hasMore={followers?.length < Number(user?.subscribers)}
+											next={() => setPage(prev => prev + 1)}
+											scrollableTarget={scrollableTarget}
+											dataLength={followers?.length}
+											className='w-full overflow-y-auto flex flex-col gap-5'
+										>
+											{followers.map(follower => (
+												<User setCurrentUser={setCurrentUser} setUserModalOpen={setUserModalOpen} setModalOpen={setOpen} user={follower} />
+											))}
+										</InfiniteScroll>
+									) : null}
+										{isLoading
+											? [...Array(8).keys()].map(index => (
+												<div className='flex justify-between' key={index}>
+													<div className='flex gap-2'>
+														<Skeleton className='rounded-full w-12 h-12' />
+														<div className='h-12 flex flex-col gap-[0.375rem]'>
+															<Skeleton className='h-full w-28' />
+															<Skeleton className='h-full w-20' />
+														</div>
+													</div>
+													<Skeleton className='h-12 w-24 rounded-full' />
+												</div>
+											))
+											: null}</>
+									: <NoContent
+										className='h-full p-0 animate-[fadeIn_0.3s_ease-out]'
+										title="You don't have subscribers yet"
+										primary='Perhaps the first subscribers will be here soon'
+										image='nothing.png'
+									/>}
+							</>
+						: <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />}
 					</ul>
 					<DrawerFooter
 						data-shadowed={user?.subscribers === "1"}
