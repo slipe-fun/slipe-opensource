@@ -9,7 +9,7 @@ import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
 import api from "@/constants/api";
 
-export default function CommentBlock({ id, user, content, likes, liked, date, updateComment }) {
+export default function CommentBlock({ id, user, content, likes, liked, date, setOpen, setSheetOpen, updateComment }) {
 	const [localLikes, setLikes] = useState();
 	const [localLiked, setLiked] = useState();
 	const { token, storage } = useStorage();
@@ -35,25 +35,24 @@ export default function CommentBlock({ id, user, content, likes, liked, date, up
 		setLiked(liked);
 	}, [likes, liked]);
 
-
 	return (
 		<>
 			<div className='w-full flex gap-3 items-center'>
-				<div className='w-full flex gap-3 duration-200 ease-out items-center overflow-hidden'>
-					{user?.avatar ? (
-						<img loading="lazy" className='rounded-full min-w-12 object-cover bg-center w-12 h-12' src={`${cdn}/avatars/${user?.avatar}`} />
-					) : (
-						<PixelAvatar size={48} username={user?.username} pixels={user?.pixel_order} />
-					)}
-					<div className='flex flex-col w-full overflow-hidden'>
-						<div className='w-full flex gap-1'>
-							<div className='whitespace-nowrap overflow-hidden max-w-fit text-ellipsis font-medium text-foreground'>
-								{user?.nickname ? user?.nickname : user?.username}
+					<div onClick={() => {setOpen(true); setSheetOpen ? setSheetOpen(false) : null}} className='w-full flex gap-3 duration-200 ease-out items-center overflow-hidden'>
+						{user?.avatar ? (
+							<img loading='lazy' className='rounded-full min-w-12 object-cover bg-center w-12 h-12' src={`${cdn}/avatars/${user?.avatar}`} />
+						) : (
+							<PixelAvatar size={48} username={user?.username} pixels={user?.pixel_order} />
+						)}
+						<div className='flex flex-col w-full overflow-hidden'>
+							<div className='w-full flex gap-1'>
+								<div className='whitespace-nowrap overflow-hidden max-w-fit text-ellipsis font-medium text-foreground'>
+									{user?.nickname ? user?.nickname : user?.username}
+								</div>
 							</div>
+							<span className='text-sm text-foreground/50'>{TimePassedFromDate(date)}</span>
 						</div>
-						<span className='text-sm text-foreground/50'>{TimePassedFromDate(date)}</span>
 					</div>
-				</div>
 				<Button
 					data-liked={localLiked}
 					className='rounded-full data-[liked=true]:bg-red-foreground data-[liked=true]:text-white text-foreground hover:text-white hover:bg-red-foreground bg-foreground/[0.08] px-5 min-h-11 h-11 text-sm gap-2'
@@ -64,6 +63,7 @@ export default function CommentBlock({ id, user, content, likes, liked, date, up
 				</Button>
 			</div>
 			<p className='pl-[3.75rem] break-words'>{content}</p>
+			
 		</>
 	);
 }

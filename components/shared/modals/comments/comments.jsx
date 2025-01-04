@@ -7,12 +7,15 @@ import api from "@/constants/api";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import CommentInput from "./comment-input";
 import CommentsBlock from "./comments-block";
+import UserModal from "../user-modal/user-modal";
 
 export default function CommentsModal({ children, postId, open, setOpen }) {
 	const [inputFocus, setInputFocus] = useState(false);
 	const [commentText, setCommentText] = useState("");
 	const [comments, setComments] = useState([]);
 	const [commentsCount, setCommentsCount] = useState(0);
+	const [clickedUser, setClickedUser] = useState();
+	const [userOpen, setUserOpen] = useState(false);
 	const [isButtonLoading, setIsButtonLoading] = useState(false);
 	const { token, storage } = useStorage();
 
@@ -51,6 +54,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 	}
 
 	return (
+		<>
 		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>{children}</DrawerTrigger>
 			<DrawerContent className='bg-modal border-0'>
@@ -63,6 +67,9 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 				<CommentsBlock
 					setCommentsCount={setCommentsCount}
 					commentsCount={commentsCount}
+					setOpen={setUserOpen}
+					setClickedUser={setClickedUser}
+					setSheetOpen={setOpen}
 					comments={comments}
 					postId={postId}
 					setComments={setComments}
@@ -81,5 +88,6 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 				</DrawerFooter>
 			</DrawerContent>
 		</Drawer>
+		<UserModal open={userOpen} setOpen={setUserOpen} user={clickedUser}/></>
 	);
 }

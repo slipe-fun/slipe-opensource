@@ -19,7 +19,10 @@ export default function CommentsBlock({
 	comments,
 	setComments,
 	postId,
-    isPostModal
+    isPostModal,
+	setOpen,
+	setSheetOpen,
+	setClickedUser
 }) {
 	const [page, setPage] = useState(1);
 	const urlKey = postId ? `${api.v1}/comment/get?post_id=${postId}&page=${page}` : null;
@@ -69,6 +72,8 @@ export default function CommentsBlock({
 							>
 								<CommentBlock
 									id={comment.id}
+									setOpen={(data) => {setOpen(data); setClickedUser(comment.author)}}
+									setSheetOpen={setSheetOpen}
 									user={comment.author}
 									content={comment.text}
 									likes={comment.likes}

@@ -2,18 +2,22 @@ import { EffectCreative } from "swiper/modules";
 import { SwiperSlide, Swiper } from "swiper/react";
 import Post from "../../home/slides/post/post";
 import CommentsBlock from "../comments/comments-block";
+import { useEffect, useState } from "react";
+import UserModal from "../user-modal/user-modal";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-creative";
-import { useEffect, useState } from "react";
 
 export default function ContentSlider({ setProgess, setIsTransition, user, setUser, post, commentsCount, comments, setComments, setCommentsCount, inputFocus, deletedPost }) {
 	const [dateId, setDateId] = useState(0);
+	const [open, setOpen] = useState(false);
+	const [clickedUser, setClickedUser] = useState();
 
 	useEffect(() => {
 		setDateId(new Date().getTime())
 	}, [])
+
 	return (
 		<Swiper
 			onProgress={swiper => setProgess(swiper.progress)}
@@ -50,11 +54,14 @@ export default function ContentSlider({ setProgess, setIsTransition, user, setUs
 					isPostModal
 					id={`postModalScroller-${dateId}`}
 					comments={comments}
+					setOpen={setOpen}
+					setClickedUser={setClickedUser}
 					setComments={setComments}
 					commentsCount={commentsCount}
 					setCommentsCount={setCommentsCount}
 					postId={post?.id}
 				/>
+				<UserModal open={open} setOpen={setOpen} user={clickedUser}/>
 			</SwiperSlide>
 		</Swiper>
 	);

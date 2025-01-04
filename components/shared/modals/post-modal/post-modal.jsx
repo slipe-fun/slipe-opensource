@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { PageModal } from "../../modals";
 import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
