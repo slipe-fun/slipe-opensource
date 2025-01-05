@@ -4,7 +4,7 @@ import { motion, useTransform } from "framer-motion";
 import PixelAvatar from "../../pixels-avatar";
 import { useEffect, useState } from "react";
 import { AvatarModal } from "../profile";
-import FollowersModal from "../../modals";
+import { FollowersModal } from "../../modals";
 import { useStorage } from "@/hooks/contexts/session";
 import follow from "@/lib/users/follow";
 
