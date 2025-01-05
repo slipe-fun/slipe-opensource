@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { DrawerFooter } from "@/components/ui/drawer";
 import { useStorage } from "@/hooks/contexts/session";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
+import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 import api from "@/constants/api";
 import { fetcher } from "@/lib/utils";
 
@@ -26,7 +27,8 @@ export default function Footer({ post, deleteBlog }) {
 		cache: true
 	});
 
-	const copyLink = () => {
+	const copyLink = async () => {
+		await writeText(`https://slipe.fun/p/${post?.id}`)
 		toast.success("Post link copied!", { className: "bg-green text-green-foreground" });
 		setIsCopied(true);
 		setTimeout(() => {
