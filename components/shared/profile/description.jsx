@@ -1,5 +1,5 @@
 import { useState } from "react";
-import DescriptionModal from "../modals/description/description";
+import { DescriptionModal } from "../modals";
 
 export default function Description({ user, changeUserDescription, isModal }) {
 	const [isEdit, setIsEdit] = useState(false);

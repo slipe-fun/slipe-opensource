@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import cdn from "@/constants/cdn";
 import PixelAvatar from "@/components/shared/pixels-avatar";
 import follow from "@/lib/users/follow";
-import UserModal from "@/components/shared/modals/user-modal/user-modal";
+import { UserModal } from "@/components/shared/modals";
 
 export default function UserBlock({ user, setUser, date }) {
 	const [localUser, setLocalUser] = useState(user);

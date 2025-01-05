@@ -7,7 +7,7 @@ import api from "@/constants/api";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import CommentInput from "./comment-input";
 import CommentsBlock from "./comments-block";
-import UserModal from "../user-modal/user-modal";
+import { UserModal } from "../../modals";
 
 export default function CommentsModal({ children, postId, open, setOpen }) {
 	const [inputFocus, setInputFocus] = useState(false);

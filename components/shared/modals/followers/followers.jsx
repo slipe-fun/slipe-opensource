@@ -10,7 +10,7 @@ import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Skeleton } from "@/components/ui/skeleton";
-import UserModal from "../user-modal/user-modal";
+import { UserModal } from "../../modals";
 
 export default function FollowersModal({ children, user, open, scrollableTarget, setOpen }) {
 	const [searchValue, setSearchValue] = useState("");

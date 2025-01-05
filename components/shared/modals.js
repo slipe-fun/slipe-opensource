@@ -6,3 +6,7 @@ export { default as DeleteModal } from "@/components/shared/modals/delete/delete
 export { default as ReportModal } from "@/components/shared/modals/report/report"
 export { default as PageModal } from "@/components/shared/modals/page-modal/page-modal"
 export { default as PostModal } from "@/components/shared/modals/post-modal/post-modal"
+export { default as DescriptionModal } from "@/components/shared/modals/description/description"
+export { default as FollowersModal } from "@/components/shared/modals/followers/followers"
+export { default as UserModal } from "@/components/shared/modals/user-modal/user-modal"
+export { default as SettingsModal } from "@/components/shared/modals/settings/settings"

@@ -68,19 +68,19 @@ export default function BlogsSlider({ blogs }) {
 				creativeEffect={{
 					limitProgress: 4,
 					prev: {
-						opacity: 0.4,
+						shadow: true,
 						scale: 0.75,
 						rotate: [0, 0, -10],
 						translate: [-75, 0, 0],
 					},
 					next: {
-						opacity: 0.4,
+						shadow: true,
 						rotate: [0, 0, 10],
 						scale: 0.75,
 						translate: [75, 0, 0],
 					},
 				}}
-				className='w-full h-full py-[6.5rem] animate-[fadeIn_0.3s_ease-out]'
+				className='w-full h-full py-[6.5rem] home-swiper animate-[fadeIn_0.3s_ease-out]'
 				onSlideChange={onSlideChange}
 				virtual={true}
 			>

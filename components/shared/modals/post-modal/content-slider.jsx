@@ -3,7 +3,7 @@ import { SwiperSlide, Swiper } from "swiper/react";
 import Post from "../../home/slides/post/post";
 import CommentsBlock from "../comments/comments-block";
 import { useEffect, useState } from "react";
-import UserModal from "../user-modal/user-modal";
+import { UserModal } from "../../modals";
 
 import "swiper/css";
 import "swiper/css/pagination";

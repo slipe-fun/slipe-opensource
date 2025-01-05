@@ -24,7 +24,7 @@ export default function Header() {
 					className='w-screen opacity-100 data-[isbg=false]:bg-background/90 data-[isbg=false]:backdrop-blur-2xl fixed z-50 p-4'
 				>
 					<div className='flex opacity-100 w-full gap-5 justify-between'>
-						{currentPage == "/" ? <HomeState url={currentPage} /> : currentPage == "/profile" ? <ProfileState url={currentPage} /> : null}
+						{currentPage == "/" ? <HomeState url={currentPage} /> : currentPage == "/profile" ? <ProfileState /> : null}
 					</div>
 				</header>
 			) : null}

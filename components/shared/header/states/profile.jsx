@@ -1,25 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Svg from "@/components/ui/icons/svg";
-import { Link } from "react-router";
+import { useStorage } from "@/hooks/contexts/session";
+import { writeText } from "@tauri-apps/plugin-clipboard-manager";
+import api from "@/constants/api";
+import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import icons from "@/components/ui/icons/icons";
 import { toast } from "sonner";
+import { fetcher } from "@/lib/utils";
+import { SettingsModal } from "../../modals";
 
-export default function StateProfile({ url }) {
+export default function StateProfile() {
 	const [isCopied, setIsCopied] = useState(false);
+	const [open, setOpen] = useState(false);
+	const { token, store } = useStorage();
+	const [user, setUser] = useState();
+	const {
+		data: userReq,
+		error: error,
+		isLoading: isLoading,
+	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
+		cache: true
+	});
+	
 
-	const copyLink = () => {
+	const copyLink = async () => {
+		await writeText(`https://slipe.fun/@${user?.username}`)
 		toast.success("Profile link copied!", { className: "bg-green text-green-foreground" });
 		setIsCopied(true);
 		setTimeout(() => {
 			setIsCopied(false);
 		}, 2500);
 	};
+
+	useEffect(() => setUser(userReq?.success[0]), [userReq])
+
 	return (
 		<>
 			<Button
 				data-copied={isCopied}
-				onClick={copyLink}
+				onClick={async () => copyLink()}
 				className='rounded-full data-[copied=true]:pointer-events-none hover:bg-black/35 data-[copied=true]:text-green-foreground relative bg-black/35 backdrop-blur-2xl'
 				size='icon'
 			>
@@ -35,15 +55,14 @@ export default function StateProfile({ url }) {
 				/>
 			</Button>
 			<Button
-				data-isactive={url == "/settings"}
+			data-active={open}
+				onClick={() => setOpen(true)}
 				size='icon'
-				asChild
-				className='rounded-full data-[isactive=false]:bg-black/35 backdrop-blur-2xl data-[isactive=true]:bg-white data-[isactive=false]:text-white data-[isactive=true]:text-black'
+				className='rounded-full data-[open=true]:bg-white hover:bg-black/35 data-[copied=true]:text-black relative bg-black/35 backdrop-blur-2xl'
 			>
-				<Link to='/settings'>
 					<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons["gear"]} />
-				</Link>
 			</Button>
+			<SettingsModal user={user} open={open} setOpen={setOpen}/>
 		</>
 	);
 }
