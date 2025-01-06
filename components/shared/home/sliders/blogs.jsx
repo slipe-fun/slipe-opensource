@@ -40,7 +40,7 @@ export default function BlogsSlider({ blogs }) {
 		const lastBlog = allBlogs[greatestIndex];
 
 		if (greatestIndex - currentSlide === 1) {
-			const reqBlogs = await fetcher(`${api.v1}/post/get?after=${lastBlog?.id}&user=${user.id}&limit=3`, "get", null, {
+			const reqBlogs = await fetcher(`${api.v1}/post/get?after=${lastBlog?.id}&user=${user.id}&limit=3&preferences=[${await store.get("preferences")}]`, "get", null, {
 				Authorization: "Bearer " + token,
 			});
 

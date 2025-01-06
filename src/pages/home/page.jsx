@@ -31,7 +31,7 @@ export default function Home() {
 		setBlogs([]);
 		(async () => {
 			setIsLoading(true);
-			const request = await fetcher(api.v1 + `/post/get?after=0&region=slavic${activeContent === "follows" ? "&subscribed=true" : ""}`, "get", null, {
+			const request = await fetcher(api.v1 + `/post/get?after=0&region=slavic${activeContent === "follows" ? "&subscribed=true" : `&preferences=[${await store.get("preferences")}]`}`, "get", null, {
 				Authorization: "Bearer " + token,
 			});
 			setIsLoading(false);

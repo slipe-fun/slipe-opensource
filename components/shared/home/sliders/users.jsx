@@ -21,7 +21,7 @@ export default function UsersSlider({ users, blogs, type }) {
 
 		if (greatestIndex - currentSlide === 1) {
 			const reqBlogs = await fetcher(
-				`${api.v1}/post/get?after=0&users=[${allUserIds}]&region=slavic${type === "follows" ? "&subscribed=true" : ""}`,
+				`${api.v1}/post/get?after=0&users=[${allUserIds}]&region=slavic${type === "follows" ? "&subscribed=true" : `&preferences=[${await store.get("preferences")}]`}`,
 				"get",
 				null,
 				{ Authorization: "Bearer " + token }

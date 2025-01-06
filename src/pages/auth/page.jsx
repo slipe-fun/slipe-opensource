@@ -111,6 +111,7 @@ export default function Auth() {
 			let preferences = [...Array(16).keys()].map(() => 1);
 			categoriesIndexes.map(index => preferences[index] = 2);
 			store.set("preferences", preferences);
+			window.location.href = "/";
 		}
 
 		if (signUpStage >= 3) return;
