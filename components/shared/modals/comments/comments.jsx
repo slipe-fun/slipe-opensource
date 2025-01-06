@@ -8,8 +8,9 @@ import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import CommentInput from "./comment-input";
 import CommentsBlock from "./comments-block";
 import { UserModal } from "../../modals";
+import updatePreference from "@/lib/utils/updatePreference";
 
-export default function CommentsModal({ children, postId, open, setOpen }) {
+export default function CommentsModal({ children, post, open, setOpen }) {
 	const [inputFocus, setInputFocus] = useState(false);
 	const [commentText, setCommentText] = useState("");
 	const [comments, setComments] = useState([]);
@@ -17,13 +18,15 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 	const [clickedUser, setClickedUser] = useState();
 	const [userOpen, setUserOpen] = useState(false);
 	const [isButtonLoading, setIsButtonLoading] = useState(false);
-	const { token, storage } = useStorage();
+	const { token, store } = useStorage();
+
+	const getUserURL = open ? api.v1 + "/account/info/get" : null;
 
 	const {
 		data: user,
 		error: userError,
 		isLoading: isUserLoading,
-	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
+	} = useCacheFetcher(getUserURL, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
 		cache: true
 	});
 
@@ -32,7 +35,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 
 		const formData = new FormData();
 		formData.append("text", commentText);
-		formData.append("post_id", postId);
+		formData.append("post_id", post?.id);
 
 		const result = await fetcher(api.v1 + `/comment/publish`, "post", formData, { Authorization: "Bearer " + token });
 
@@ -48,6 +51,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 			]);
 			setCommentsCount(commentsCount + 1);
 			setCommentText("");
+			await updatePreference(post?.category, store);
 		} else toast.error(result?.error, { className: "bg-red text-red-foreground z-50" });
 
 		setIsButtonLoading(false);
@@ -71,7 +75,7 @@ export default function CommentsModal({ children, postId, open, setOpen }) {
 					setClickedUser={setClickedUser}
 					setSheetOpen={setOpen}
 					comments={comments}
-					postId={postId}
+					postId={post?.id}
 					setComments={setComments}
 					inputFocus={inputFocus}
 				/>

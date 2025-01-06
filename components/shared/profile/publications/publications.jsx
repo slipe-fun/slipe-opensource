@@ -11,7 +11,7 @@ import Similar from "./slides/similar/similar";
 export default function Publications({ user, isModal, dateId }) {
 	const [swiper, setSwiper] = useState(null);
 	const [active, setActive] = useState(0);
-	const { token, storage } = useStorage();
+	const { token, store } = useStorage();
 
 	useEffect(() => {
 		swiper?.slideTo(active);

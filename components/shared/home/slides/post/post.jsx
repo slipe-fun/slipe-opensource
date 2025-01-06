@@ -16,7 +16,7 @@ const Post = forwardRef(({ user, setUser, post, isPostDeleted, className, isPost
 		>
 			<UserBlock user={user} setUser={setUser} date={post?.date} />
 			<img loading='lazy' src={cdn + `/posts/${post?.image}`} className='w-full object-contain h-full absolute top-0 block' />
-			<ActionsBlock isPostModal={isPostModal} id={post?.id} currentReaction={post.reaction} reactions={post.reactions} />
+			<ActionsBlock isPostModal={isPostModal} post={post} currentReaction={post.reaction} reactions={post.reactions} />
 		</div>
 	);
 });

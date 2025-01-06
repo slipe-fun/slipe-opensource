@@ -11,7 +11,7 @@ import { toast } from "sonner";
 export default function ReportModal({ children, open, setOpen, post }) {
 	const [choosenReport, setChoosenReport] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-	const { token, storage } = useStorage();
+	const { token, store } = useStorage();
 
 	const reports = [
 		{ icon: icons["copyright"], name: "copyrights", label: "Copyright" },

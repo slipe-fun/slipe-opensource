@@ -26,7 +26,7 @@ export default function CommentsBlock({
 }) {
 	const [page, setPage] = useState(1);
 	const urlKey = postId ? `${api.v1}/comment/get?post_id=${postId}&page=${page}` : null;
-    const { token, storage } = useStorage();
+    const { token, store } = useStorage();
 
 	const {
 		data: commentsRequest,

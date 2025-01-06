@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import CommentInput from "../comments/comment-input";
 import ContentSlider from "./content-slider";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
+import updatePreference from "@/lib/utils/updatePreference";
 
 export default function PostModal({ post, open, setOpen, user, setUser, isModal }) {
 	const [inputFocus, setInputFocus] = useState(false);
@@ -19,7 +20,7 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 	const [isTransition, setIsTransition] = useState(false);
 	const [isButtonLoading, setIsButtonLoading] = useState(false);
 	const [progess, setProgess] = useState(0);
-	const { token, storage } = useStorage();
+	const { token, store } = useStorage();
 
 	const {
 		data: sessionUser,
@@ -50,6 +51,7 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 			]);
 			setCommentsCount(commentsCount + 1);
 			setCommentText("");
+			await updatePreference(post?.category, store)
 		} else toast.error(result?.error, { className: "bg-red text-red-foreground z-50" });
 
 		setIsButtonLoading(false);

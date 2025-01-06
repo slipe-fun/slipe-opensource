@@ -12,7 +12,7 @@ import api from "@/constants/api";
 export default function CommentBlock({ id, user, content, likes, liked, date, setOpen, setSheetOpen, updateComment }) {
 	const [localLikes, setLikes] = useState();
 	const [localLiked, setLiked] = useState();
-	const { token, storage } = useStorage();
+	const { token, store } = useStorage();
 
 	async function likeComment() {
 		if (localLiked) {

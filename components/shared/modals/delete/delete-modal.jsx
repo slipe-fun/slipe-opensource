@@ -6,7 +6,7 @@ import { useStorage } from "@/hooks/contexts/session";
 import { toast } from "sonner";
 
 export default function DeleteModal({ children, open, setOpen, deleteBlog, deleteComment, object, nested = true, content = "post" }) {
-	const { token, storage } = useStorage();
+	const { token, store } = useStorage();
 
 	async function deleteBlogRequest() {
 		const form_data = new FormData();

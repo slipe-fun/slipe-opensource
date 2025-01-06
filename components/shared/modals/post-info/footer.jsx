@@ -17,7 +17,7 @@ export default function Footer({ post, deleteBlog }) {
 	const [isDelete, setIsDelete] = useState(false);
 	const [isDownload, setIsDownload] = useState(false);
 
-	const { token, storage } = useStorage();
+	const { token, store } = useStorage();
 
 	const {
 		data: user,

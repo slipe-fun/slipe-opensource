@@ -6,10 +6,11 @@ import { motion, AnimatePresence } from "motion/react";
 import { useStorage } from "@/hooks/contexts/session";
 import { useEffect, useState, useRef } from "react";
 import { ReactionsModal, CommentsModal } from "@/components/shared/modals";
+import updatePreference from "@/lib/utils/updatePreference";
 
 // Forgoten shi
 
-export default function ActionsBlock({ reactions, currentReaction, id, isPostModal }) {
+export default function ActionsBlock({ reactions, currentReaction, post, isPostModal }) {
 	const { token, store } = useStorage();
 	const [isReactions, setIsReactions] = useState(false);
 	const [isComments, setComments] = useState(false);
@@ -26,8 +27,9 @@ export default function ActionsBlock({ reactions, currentReaction, id, isPostMod
 		};
 	}, []);
 
-	const reactionClicked = (reactionCategory, reactionId) => {
-		ReactionClicked(reactionCategory, reactionId, localReactions, localCurrentReaction, id, token, setCurrentReaction, setReactions);
+	const reactionClicked = async (reactionCategory, reactionId) => {
+		ReactionClicked(reactionCategory, reactionId, localReactions, localCurrentReaction, post?.id, token, setCurrentReaction, setReactions, store);
+		await updatePreference(post?.category, store);
 	};
 
 	const reactionsModalOpen = () => {
@@ -75,7 +77,7 @@ export default function ActionsBlock({ reactions, currentReaction, id, isPostMod
 					>
 						<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons["message"]} />
 					</button>
-					<CommentsModal setOpen={setComments} open={isComments} postId={id} />
+					<CommentsModal setOpen={setComments} open={isComments} post={post}/>
 				</>
 			) : null}
 			<div
