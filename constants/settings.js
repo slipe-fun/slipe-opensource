@@ -24,7 +24,7 @@ export default [
 				label: "Recommendations",
 				id: "recommendations",
 				color: "var(--purple)",
-				icon: "posts",
+				icon: "blogs",
 			},
 		],
 	},

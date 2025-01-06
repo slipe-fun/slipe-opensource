@@ -27,18 +27,23 @@ export default function SettingsModal({ user, open, setOpen }) {
 						)}
 
 						<div className='w-full bg-foreground/[0.12] rounded-3xl flex flex-col'>
-							{category.actions.map(action => (
-								<div className='w-full flex p-3 items-center gap-3'>
+							{category.actions.map((action, index) => (
+								<div className='w-full flex gap-3'>
 									<div
 										style={{
 											"--background": `hsl(${action.color} / 0.35)`,
 											"--icon": `hsl(${action.color === "var(--gray)" ? "0 0% 100%" : action.color})`,
 										}}
-										className='w-12 h-12 rounded-xl flex justify-center items-center bg-[--background] text-[--icon]'
+										className='w-12 min-w-12 h-12 m-3 mr-0 rounded-xl flex justify-center items-center bg-[--background] text-[--icon]'
 									>
 										<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons[action.icon]} />
 									</div>
-									<span className='font-medium'>{action.label}</span>
+									<div data-border={category.actions.length === index + 1} className="w-full p-3 pl-0 h-full data-[border=false]:border-b-2 border-b-foreground/[0.12] items-center flex">
+										<span className='font-medium w-full'>{action.label}</span>
+										<div className='w-12 h-12 flex justify-center items-center'>
+											<Svg className='!w-6 !h-6 rotate-180 opacity-50' icon={icons["chevronLeft"]} />
+										</div>
+									</div>
 								</div>
 							))}
 						</div>
