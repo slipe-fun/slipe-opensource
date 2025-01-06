@@ -16,6 +16,9 @@ export default {
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
 				modal: "hsl(var(--modal))",
+				yellow: "hsl(var(--yellow))",
+				purple: "hsl(var(--purple))",
+				gray: "hsl(var(--gray))",
 				swiperShadow: "hsl(var(--swiper-shadow))",
 				red: {
 					DEFAULT: "hsl(var(--red-background))",

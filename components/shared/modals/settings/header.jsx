@@ -65,7 +65,7 @@ export default function Header({ user = {}, scrollProgress, setOpen }) {
 						{user.nickname || user.username || "Anonymous"}
 					</motion.span>
 					<motion.span style={{ fontSize: fontSize1, lineHeight: lineHeight1 }} className='text-white/50 text-lg'>
-						{`@${user.username}` || user.email}
+						{user.email || `@${user.username}`}
 					</motion.span>
 				</motion.div>
 			</motion.div>
