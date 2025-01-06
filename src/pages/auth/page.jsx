@@ -17,6 +17,7 @@ import api from "@/constants/api";
 import "swiper/css";
 import "swiper/css/effect-creative";
 import { useClearCache } from "@/hooks/useCacheFetcher";
+import categories_list from "@/constants/categories_list";
 
 export default function Auth() {
 	const [stage, setStage] = useState(0);
@@ -25,6 +26,7 @@ export default function Auth() {
 	const [password, setPassword] = useState("");
 	const [displayname, setDisplayname] = useState("");
 	const [avatar, setAvatar] = useState("");
+	const [categoriesPack, setCategoriesPack] = useState([]);
 	const [isContinue, setIsContinue] = useState(true);
 	const { token, store } = useStorage();
 	const [clear, setClear] = useState(null);
@@ -72,8 +74,9 @@ export default function Auth() {
 				password,
 				() => setIsContinue(false),
 				token => {
-					store.set("token", token)
-					store.save()
+					store.set("token", token);
+					store.set("preferences", [...Array(16).keys()].map(() => 1));
+					store.save();
 
 					if (type === "signup") {
 						setIsContinue(true);
@@ -103,8 +106,14 @@ export default function Auth() {
 			setIsContinue(false)
 			await fetcher(api.v1 + `/settings/profile`, "post", formData, { "Authorization": "Bearer " + await store.get("token") });
 			setIsContinue(true);
+		} else if (signUpStage === 3) {
+			const categoriesIndexes = categoriesPack.map(category => categories_list.indexOf(category.name.toLowerCase()));
+			let preferences = [...Array(16).keys()].map(() => 1);
+			categoriesIndexes.map(index => preferences[index] = 2);
+			store.set("preferences", preferences);
 		}
 
+		if (signUpStage >= 3) return;
 		newSlide();
 	}
 
@@ -152,6 +161,7 @@ export default function Auth() {
 							setPassword={setPassword}
 							setUsername={setUsername}
 							setDisplayname={setDisplayname}
+							setCategoriesPack={setCategoriesPack}
 						/>
 					</SwiperSlide>
 					<SwiperSlide className='!flex items-center'>

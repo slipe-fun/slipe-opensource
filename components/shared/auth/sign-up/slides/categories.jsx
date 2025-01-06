@@ -6,8 +6,11 @@ import categories from "@/constants/categories";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-creative";
+import { useEffect, useRef } from "react";
 
 export default function CategoriesSlide({ categoriesPack, setCategoriesPack }) {
+	const swiperRef = useRef(null)
+
 	const gradients = [
 		["#545764", "#838383"],
 		["#0070F3", "#44BCEF"],
@@ -15,11 +18,28 @@ export default function CategoriesSlide({ categoriesPack, setCategoriesPack }) {
 		["#0BA360", "#3CBA92"],
 	];
 
+	useEffect(() => {
+		if (swiperRef.current && swiperRef.current.swiper) {
+			const swiperInstance = swiperRef.current.swiper;
+
+			const handleSlideChange = () => {
+				setCategoriesPack(categories[swiperInstance.activeIndex]);
+			};
+
+			swiperInstance.on("slideChange", handleSlideChange);
+
+			return () => {
+				swiperInstance.off("slideChange", handleSlideChange);
+			};
+		}
+	}, []);
+
 	return (
 		<>
 			<div className='flex flex-col gap-5 items-center'>
 				<SlideTemplate title='Choose categories' img='/static/auth-assets/globe.png' />
 				<Swiper
+					ref={swiperRef}
 					slidesPerView={1.225}
 					centeredSlides
 					creativeEffect={{

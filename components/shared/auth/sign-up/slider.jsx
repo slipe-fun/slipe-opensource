@@ -8,13 +8,14 @@ import CategoriesSlide from "./slides/categories";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
+import categories from "@/constants/categories";
 
-export default function SignUpSlider({ isAccount, signUpStage, setUsername, setDisplayname, setAvatar, setPassword }) {
+export default function SignUpSlider({ isAccount, signUpStage, setUsername, setDisplayname, setAvatar, setPassword, setCategoriesPack }) {
 	const [username, setSignUpUsername] = useState("");
 	const [displayname, setSignUpDisplayname] = useState("");
 	const [avatar, setSignUpAvatar] = useState("");
 	const [password, setSignUpPassword] = useState("");
-	const [categoriesPack, setCategoriesPack] = useState(0);
+	const [categoriesPack, setSignUpCategoriesPack] = useState(categories[0]);
     const swiperRef = useRef(null);
 
 	useEffect(() => {
@@ -26,7 +27,8 @@ export default function SignUpSlider({ isAccount, signUpStage, setUsername, setD
 		setDisplayname(displayname);
 		setAvatar(avatar);
 		setPassword(password);
-	}, [username, displayname, avatar, password]);
+		setCategoriesPack(categoriesPack);
+	}, [username, displayname, avatar, password, categoriesPack]);
 
 	return (
 		<Swiper
