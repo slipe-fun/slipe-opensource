@@ -18,7 +18,7 @@ export default function PasswordSlide({ password, setPassword }) {
 						onInput={element => setPassword(element.target.value)}
 						value={password}
 						type={isPassword ? "password" : "text"}
-						className='bg-transparent rounded-none h-auto pr-0 p-4'
+						className='bg-transparent rounded-none h-auto p-4 pr-0'
 						placeholder='Password here'
 					/>
 					<Button

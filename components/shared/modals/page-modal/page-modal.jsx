@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { forwardRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-export function RootEffect({element}) {
+export function RootEffect({ element }) {
 	const root = document?.getElementById(element ? element : "root")?.style;
 
 	useEffect(() => {
@@ -44,7 +44,7 @@ const PageModal = forwardRef(({ children, open, className, element, ...props }, 
 				</AnimatePresence>,
 				document.body
 			)}
-			{open ? <RootEffect element={element}/> : null}
+			{open ? <RootEffect element={element} /> : null}
 		</>
 	);
 });
