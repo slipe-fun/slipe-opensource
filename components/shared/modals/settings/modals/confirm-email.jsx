@@ -14,7 +14,7 @@ export default function ConfirmEmailModal({ open, setActiveModal }) {
 	return (
 		<PageModal element='settingsModal' className='flex flex-col overflow-hidden bg-background' open={open}>
 			<div className='w-full p-4 flex top-0 z-50 bg-background/90 justify-center fixed backdrop-blur-2xl text-lg font-medium'>Email confirmation</div>
-			<div className='h-full w-full flex flex-col gap-4 px-5 justify-center items-center'>
+			<div className='h-full w-full flex flex-col gap-4 px-5 pt-[3.75rem] pb-24 justify-center items-center'>
 				<img loading='lazy' src='./static/states-assets/email.png' className='w-40 h-40' />
 				<div className="flex flex-col gap-3 w-full">
 					<span className='text-3xl text-center text-foreground font-medium'>Enter your email</span>
