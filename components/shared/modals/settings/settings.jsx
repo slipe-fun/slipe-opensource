@@ -48,7 +48,7 @@ export default function SettingsModal({ user, open, setOpen }) {
 												className='w-full p-3 pl-0 h-full data-[border=false]:border-b-2 border-b-foreground/[0.12] items-center flex'
 											>
 												<span className='font-medium w-full'>{action.label}</span>
-												<div className='w-12 h-12 flex justify-center items-center'>
+												<div className='min-w-10 h-10 flex justify-center items-center'>
 													<Svg className='!w-6 !h-6 rotate-180 opacity-50' icon={icons["chevronLeft"]} />
 												</div>
 											</div>

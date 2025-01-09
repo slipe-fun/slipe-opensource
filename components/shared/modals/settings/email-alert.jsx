@@ -1,3 +1,6 @@
+import Svg from "@/components/ui/icons/svg";
+import icons from "@/components/ui/icons/icons";
+
 export default function EmailAlert({ setActiveModal }) {
 	return (
 		<div
@@ -8,6 +11,9 @@ export default function EmailAlert({ setActiveModal }) {
 			<div className='w-full flex flex-col'>
 				<span className='font-semibold'>Confirm email</span>
 				<span className='font-medium opacity-75 text-sm'>You need to confirm email to full functional</span>
+			</div>
+			<div className='min-w-10 h-10 flex justify-center items-center'>
+				<Svg className='!w-6 !h-6 rotate-180 opacity-50' icon={icons["chevronLeft"]} />
 			</div>
 		</div>
 	);
