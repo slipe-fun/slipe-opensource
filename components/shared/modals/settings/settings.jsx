@@ -1,18 +1,22 @@
 import { PageModal } from "../../modals";
 import { useScroll } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./header";
 import EmailAlert from "./email-alert";
 import settings from "@/constants/settings";
 import Svg from "@/components/ui/icons/svg";
 import icons from "@/components/ui/icons/icons";
 import ConfirmEmailModal from "./modals/confirm-email";
+import { ProfileSettngsModal } from "./modals/settings-modals";
 
 export default function SettingsModal({ user, open, setOpen }) {
 	const [activeModal, setActiveModal] = useState("");
 	const settingsModalRef = useRef(null);
 	const { scrollY } = useScroll({ container: open ? settingsModalRef : null, offset: ["40%", "-0%"] });
-	const modals = [{ component: ConfirmEmailModal, label: "confirm" }];
+	const modals = [
+		{ component: ConfirmEmailModal, label: "confirm" },
+		{ component: ProfileSettngsModal, label: "profile" },
+	];
 
 	return (
 		<>
@@ -33,7 +37,7 @@ export default function SettingsModal({ user, open, setOpen }) {
 
 								<div className='w-full bg-foreground/[0.12] rounded-3xl flex flex-col'>
 									{category.actions.map((action, index) => (
-										<div onClick={() => setActiveModal(action.label)} className='w-full flex gap-3'>
+										<div onClick={() => setActiveModal(action.id)} className='w-full cursor-pointer flex gap-3'>
 											<div
 												style={{
 													"--background": `hsl(${action.color} / 0.35)`,
