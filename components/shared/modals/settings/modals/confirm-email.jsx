@@ -2,14 +2,40 @@ import { PageModal } from "@/components/shared/modals";
 import Svg from "@/components/ui/icons/svg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import icons from "@/components/ui/icons/icons";
+import emailRegex from "@/constants/regex/emailRegex";
+import { fetcher } from "@/lib/utils";
+import api from "@/constants/api";
+import { useStorage } from "@/hooks/contexts/session";
+import { toast } from "sonner";
 
-export default function ConfirmEmailModal({ open, setActiveModal }) {
+export default function ConfirmEmailModal({ open, user, setUser, setActiveModal }) {
 	const [isEmailValid, setEmailValid] = useState(false);
 	const [email, setEmail] = useState("");
+	const { token, store } = useStorage();
+	const [isEmailSent, setIsEmailSent] = useState(false);
 
-    //Add an email checking module pls pip
+    useEffect(() => setEmailValid(emailRegex.test(email)), [email]);
+
+	async function sendEmail () {
+		if (!isEmailSent) {
+			const request = await fetcher(api.v1 + "/email/send", "post", JSON.stringify({ email }), { Authorization: "Bearer " + token })
+
+			setIsEmailSent(true);			
+		} else {
+			const userRequest = await fetcher(api.v1 + "/account/info/get", "get", null, { Authorization: "Bearer " + token })
+
+			if (userRequest?.email) {
+				setUser(prev => {
+					prev.email = email;
+					return prev;
+				});
+				setActiveModal(false);
+				toast.success("Email confirmed!", { className: "bg-green text-green-foreground" });
+			} else toast.error("You not confirmed your email yet.", { className: "bg-red text-red-foreground" });
+		}
+	}
 
 	return (
 		<PageModal element='settingsModal' className='flex flex-col overflow-hidden bg-background' open={open}>
@@ -54,7 +80,7 @@ export default function ConfirmEmailModal({ open, setActiveModal }) {
 				>
 					Cancel
 				</Button>
-				<Button className='rounded-full' size='full'>
+				<Button disabled={!isEmailValid} onClick={sendEmail} className='rounded-full' size='full'>
 					Send mail
 				</Button>
 			</div>

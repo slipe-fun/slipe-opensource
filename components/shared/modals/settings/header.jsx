@@ -4,6 +4,7 @@ import { motion, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Svg from "@/components/ui/icons/svg";
 import icons from "@/components/ui/icons/icons";
+import PixelAvatar from "../../pixels-avatar";
 
 export default function Header({ user = {}, scrollProgress, setOpen }) {
 	const width = useTransform(scrollProgress, [0, 140], [140, 0]);

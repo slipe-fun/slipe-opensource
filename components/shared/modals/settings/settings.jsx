@@ -9,7 +9,7 @@ import icons from "@/components/ui/icons/icons";
 import ConfirmEmailModal from "./modals/confirm-email";
 import { ProfileSettngsModal } from "./modals/settings-modals";
 
-export default function SettingsModal({ user, open, setOpen }) {
+export default function SettingsModal({ user, setUser, open, setOpen }) {
 	const [activeModal, setActiveModal] = useState("");
 	const settingsModalRef = useRef(null);
 	const { scrollY } = useScroll({ container: open ? settingsModalRef : null, offset: ["40%", "-0%"] });
@@ -24,7 +24,8 @@ export default function SettingsModal({ user, open, setOpen }) {
 				<div id='settingsModal' className='flex flex-col overflow-hidden duration-300 ease-out bg-background w-full h-full'>
 					<Header setOpen={setOpen} scrollProgress={scrollY} user={user} />
 					<div ref={settingsModalRef} className='overflow-y-auto flex flex-col pt-[16.75rem] gap-5 p-5 w-full h-full'>
-						{user?.email ? <EmailAlert setActiveModal={setActiveModal} /> : null}
+						{!user?.email ? <EmailAlert setActiveModal={setActiveModal} /> : null}
+						{/* {true ? <EmailAlert setActiveModal={setActiveModal} /> : null} */}
 						{settings.map(category => (
 							<div className='flex flex-col gap-3'>
 								{category.label === "Slipe comet" ? (
@@ -65,7 +66,7 @@ export default function SettingsModal({ user, open, setOpen }) {
 				</div>
 			</PageModal>
 			{modals.map(({ component: ModalComponent, label }, index) => (
-				<ModalComponent setActiveModal={setActiveModal} key={index} open={label === activeModal} />
+				<ModalComponent setActiveModal={setActiveModal} user={user} setUser={setUser} key={index} open={label === activeModal} />
 			))}
 		</>
 	);

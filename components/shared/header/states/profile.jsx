@@ -62,7 +62,7 @@ export default function StateProfile() {
 			>
 					<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons["gear"]} />
 			</Button>
-			<SettingsModal user={user} open={open} setOpen={setOpen}/>
+			<SettingsModal user={user} setUser={setUser} open={open} setOpen={setOpen}/>
 		</>
 	);
 }
