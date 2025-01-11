@@ -50,11 +50,11 @@ export default function Header({ user = {}, scrollProgress, setOpen }) {
 					/>
 				) : (
 					<PixelAvatar
-						style={{ width, opacity, "--size": "140px" }}
+						style={{ width, opacity }}
 						animated
 						size={128}
 						username={user.username}
-						className='border-[6px] origin-top data-[covering=true]:pointer-events-none border-background'
+						className='origin-top data-[covering=true]:pointer-events-none'
 						pixels={user.pixel_order}
 					/>
 				)}
