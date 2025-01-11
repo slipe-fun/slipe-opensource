@@ -20,13 +20,13 @@ export default function ConfirmEmailModal({ open, user, setUser, setActiveModal 
 
 	async function sendEmail () {
 		if (!isEmailSent) {
-			const request = await fetcher(api.v1 + "/email/send", "post", JSON.stringify({ email }), { Authorization: "Bearer " + token })
+			const request = await fetcher(api.v1 + "/email/send", "post", JSON.stringify({ email }), { "Content-Type": "application/json", Authorization: "Bearer " + token })
 
-			setIsEmailSent(true);			
+			if (!request.error) setIsEmailSent(true);			
 		} else {
-			const userRequest = await fetcher(api.v1 + "/account/info/get", "get", null, { Authorization: "Bearer " + token })
+			const userRequest = await fetcher(api.v1 + "/account/info/get", "get", null, { Authorization: "Bearer " + token });
 
-			if (userRequest?.email) {
+			if (userRequest?.success[0]?.email) {
 				setUser(prev => {
 					prev.email = email;
 					return prev;
