@@ -30,8 +30,8 @@ export default function ConfirmEmailModal({ open, setUser, setActiveModal }) {
 
 			if (!request.error) {
 				setIsEmailSent(true);
-				toast.error("Mail sent! After confirming the mail, click on “check”.", { className: "bg-green text-green-foreground" });
-			}
+				toast.success("Mail sent! After confirming the mail, click on “check”.", { className: "bg-green text-green-foreground" });
+			} else toast.error(request?.error || "Server error", { className: "bg-red text-red-foreground" });
 			setIsLoading(false);
 		} else {
 			setIsLoading(true);
