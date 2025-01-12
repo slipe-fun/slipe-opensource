@@ -9,34 +9,44 @@ import { fetcher } from "@/lib/utils";
 import api from "@/constants/api";
 import { useStorage } from "@/hooks/contexts/session";
 import { toast } from "sonner";
+import { mutate } from "@/hooks/useCacheFetcher";
 
 export default function ConfirmEmailModal({ open, setUser, setActiveModal }) {
 	const [isEmailValid, setEmailValid] = useState(false);
 	const [email, setEmail] = useState("");
 	const { token, store } = useStorage();
 	const [isEmailSent, setIsEmailSent] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => setEmailValid(emailRegex.test(email)), [email]);
 
 	async function sendEmail() {
 		if (!isEmailSent) {
+			setIsLoading(true);
 			const request = await fetcher(api.v1 + "/email/send", "post", JSON.stringify({ email }), {
 				"Content-Type": "application/json",
 				Authorization: "Bearer " + token,
 			});
 
-			if (!request.error) setIsEmailSent(true);
+			if (!request.error) {
+				setIsEmailSent(true);
+				toast.error("Mail sent! After confirming the mail, click on “check”.", { className: "bg-green text-green-foreground" });
+			}
+			setIsLoading(false);
 		} else {
+			setIsLoading(true);
 			const userRequest = await fetcher(api.v1 + "/account/info/get", "get", null, { Authorization: "Bearer " + token });
 
-			if (userRequest?.success[0]?.email) {
+			if (userRequest?.success[0]?.activated) {
 				setUser(prev => {
 					prev.email = email;
 					return prev;
 				});
+				mutate(api.v1 + "/account/info/get", userRequest);
 				setActiveModal("");
 				toast.success("Email confirmed!", { className: "bg-green text-green-foreground" });
 			} else toast.error("You not confirmed your email yet.", { className: "bg-red text-red-foreground" });
+			setIsLoading(false);
 		}
 	}
 
@@ -81,8 +91,8 @@ export default function ConfirmEmailModal({ open, setUser, setActiveModal }) {
 				>
 					Cancel
 				</Button>
-				<Button disabled={!isEmailValid} onClick={sendEmail} className='rounded-full' size='full'>
-					Send mail
+				<Button disabled={!isEmailValid || isLoading} onClick={sendEmail} className='rounded-full' size='full'>
+					{isEmailSent ? "Check" : "Send mail"}
 				</Button>
 			</div>
 		</PageModal>

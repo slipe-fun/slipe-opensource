@@ -25,7 +25,6 @@ export default function SettingsModal({ user, setUser, open, setOpen }) {
 					<Header setOpen={setOpen} scrollProgress={scrollY} user={user} />
 					<div ref={settingsModalRef} className='overflow-y-auto flex flex-col pt-[16.75rem] gap-5 p-5 w-full h-full'>
 						{!user?.email ? <EmailAlert setActiveModal={setActiveModal} /> : null}
-						{/* {true ? <EmailAlert setActiveModal={setActiveModal} /> : null} */}
 						{settings.map(category => (
 							<div className='flex flex-col gap-3'>
 								{category.label === "Slipe comet" ? (

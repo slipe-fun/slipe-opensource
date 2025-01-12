@@ -1,5 +1,14 @@
 import { useEffect, useState } from 'react';
 
+export function mutate (url, value) {
+  const cachedItem = localStorage.getItem(url);
+
+  if (cachedItem) {
+    localStorage.setItem(url, JSON.stringify(value));
+    return true;
+  } else return `Cache for ${url} doesnt exist`;
+}
+
 export function useCacheFetcher(url, fetcher, params) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -38,15 +47,6 @@ export function useCacheFetcher(url, fetcher, params) {
 
     fetchData();
   }, [url]);
-
-  const mutate = (url, value) => {
-    const cachedItem = localStorage.getItem(url);
-
-    if (cachedItem) {
-      localStorage.setItem(url, JSON.stringify(value));
-      return true;
-    } else return `Cache for ${url} doesnt exist`;
-  }
 
   return { data, error, isLoading, mutate };
 }
