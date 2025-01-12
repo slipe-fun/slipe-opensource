@@ -9,12 +9,6 @@ export default [
 				icon: "user",
 			},
 			{
-				label: "Personal information",
-				id: "personal",
-				color: "var(--gray)",
-				icon: "key",
-			},
-			{
 				label: "Privacy settings",
 				id: "privacy",
 				color: "var(--gray)",

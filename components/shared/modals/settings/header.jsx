@@ -18,17 +18,17 @@ export default function Header({ user = {}, scrollProgress, setOpen }) {
 	const height = useTransform(scrollProgress, [0, 140], [60, 56]);
 
 	return (
-		<div className='top-0 w-full overflow-hidden fixed h-fit min-h-fit z-30 rounded-b-[1.25rem]'>
+		<div className='top-0 w-full overflow-hidden fixed flex items-center h-fit min-h-fit z-30 rounded-b-[1.25rem]'>
 			{user?.banner ? (
-				<img loading='lazy' src={cdn + "/banners/" + user?.banner} className='w-full absolute -z-10 h-full object-cover' />
+				<img loading='lazy' src={cdn + "/banners/" + user?.banner} className='w-full absolute -z-10 h-[15.5rem] object-cover' />
 			) : (
-				<div className='grid grid-cols-7 bg-black grid-rows-1 absolute -z-10 h-full w-full'>
+				<div className='grid grid-cols-7 bg-black grid-rows-1 absolute -z-10 h-[15.5rem] w-full'>
 					{ShufflePixels(user?.pixel_order)?.map((pixel, index) => (
 						<span key={index} style={{ background: `${PixelsColors[user?.username[0]]}`, opacity: 0.25 * pixel }} className='w-full aspect-square' />
 					))}
 				</div>
 			)}
-			<div className='w-full absolute flex justify-between p-4'>
+			<div className='w-full h-full absolute flex justify-between p-4'>
 				<Button onClick={() => setOpen(false)} className='rounded-full hover:bg-black/35 bg-black/35 backdrop-blur-2xl' size='icon'>
 					<Svg icon={icons["chevronLeft"]} className='duration-200 ease-out !w-7 !h-7' />
 				</Button>

@@ -29,11 +29,11 @@ export default function SettingsModal({ user, setUser, open, setOpen }) {
 						{settings.map(category => (
 							<div className='flex flex-col gap-3'>
 								{category.label === "Slipe comet" ? (
-									<span className='text-[1.75rem] leading-[2.125rem] font-semibold bg-gradient-to-r from-[#FFA953] to-[#FF823F] text-transparent bg-clip-text'>
+									<span className='text-2xl font-semibold bg-gradient-to-r from-[#FFA953] to-[#FF823F] text-transparent bg-clip-text'>
 										{category.label}
 									</span>
 								) : (
-									<span className='text-[1.75rem] leading-[2.125rem] font-medium'>{category.label}</span>
+									<span className='text-2xl font-medium'>{category.label}</span>
 								)}
 
 								<div className='w-full bg-foreground/[0.12] rounded-3xl flex flex-col'>

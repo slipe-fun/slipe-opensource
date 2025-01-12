@@ -23,7 +23,7 @@ export default function Publications({ user, isModal, dateId }) {
 	}, [active]);
 
 	return (
-		<div className='flex flex-col gap-5'>
+		<div className='flex flex-col gap-4'>
 			<div id={isModal ? "content-switcher-modal" : "content-switcher"} className='flex gap-6 font-medium text-2xl px-5 overflow-x-auto'>
 				<button
 					onClick={() => setActive(0)}

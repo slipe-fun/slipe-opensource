@@ -68,7 +68,8 @@ The project uses the following third-party libraries:
   - `next-themes`  
 
 - **Tauri:**  
-  - `@tauri-apps/plugin-store`  
+  - `@tauri-apps/plugin-store`
+  - `@tauri-apps/plugin-clipboard-manager`  
 
 ---
 

@@ -10,19 +10,22 @@ import api from "@/constants/api";
 import { useStorage } from "@/hooks/contexts/session";
 import { toast } from "sonner";
 
-export default function ConfirmEmailModal({ open, user, setUser, setActiveModal }) {
+export default function ConfirmEmailModal({ open, setUser, setActiveModal }) {
 	const [isEmailValid, setEmailValid] = useState(false);
 	const [email, setEmail] = useState("");
 	const { token, store } = useStorage();
 	const [isEmailSent, setIsEmailSent] = useState(false);
 
-    useEffect(() => setEmailValid(emailRegex.test(email)), [email]);
+	useEffect(() => setEmailValid(emailRegex.test(email)), [email]);
 
-	async function sendEmail () {
+	async function sendEmail() {
 		if (!isEmailSent) {
-			const request = await fetcher(api.v1 + "/email/send", "post", JSON.stringify({ email }), { "Content-Type": "application/json", Authorization: "Bearer " + token })
+			const request = await fetcher(api.v1 + "/email/send", "post", JSON.stringify({ email }), {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			});
 
-			if (!request.error) setIsEmailSent(true);			
+			if (!request.error) setIsEmailSent(true);
 		} else {
 			const userRequest = await fetcher(api.v1 + "/account/info/get", "get", null, { Authorization: "Bearer " + token });
 
@@ -31,7 +34,7 @@ export default function ConfirmEmailModal({ open, user, setUser, setActiveModal 
 					prev.email = email;
 					return prev;
 				});
-				setActiveModal(false);
+				setActiveModal("");
 				toast.success("Email confirmed!", { className: "bg-green text-green-foreground" });
 			} else toast.error("You not confirmed your email yet.", { className: "bg-red text-red-foreground" });
 		}
@@ -42,9 +45,9 @@ export default function ConfirmEmailModal({ open, user, setUser, setActiveModal 
 			<div className='w-full p-4 flex top-0 z-50 bg-background/90 justify-center fixed backdrop-blur-2xl text-lg font-medium'>Email confirmation</div>
 			<div className='h-full w-full flex flex-col gap-4 px-5 pt-[3.75rem] pb-24 justify-center items-center'>
 				<img loading='lazy' src='./static/states-assets/email.png' className='w-40 h-40' />
-				<div className="flex flex-col gap-3 w-full">
+				<div className='flex flex-col gap-3 w-full'>
 					<span className='text-3xl text-center text-foreground font-medium'>Enter your email</span>
-                    
+
 					<div className='bg-foreground/[0.12] flex items-center w-full rounded-2xl'>
 						<Input
 							value={email}
@@ -66,9 +69,7 @@ export default function ConfirmEmailModal({ open, user, setUser, setActiveModal 
 							/>
 						</div>
 					</div>
-                    <p className='text-foreground/50 text-center'>
-					We will then send an email with a button to confirm the mail
-				</p>
+					<p className='text-foreground/50 text-center'>We will then send an email with a button to confirm the mail</p>
 				</div>
 			</div>
 			<div className='p-5 fixed flex gap-5 w-full z-10 bg-background/90 backdrop-blur-2xl bottom-0'>

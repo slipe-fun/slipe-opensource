@@ -9,18 +9,21 @@ import Header from "@/components/shared/header/header";
 import NavBar from "@/components/shared/navBar";
 import PagesContentTypeContextProvider from "@/hooks/contexts/posts-type";
 import { SessionContextProvider } from "@/hooks/contexts/session";
+import { Portal } from "vaul";
 
 import "./index.css";
+import { createPortal } from "react-dom";
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<Toaster
-			gap={12}
-			toastOptions={{
-				className: "rounded-xl text-sm",
-			}}
-			position='top-center'
-		/>
+		{createPortal(<Toaster
+				gap={12}
+				toastOptions={{
+					className: "rounded-xl text-sm",
+				}}
+				position='top-center'
+			/>, document.body)}
+			
 		<PagesContentTypeContextProvider>
 			<SessionContextProvider>
 				<BrowserRouter>
