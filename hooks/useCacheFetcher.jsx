@@ -39,6 +39,7 @@ export function useCacheFetcher(url, fetcher, params) {
           localStorage.setItem(url, JSON.stringify(fetchedData || {}));
           setData(fetchedData);
           setLoading(false);
+          setError(null);
         }
       } catch (err) {
         setError(err.message || 'An error occurred');
