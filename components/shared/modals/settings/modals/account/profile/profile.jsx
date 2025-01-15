@@ -2,6 +2,11 @@ import { PageModal } from "@/components/shared/modals";
 import { Avatar, Badge, Banner, DisplayName, NameColor, Username } from "./profile";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { SettingsCheck } from "@/lib/utils";
+import { toast } from "sonner";
+import api from "@/constants/api";
+import { useStorage } from "@/hooks/contexts/session";
+import { fetcher } from "@/lib/utils";
 
 export default function ProfileSettingsModal({ open, setActiveModal, user }) {
 	const [banner, setBanner] = useState(null);
@@ -10,17 +15,58 @@ export default function ProfileSettingsModal({ open, setActiveModal, user }) {
 	const [displayName, setDisplayName] = useState("");
 	const [nameColor, setNameColor] = useState(null);
 	const [badge, setBadge] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [settingsForm, setSettingsForm] = useState(null);
+	const { token, store } = useStorage();
+
+	useEffect(() => {
+		const formdata = new FormData();
+		formdata.append("avatar", avatar);
+		formdata.append("banner", banner);
+		formdata.append("username", username);
+		formdata.append("nickname", displayName);
+		formdata.append("description", user?.description);
+		formdata.append("nickname_color", nameColor);
+		formdata.append("badge", badge);
+		setSettingsForm(formdata);
+	}, [banner, avatar, username, displayName, nameColor, badge]);
+
+	function findErrors() {
+		return Object.keys(SettingsCheck).map(name => {
+			const error = SettingsCheck[name](settingsForm.get(name));
+
+			if (error) toast.error(error || "Error", { className: "bg-red text-red-foreground" });
+
+			return !!error;
+		}).filter(Boolean)[0]
+	}
+
+	async function Settings () {
+		setIsLoading(true);
+		try {
+			if (!findErrors()) {
+				const settingsRequest = await fetcher(api.v1 + `/settings/profile`, "post", settingsForm, { "Authorization": "Bearer " + await store.get("token") });
+
+				if (settingsRequest?.response.status === 200) {
+					toast.success("New settings saved!", { className: "bg-green text-green-foreground" });
+				} else toast.error(settingsRequest?.error || settingsRequest?.message || "Server error", { className: "bg-red text-red-foreground" });
+			}
+		} catch (error) {
+			toast.error(error || "App error" || "Server error", { className: "bg-red text-red-foreground" });
+		}
+		setIsLoading(false);
+	}
 
 	return (
 		<PageModal element='settingsModal' className='flex flex-col overflow-hidden bg-background' open={open}>
 			<div className='w-full p-4 flex top-0 z-50 bg-background/90 justify-center fixed backdrop-blur-2xl text-lg font-medium'>Profile settings</div>
 			<div className='h-full w-full flex flex-col gap-4 pt-[3.75rem] pb-24 overflow-y-auto'>
-				<Banner user={user} setBanner={setBanner}/>
-				<Avatar user={user} setAvatar={setAvatar}/>
-				<Username user={user} setUsername={setUsername}/>
-				<DisplayName user={user} setDisplayName={setDisplayName}/>
-				<NameColor user={user} setNameColor={setNameColor}/>
-				<Badge user={user} setBadge={setBadge}/>
+				<Banner user={user} setBanner={setBanner} />
+				<Avatar user={user} setAvatar={setAvatar} />
+				<Username user={user} setUsername={setUsername} />
+				<DisplayName user={user} setDisplayName={setDisplayName} />
+				<NameColor user={user} setNameColor={setNameColor} />
+				<Badge user={user} setBadge={setBadge} />
 			</div>
 			<div className='p-5 fixed flex gap-5 w-full z-10 bg-background/90 backdrop-blur-2xl bottom-0'>
 				<Button
@@ -31,7 +77,7 @@ export default function ProfileSettingsModal({ open, setActiveModal, user }) {
 				>
 					Cancel
 				</Button>
-				<Button className='rounded-full' size='full'>
+				<Button disabled={isLoading} onClick={Settings} className='rounded-full' size='full'>
 					Save
 				</Button>
 			</div>

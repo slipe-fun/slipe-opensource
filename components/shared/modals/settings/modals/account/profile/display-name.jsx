@@ -14,7 +14,7 @@ export default function DisplayName({ user, setDisplayName }) {
 			<span className='text-2xl font-medium'>Display name</span>
 			<div className='bg-foreground/[0.12] flex items-center w-full rounded-2xl'>
 				<Input
-					maxLength={32}
+					maxLength={24}
 					onInput={element => setLocalDisplayName(element.target.value)}
 					value={displayname}
 					onFocus={() => setIsFocused(true)}
