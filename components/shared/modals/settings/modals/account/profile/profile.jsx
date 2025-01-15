@@ -7,8 +7,9 @@ import { toast } from "sonner";
 import api from "@/constants/api";
 import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
+import { mutate } from "@/hooks/useCacheFetcher";
 
-export default function ProfileSettingsModal({ open, setActiveModal, user }) {
+export default function ProfileSettingsModal({ open, setActiveModal, user, setUser }) {
 	const [banner, setBanner] = useState(null);
 	const [avatar, setAvatar] = useState(null);
 	const [username, setUsername] = useState("");
@@ -49,6 +50,16 @@ export default function ProfileSettingsModal({ open, setActiveModal, user }) {
 
 				if (settingsRequest?.response.status === 200) {
 					toast.success("New settings saved!", { className: "bg-green text-green-foreground" });
+
+					const userRequest = await fetcher(api.v1 + "/account/info/get", "get", null, { Authorization: "Bearer " + token });
+
+					if (userRequest?.success[0]) {
+						console.log(userRequest?.success[0])
+						mutate(api.v1 + "/account/info/get", userRequest);
+						setUser(userRequest?.success[0]);				
+					}
+					
+					setActiveModal(false);
 				} else toast.error(settingsRequest?.error || settingsRequest?.message || "Server error", { className: "bg-red text-red-foreground" });
 			}
 		} catch (error) {
