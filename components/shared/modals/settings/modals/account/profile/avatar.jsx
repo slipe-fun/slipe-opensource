@@ -9,19 +9,35 @@ import { useState, useEffect } from "react";
 import "swiper/css";
 import "swiper/css/effect-creative";
 
-export default function Avatar({ user }) {
+export default function Avatar({ user, setAvatar }) {
 	const [rawImage, setRawImage] = useState("");
-	const [avatar, setAvatar] = useState("");
+	const [avatar, setLocalAvatar] = useState("");
 
 	useEffect(() => {
 		if (rawImage) {
 			const reader = new FileReader();
 			reader.onload = fileReaderEvent => {
-				setAvatar(fileReaderEvent.target.result);
+				setLocalAvatar(fileReaderEvent.target.result);
 			};
 			reader.readAsDataURL(rawImage);
 		}
 	}, [rawImage]);
+
+	useEffect(() => setAvatar(rawImage), [rawImage]);
+	useEffect(() => {
+		async function changeAvatar() {
+			if (user?.avatar) {
+				const profileAvatar = await fetch(cdn + "/avatars/" + user?.avatar).then(async res => await res.blob()).catch(() => null);
+
+				if (profileAvatar)
+					setRawImage(new File([profileAvatar], "avatar.png", {
+						type: profileAvatar?.type
+					}))
+			}
+		}
+
+		changeAvatar();
+	}, [user]);
 
 	return (
 		<div className='w-full flex flex-col gap-3'>
@@ -62,9 +78,9 @@ export default function Avatar({ user }) {
 						/>
 					</div>
 				</SwiperSlide>
-				{user?.avatar ? (
+				{user?.avatar || avatar ? (
 					<SwiperSlide className='w-40 !h-40'>
-						<img src={`${cdn}/avatars/${user?.avatar}`} className='h-full w-full rounded-full' />
+						<img src={avatar ? avatar : `${cdn}/avatars/${user?.avatar}`} className='h-full w-full rounded-full' />
 					</SwiperSlide>
 				) : null}
 

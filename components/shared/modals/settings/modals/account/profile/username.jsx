@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import Counter from "@/components/shared/counter";
 
-export default function Username({ user }) {
-	const [username, setUsername] = useState("");
+export default function Username({ user, setUsername }) {
+	const [username, setLocalUsername] = useState("");
 	const [isFocused, setIsFocused] = useState(false);
+
+	useEffect(() => setLocalUsername(user?.username), [user]);
+	useEffect(() => setUsername(username), [username]);
 
 	return (
 		<div className='w-full flex flex-col px-5 gap-3'>
@@ -13,7 +16,7 @@ export default function Username({ user }) {
 				<span className='text-foreground p-4 pr-0'>slipe.fun/@</span>
 				<Input
 					maxLength={20}
-					onInput={element => setUsername(element.target.value)}
+					onInput={element => setLocalUsername(element.target.value)}
 					value={username}
 					onFocus={() => setIsFocused(true)}
 					onBlur={() => setIsFocused(false)}

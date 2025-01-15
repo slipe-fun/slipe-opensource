@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import Counter from "@/components/shared/counter";
 
-export default function DisplayName({ user }) {
-	const [displayname, setDisplayname] = useState("");
+export default function DisplayName({ user, setDisplayName }) {
+	const [displayname, setLocalDisplayName] = useState("");
 	const [isFocused, setIsFocused] = useState(false);
+
+	useEffect(() => setDisplayName(displayname), [displayname]);
+	useEffect(() => setLocalDisplayName(user?.nickname || ""), [user]);
 
 	return (
 		<div className='w-full flex flex-col px-5 gap-3'>
@@ -12,7 +15,7 @@ export default function DisplayName({ user }) {
 			<div className='bg-foreground/[0.12] flex items-center w-full rounded-2xl'>
 				<Input
 					maxLength={32}
-					onInput={element => setDisplayname(element.target.value)}
+					onInput={element => setLocalDisplayName(element.target.value)}
 					value={displayname}
 					onFocus={() => setIsFocused(true)}
 					onBlur={() => setIsFocused(false)}
