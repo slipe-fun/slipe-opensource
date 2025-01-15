@@ -24,6 +24,13 @@ export default function Reactions({ token, isModal, dateId }) {
 		}
 	}, [reactionsRequest]);
 
+	if (reactionsRequest?.count === "0")
+		return <NoContent
+			title='No reactions here yet'
+			image='reaction.png'
+			className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]'
+			primary="You haven't set any reactions yet"
+		/>
 	if (isError)
 		return (
 			<NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]' />
@@ -43,14 +50,7 @@ export default function Reactions({ token, isModal, dateId }) {
 						<Reaction key={index} reaction={reaction.name} post={reaction.post} />
 					))}
 				</InfiniteScroll>
-			) : (
-				<NoContent
-					title='No reactions here yet'
-					image='reaction.png'
-					className='min-h-[50vh] animate-[fadeIn_0.3s_ease-out]'
-					primary="You haven't set any reactions yet"
-				/>
-			)}
+			) : null}
 			{isLoading ? (
 				<div className='grid grid-cols-3 h-fit gap-5'>
 					{Array.from({ length: 12 }, (_, i) => i).map(index => (

@@ -25,6 +25,15 @@ export default function Posts({ user, token, isModal, dateId }) {
 		}
 	}, [publicationsRequest]);
 
+	if (user?.postsCount === "0") {
+		return <NoContent
+			title='No posts here yet'
+			image='post.png'
+			className='py-12 animate-[fadeIn_0.3s_ease-out]'
+			primary="You haven't published any posts yet"
+		/>
+	}
+
 	if (isError)
 		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
 
@@ -42,14 +51,7 @@ export default function Posts({ user, token, isModal, dateId }) {
 						<Publication isModal={isModal} key={index} post={post} user={user} />
 					))}
 				</InfiniteScroll>
-			) : (
-				<NoContent
-					title='No posts here yet'
-					image='post.png'
-					className='py-12 animate-[fadeIn_0.3s_ease-out]'
-					primary="You haven't published any posts yet"
-				/>
-			)}
+			) : null}
 			{isLoading ? (
 				<div className='grid grid-cols-2 h-fit gap-5'>
 					{Array.from({ length: 8 }, (_, i) => i).map(index => (
