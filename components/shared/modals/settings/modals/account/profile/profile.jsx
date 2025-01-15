@@ -54,11 +54,10 @@ export default function ProfileSettingsModal({ open, setActiveModal, user, setUs
 					const userRequest = await fetcher(api.v1 + "/account/info/get", "get", null, { Authorization: "Bearer " + token });
 
 					if (userRequest?.success[0]) {
-						console.log(userRequest?.success[0])
 						mutate(api.v1 + "/account/info/get", userRequest);
 						setUser(userRequest?.success[0]);				
 					}
-					
+
 					setActiveModal(false);
 				} else toast.error(settingsRequest?.error || settingsRequest?.message || "Server error", { className: "bg-red text-red-foreground" });
 			}

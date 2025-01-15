@@ -27,7 +27,7 @@ export default function DisplayName({ user, setDisplayName }) {
 					data-focused={isFocused}
 					value={displayname.length}
 					className='text-base duration-200 ease-out data-[focused=true]:opacity-100 data-[focused=false]:opacity-0 p-4'
-					maxValue={32}
+					maxValue={24}
 				/>
 			</div>
 		</div>
