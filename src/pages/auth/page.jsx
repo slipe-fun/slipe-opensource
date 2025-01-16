@@ -73,10 +73,9 @@ export default function Auth() {
 				username,
 				password,
 				() => setIsContinue(false),
-				token => {
-					store.set("token", token);
-					store.set("preferences", [...Array(16).keys()].map(() => 1));
-					store.save();
+				async token => {					
+					await store.set("token", token);
+					await store.set("preferences", [...Array(16).keys()].map(() => 1));
 
 					if (type === "signup") {
 						setIsContinue(true);
@@ -84,8 +83,6 @@ export default function Auth() {
 					} else {
 						window.location.href = "/";
 					}
-
-					setClear("*")
 				},
 				error => {
 					setIsContinue(true);
@@ -110,7 +107,7 @@ export default function Auth() {
 			const categoriesIndexes = categoriesPack.map(category => categories_list.indexOf(category.name.toLowerCase()));
 			let preferences = [...Array(16).keys()].map(() => 1);
 			categoriesIndexes.map(index => preferences[index] = 2);
-			store.set("preferences", preferences);
+			await store.set("preferences", preferences);
 			window.location.href = "/";
 		}
 
@@ -130,6 +127,8 @@ export default function Auth() {
 			else setIsContinue(false);
 		}
 	}, [stage, username, password]);
+
+	useEffect(() => setClear("*"), [])
 
 	return (
 		<div className='h-full flex flex-col animate-[fadeIn_0.3s_ease-out]'>

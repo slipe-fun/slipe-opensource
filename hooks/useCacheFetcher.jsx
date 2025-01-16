@@ -35,7 +35,7 @@ export function useCacheFetcher(url, fetcher, params) {
 
         const fetchedData = await fetcher(url);
 
-        if (fetchedData || (params?.cache && JSON?.stringify(fetchedData) !== JSON?.stringify(cachedData))) {
+        if (fetchedData.response.status === 200 || (params?.cache && JSON?.stringify(fetchedData) !== JSON?.stringify(cachedData)) && fetchedData.response.status === 200) {
           localStorage.setItem(url, JSON.stringify(fetchedData || {}));
           setData(fetchedData);
           setLoading(false);
@@ -50,6 +50,18 @@ export function useCacheFetcher(url, fetcher, params) {
   }, [url]);
 
   return { data, error, isLoading, mutate };
+}
+
+export function clearCache (url) {
+  if (url === "*") {
+    localStorage.clear();
+  } else {
+    const cachedItem = localStorage.getItem(url);
+
+    if (cachedItem) {
+      localStorage.removeItem(url);
+    } 
+  }
 }
 
 export function useClearCache(url) {

@@ -16,7 +16,7 @@ export default function NavBar() {
 		data: user,
 		error: error,
 		isLoading: isLoading,
-	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
+	} = useCacheFetcher(url.pathname != "/auth" ? api.v1 + "/account/info/get" : null, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
 		cache: true
 	});
 

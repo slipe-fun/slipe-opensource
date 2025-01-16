@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Svg from "@/components/ui/icons/svg";
 import { useStorage } from "@/hooks/contexts/session";
-import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 import api from "@/constants/api";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import icons from "@/components/ui/icons/icons";
@@ -25,7 +24,7 @@ export default function StateProfile() {
 	
 
 	const copyLink = async () => {
-		await writeText(`https://slipe.fun/@${user?.username}`)
+		// await writeText(`https://slipe.fun/@${user?.username}`) add
 		toast.success("Profile link copied!", { className: "bg-green text-green-foreground" });
 		setIsCopied(true);
 		setTimeout(() => {
