@@ -26,7 +26,7 @@ export default function ProfileSettingsModal({ open, setActiveModal, user, setUs
 		formdata.append("banner", banner);
 		formdata.append("username", username);
 		formdata.append("nickname", displayName);
-		formdata.append("description", user?.description);
+		formdata.append("description", user?.description || "");
 		formdata.append("nickname_color", nameColor);
 		formdata.append("badge", badge);
 		setSettingsForm(formdata);
