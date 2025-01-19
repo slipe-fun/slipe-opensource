@@ -21,15 +21,15 @@ export default function User({ user = {}, scrollProgress, subscribe, isModal }) 
 	const [isSubscribed, setIsSubscribed] = useState(false);
 
 	async function subscribeUser() {
-		if (subscribe) subscribe()
-		if (isSubscribed) setIsSubscribed(false);
-		else setIsSubscribed(true);
+		if (subscribe) return subscribe()
+
+		const currentStatus = isSubscribed;
+		setIsSubscribed(!currentStatus);
 
 		const followRequest = await follow(user?.id, token);
 
 		if (followRequest?.error) {
-			if (isSubscribed) setIsSubscribed(true);
-			else setIsSubscribed(false);
+			setIsSubscribed(currentStatus);
 		}
 	}
 
@@ -83,7 +83,7 @@ export default function User({ user = {}, scrollProgress, subscribe, isModal }) 
 				) : (
 					<Button className='rounded-full px-7 min-h-[3.25rem] text-lg h-[3.25rem]'>Edit bio</Button>
 				)}
-				
+
 			</div>
 			<AvatarModal isModal={isModal} user={user} open={isAvatar} setOpen={setIsAvatar} />
 		</motion.div>

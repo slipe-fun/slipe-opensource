@@ -10,25 +10,28 @@ import { UserModal } from "@/components/shared/modals";
 export default function UserBlock({ user, setUser, date }) {
 	const [localUser, setLocalUser] = useState(user);
 	const [state, setState] = useState(localUser?.subscribed);
+	const [subscribers, setSubscribers] = useState(localUser?.subscribers);
 	const [open, setOpen] = useState(false);
 	const { token, store } = useStorage();
 
 	async function subscribe() {
-		if (state) setState(false);
-		else setState(true);
+		setState(!state);
+		setSubscribers(!state ? subscribers + 1 : subscribers - 1);
 
 		const followRequest = await follow(user?.id, token);
 
 		if (followRequest?.error) {
+			setSubscribers(prev => prev - 1);
 			if (state) setState(true);
 			else setState(false);
 		}
 	}
 
-	useEffect(() => setUser({ ...user, subscribed: state }), [state]);
+	useEffect(() => {setUser({ ...user, subscribers, subscribed: state }); console.log(state, subscribers)}, [state, subscribers]);
 
 	useEffect(() => {
 		setLocalUser(user);
+		setSubscribers(user.subscribers)
 		setState(user?.subscribed);
 	}, [user]);
 
