@@ -36,7 +36,7 @@ export function useCacheFetcher(url, fetcher, params) {
         const fetchedData = await fetcher(url);
 
         if (fetchedData.response.status === 200 || (params?.cache && JSON?.stringify(fetchedData) !== JSON?.stringify(cachedData)) && fetchedData.response.status === 200) {
-          localStorage.setItem(url, JSON.stringify(fetchedData || {}));
+          if (params?.cache) localStorage.setItem(url, JSON.stringify(fetchedData || {}));
           setData(fetchedData);
           setLoading(false);
           setError(null);
