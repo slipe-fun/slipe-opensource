@@ -18,6 +18,7 @@ export default {
 				modal: "hsl(var(--modal))",
 				yellow: "hsl(var(--yellow))",
 				purple: "hsl(var(--purple))",
+				navigation: "hsl(var(--navigation))",
 				gray: "hsl(var(--gray))",
 				swiperShadow: "hsl(var(--swiper-shadow))",
 				red: {

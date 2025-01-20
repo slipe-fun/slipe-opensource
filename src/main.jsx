@@ -2,28 +2,44 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Home from "./pages/home/page";
+import { StatusBar } from "@capacitor/status-bar";
 import Profile from "./pages/profile/page";
 import { Toaster } from "sonner";
 import Auth from "./pages/auth/page";
 import Header from "@/components/shared/header/header";
-import NavBar from "@/components/shared/navBar";
+import { NavigationBar } from "@hugotomazi/capacitor-navigation-bar";
+import { SafeArea } from "capacitor-plugin-safe-area";
+import NavBar from "@/components/shared/nav-bar";
 import PagesContentTypeContextProvider from "@/hooks/contexts/posts-type";
 import { SessionContextProvider } from "@/hooks/contexts/session";
-import { Portal } from "vaul";
+import { createPortal } from "react-dom";
 
 import "./index.css";
-import { createPortal } from "react-dom";
+
+// Some native code for transparent bars, insets and etc.
+StatusBar.setOverlaysWebView({ overlay: true });
+
+NavigationBar.setTransparency({ isTransparent: true });
+
+SafeArea.getSafeAreaInsets().then(({ insets }) => {
+	document.documentElement.style.setProperty("--safe-area-inset-top", `${insets.top}px`);
+	document.documentElement.style.setProperty("--safe-area-inset-bottom", `${insets.bottom}px`);
+});
+//
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		{createPortal(<Toaster
+		{createPortal(
+			<Toaster
 				gap={12}
 				toastOptions={{
 					className: "rounded-xl text-sm",
 				}}
 				position='top-center'
-			/>, document.body)}
-			
+			/>,
+			document.body
+		)}
+
 		<PagesContentTypeContextProvider>
 			<SessionContextProvider>
 				<BrowserRouter>

@@ -21,7 +21,7 @@ export default function Header() {
 				<header
 					id='header-wrapper'
 					data-isbg={currentPage == "/profile"}
-					className='w-screen opacity-100 data-[isbg=false]:bg-background/90 data-[isbg=false]:backdrop-blur-2xl fixed z-50 p-4'
+					className='w-screen opacity-100 data-[isbg=false]:bg-background/90 pt-[calc(1rem+var(--safe-area-inset-top))] data-[isbg=false]:backdrop-blur-2xl fixed z-50 p-4'
 				>
 					<div className='flex opacity-100 w-full gap-5 justify-between'>
 						{currentPage == "/" ? <HomeState url={currentPage} /> : currentPage == "/profile" ? <ProfileState /> : null}

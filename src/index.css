@@ -6,6 +6,7 @@
 	:root {
 		--background: 0 0% 100%;
 		--pagination: 0 0% 0%;
+		--navigation: 0, 0%, 100%, 0.7;
 		--foreground: 222.2 84% 4.9%;
 		--card: 0 0% 88%;
 		--card-foreground: 222.2 84% 4.9%;
@@ -44,6 +45,7 @@
 	.dark {
 		--background: 0 0% 0%;
 		--pagination: 0 0% 100%;
+		--navigation: 0, 0%, 12%, 0.75;
 		--swiper-shadow: 0, 0%, 0%, 0.5;
 		--foreground: 210 40% 98%;
 		--card: 0 0% 12%;
