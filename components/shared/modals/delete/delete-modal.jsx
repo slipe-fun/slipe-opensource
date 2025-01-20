@@ -7,8 +7,10 @@ import { toast } from "sonner";
 
 export default function DeleteModal({ children, open, setOpen, deleteBlog, deleteComment, object, nested = true, content = "post" }) {
 	const { token, store } = useStorage();
+	const [isLoading, setIsLoading] = useState(false);
 
 	async function deleteBlogRequest() {
+		setIsLoading(true);
 		const form_data = new FormData();
 		form_data.append("post_id", object?.id);
 
@@ -23,6 +25,7 @@ export default function DeleteModal({ children, open, setOpen, deleteBlog, delet
 			toast.error(request?.error, { className: "bg-red text-red-foreground z-50" });
 		}
 
+		setIsLoading(false);
 		setOpen(false);
 	}
 
@@ -71,6 +74,7 @@ export default function DeleteModal({ children, open, setOpen, deleteBlog, delet
 						className='rounded-full font-semibold'
 						size='full'
 						onClick={content === "post" ? deleteBlogRequest : deleteCommentRequest}
+						disabled={isLoading}
 					>
 						Delete
 					</Button>
