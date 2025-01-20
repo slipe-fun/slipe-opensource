@@ -13,10 +13,12 @@ import { toast } from "sonner";
 export default function DescriptionModal({ children, open, setOpen, user, changeUserDescription }) {
 	const { token, store } = useStorage();
 	const [description, setDescription] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => setDescription(user?.description || ""), [user])
 
 	async function changeDescription() {
+		setIsLoading(true);
 		const avatar = await fetch(cdn + "/avatars/" + user?.avatar).then(async res => await res.blob()).catch(() => null)
 		const banner = await fetch(cdn + "/banners/" + user?.banner).then(async res => await res.blob()).catch(() => null)
 
@@ -42,6 +44,7 @@ export default function DescriptionModal({ children, open, setOpen, user, change
 		} else {
 			toast.error(request?.error, { className: "bg-red text-red-foreground z-50" });
 		}
+		setIsLoading(false);
 	}
 
 	return (
@@ -68,7 +71,7 @@ export default function DescriptionModal({ children, open, setOpen, user, change
 					<Button onClick={() => setOpen(false)} variant='secondary' className='rounded-full' size='full'>
 						Cancel
 					</Button>
-					<Button onClick={changeDescription} className='rounded-full font-semibold' size='full'>
+					<Button disabled={isLoading} onClick={changeDescription} className='rounded-full font-semibold' size='full'>
 						Save
 					</Button>
 				</DrawerFooter>
