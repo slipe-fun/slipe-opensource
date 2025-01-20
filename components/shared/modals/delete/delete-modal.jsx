@@ -4,6 +4,7 @@ import { fetcher } from "@/lib/utils";
 import api from "@/constants/api";
 import { useStorage } from "@/hooks/contexts/session";
 import { toast } from "sonner";
+import { useState } from "react";
 
 export default function DeleteModal({ children, open, setOpen, deleteBlog, deleteComment, object, nested = true, content = "post" }) {
 	const { token, store } = useStorage();
