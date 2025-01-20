@@ -18,16 +18,16 @@ export default function StateHome({ url }) {
 				data-isactive={url == "/notifs"}
 				size='icon'
 				asChild
-				className='rounded-full data-[isactive=false]:bg-foreground/[0.12] data-[isactive=true]:bg-foreground data-[isactive=false]:text-foreground data-[isactive=true]:text-background'
+				className='rounded-full data-[isactive=false]:bg-foreground/[0.08] w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] data-[isactive=true]:bg-foreground data-[isactive=false]:text-foreground data-[isactive=true]:text-background'
 			>
 				<Link to='/notifs'>
 					<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons["bell"]} />
 				</Link>
 			</Button>
-			<div className='rounded-full p-1 relative flex h-14 w-full bg-foreground/[0.12]'>
+			<div className='rounded-full p-1 relative flex h-[3.25rem] w-full bg-foreground/[0.08]'>
 				<div
 					data-isactive={activeContent == "follows"}
-					className='absolute data-[isactive=true]:translate-x-full data-[isactive=false]:translate-x-0 duration-200 ease-out w-[calc(50%-0.25rem)] h-[calc(100%-0.5rem)] rounded-full bg-foreground/[0.12]'
+					className='absolute data-[isactive=true]:translate-x-full data-[isactive=false]:translate-x-0 duration-200 ease-out w-[calc(50%-0.25rem)] h-[calc(100%-0.5rem)] rounded-full bg-foreground/[0.08]'
 				/>
 				<Button
 					data-isactive={activeContent == "forYou"}
@@ -52,10 +52,10 @@ export default function StateHome({ url }) {
 				data-isactive={url == "/search"}
 				size='icon'
 				asChild
-				className='rounded-full data-[isactive=false]:bg-foreground/[0.12] data-[isactive=true]:bg-foreground data-[isactive=false]:text-foreground data-[isactive=true]:text-background'
+				className='rounded-full data-[isactive=false]:bg-foreground/[0.08] w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] data-[isactive=true]:bg-foreground data-[isactive=false]:text-foreground data-[isactive=true]:text-background'
 			>
 				<Link to='/search'>
-					<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons["search"]} />
+					<Svg className='!w-7 !h-7' icon={icons["search"]} />
 				</Link>
 			</Button>
 		</>

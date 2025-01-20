@@ -80,7 +80,7 @@ export default function BlogsSlider({ blogs }) {
 						translate: [75, 0, 0],
 					},
 				}}
-				className='w-full h-full py-[6.5rem] home-swiper animate-[fadeIn_0.3s_ease-out]'
+				className='w-full h-full pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.5625rem+var(--safe-area-inset-bottom))] home-swiper animate-[fadeIn_0.3s_ease-out]'
 				onSlideChange={onSlideChange}
 				virtual={true}
 			>

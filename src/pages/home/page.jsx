@@ -62,10 +62,10 @@ export default function Home() {
 				) : activeContent === "follows" ? (
 					<NoFollows />
 				) : (
-					<NoContent image="error.png" title="No data" primary="Try reloading the page or app" className="h-screen px-5 animate-[fadeIn_0.3s_ease-out]"/>
+					<NoContent image="error.png" title="No data" primary="Try reloading the page or app" className="h-screen px-4 animate-[fadeIn_0.3s_ease-out]"/>
 				)
 			) : (
-				<div className="py-[6.5rem] animate-[fadeIn_0.3s_ease-out] w-full h-full px-5">
+				<div className="pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.5625rem+var(--safe-area-inset-bottom))] animate-[fadeIn_0.3s_ease-out] w-full h-full px-4">
 					<Skeleton className="rounded-[2rem] h-full w-full" />
 				</div>
 			)}
