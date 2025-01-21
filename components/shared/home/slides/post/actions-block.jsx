@@ -28,7 +28,7 @@ export default function ActionsBlock({ reactions, currentReaction, post, isPostM
 	}, []);
 
 	const reactionClicked = async (reactionCategory, reactionId) => {
-		ReactionClicked(reactionCategory, reactionId, localReactions, localCurrentReaction, post?.id, token, setCurrentReaction, setReactions, store);
+		ReactionClicked(reactionCategory, reactionId, localReactions, localCurrentReaction, post, token, setCurrentReaction, setReactions, store);
 		await updatePreference(post?.category, store);
 	};
 
