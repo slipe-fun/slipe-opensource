@@ -5,7 +5,7 @@ import icons from "@/components/ui/icons/icons";
 
 export default function Header({ user, setOpen }) {
 	return (
-		<header className='w-screen fixed flex justify-between z-50 p-4'>
+		<header className='w-screen fixed flex justify-between z-50 pt-[calc(1rem+var(--safe-area-inset-top))] p-4'>
 			<Button
 				onClick={() => setOpen(false)}
 				className='rounded-full hover:bg-black/35 bg-black/35 backdrop-blur-2xl'

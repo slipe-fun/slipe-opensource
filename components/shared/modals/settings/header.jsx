@@ -28,7 +28,7 @@ export default function Header({ user = {}, scrollProgress, setOpen }) {
 					))}
 				</div>
 			)}
-			<div className='w-full h-full absolute flex justify-between p-4'>
+			<div className='w-full h-full absolute flex pt-[calc(1rem+var(--safe-area-inset-top))] justify-between p-4'>
 				<Button onClick={() => setOpen(false)} className='rounded-full hover:bg-black/35 bg-black/35 backdrop-blur-2xl' size='icon'>
 					<Svg icon={icons["chevronLeft"]} className='duration-200 ease-out !w-7 !h-7' />
 				</Button>
@@ -40,7 +40,7 @@ export default function Header({ user = {}, scrollProgress, setOpen }) {
 					<Svg className='!w-[1.625rem] !h-[1.625rem]' icon={icons["pencil"]} />
 				</Button>
 			</div>
-			<motion.div style={{ gap, padding }} className='w-full flex flex-col gap-2 p-5 justify-center bg-black/50 items-center'>
+			<motion.div style={{ gap, padding }} className='w-full flex flex-col gap-2 p-4 justify-center bg-black/50 items-center'>
 				{user.avatar ? (
 					<motion.img
 						style={{ width, opacity }}
