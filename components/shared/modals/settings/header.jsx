@@ -40,7 +40,7 @@ export default function Header({ user = {}, scrollProgress, setOpen }) {
 					<Svg className='!w-[1.625rem] !h-[1.625rem]' icon={icons["pencil"]} />
 				</Button>
 			</div>
-			<motion.div style={{ gap, padding }} className='w-full flex flex-col gap-2 p-4 justify-center bg-black/50 items-center'>
+			<motion.div style={{ gap, padding }} className='w-full flex flex-col gap-2 p-4 pt-[calc(1rem+var(--safe-area-inset-top))] justify-center bg-black/50 items-center'>
 				{user.avatar ? (
 					<motion.img
 						style={{ width, opacity }}

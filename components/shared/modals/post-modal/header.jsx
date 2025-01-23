@@ -9,7 +9,7 @@ export default function Header({ post, user, setOpen, inputFocus, setDeletedBlog
 	return (
 		<div
 			data-shadowed={inputFocus}
-			className='w-full p-4 gap-5 data-[shadowed=true]:opacity-40 duration-200 ease-out flex top-0 z-50 bg-background/90 items-center fixed backdrop-blur-2xl'
+			className='w-full p-4 pt-[calc(1rem+var(--safe-area-inset-top))] gap-5 data-[shadowed=true]:opacity-40 duration-200 ease-out flex top-0 z-50 bg-background/90 items-center fixed backdrop-blur-2xl'
 		>
 			<Button
 				onClick={() => setOpen(false)}
