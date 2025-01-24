@@ -10,6 +10,7 @@ import Post from "../slides/post/post";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
+import addView from "@/lib/posts/addView";
 
 export default function BlogsSlider({ blogs }) {
 	const [allBlogs, setBlogs] = useState();
@@ -36,6 +37,7 @@ export default function BlogsSlider({ blogs }) {
 
 	async function onSlideChange(slide) {
 		const currentSlide = slide.activeIndex;
+		const currentBlog = allBlogs[currentSlide] || null;
 		const greatestIndex = allBlogs.length - 1;
 		const lastBlog = allBlogs[greatestIndex];
 
@@ -46,6 +48,8 @@ export default function BlogsSlider({ blogs }) {
 
 			setBlogs(oldValue => [...oldValue, ...reqBlogs?.success]);
 		}
+
+		await addView(currentBlog, token)
 	}
 
 	async function deleteBlog(id) {

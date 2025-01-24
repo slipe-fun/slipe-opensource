@@ -27,7 +27,7 @@ export default function UserBlock({ user, setUser, date }) {
 		}
 	}
 
-	useEffect(() => {setUser({ ...user, subscribers, subscribed: state }); console.log(state, subscribers)}, [state, subscribers]);
+	useEffect(() => setUser({ ...user, subscribers, subscribed: state }), [state, subscribers]);
 
 	useEffect(() => {
 		setLocalUser(user);

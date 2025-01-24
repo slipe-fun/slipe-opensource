@@ -7,6 +7,7 @@ import api from "@/constants/api";
 import { fetcher } from "@/lib/utils";
 
 import "swiper/css";
+import addView from "@/lib/posts/addView";
 
 export default function UsersSlider({ users, blogs, type }) {
 	const [allUsers, setUsers] = useState();
@@ -16,6 +17,7 @@ export default function UsersSlider({ users, blogs, type }) {
 
 	async function onSlideChange(slide) {
 		const currentSlide = slide.activeIndex;
+		const currentPost = allBlogs.find(blog => blog?.author?.username === allUsers[currentSlide]) || null;
 		const greatestIndex = allUsers.length - 1;
 		const allUserIds = [...new Set(allBlogs.map(blog => blog.author.id))];
 
@@ -39,6 +41,8 @@ export default function UsersSlider({ users, blogs, type }) {
 				]);
 			}
 		}
+
+		await addView(currentPost, token);
 	}
 
 	useEffect(() => {

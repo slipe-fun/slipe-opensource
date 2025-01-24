@@ -7,6 +7,7 @@ import { useStorage } from "@/hooks/contexts/session";
 import { Skeleton } from "@/components/ui/skeleton";
 import NoFollows from "@/components/shared/home/slides/no-follows/no-follows";
 import NoContent from "@/components/shared/no-content";
+import addView from "@/lib/posts/addView";
 
 export default function Home() {
 	const { token, store } = useStorage();
@@ -42,7 +43,10 @@ export default function Home() {
 
 	useEffect(() => {
 		if (!isLoading && startData?.success) {
-			const users = Object.keys(startData.success);
+			const users = Object.keys(startData?.success);
+			const currentUser = startData?.success[users[0]] || null
+			const currentPost = currentUser?.posts || null
+
 			setUsers(users);
 
 			const allBlogs = users.flatMap(username => {
@@ -51,6 +55,8 @@ export default function Home() {
 			});
 
 			setBlogs(allBlogs);
+
+			addView(currentPost, token)
 		}
 	}, [startData, isLoading, error]);
 
