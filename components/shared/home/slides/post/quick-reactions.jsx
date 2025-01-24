@@ -28,9 +28,9 @@ export default function QuickReactions({ reactionClicked, setIsReactions, isReac
 						transition={{ duration: 0.2, ease: "easeOut" }}
 						exit={{ opacity: 0, scale: 0.5 }}
 						onClick={() => setIsReactions(false)}
-						className='min-w-[2.625rem] bg-white/[0.12] flex justify-center items-center text-white rounded-full duration-200 ease-out h-[2.625rem]'
+						className='min-w-10 bg-white/[0.08] flex justify-center items-center text-white rounded-full duration-200 ease-out h-10'
 					>
-						<Svg className='!w-[1.375rem] !h-[1.375rem]' icon={icons["x"]} />
+						<Svg className='!w-5 !h-5' icon={icons["x"]} />
 					</motion.button>
 				) : null}
 

@@ -19,9 +19,8 @@ export default function StateProfile() {
 		error: error,
 		isLoading: isLoading,
 	} = useCacheFetcher(api.v1 + "/account/info/get", async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
-		cache: true
+		cache: true,
 	});
-	
 
 	const copyLink = async () => {
 		// await writeText(`https://slipe.fun/@${user?.username}`) add
@@ -32,36 +31,36 @@ export default function StateProfile() {
 		}, 2500);
 	};
 
-	useEffect(() => setUser(userReq?.success[0]), [userReq])
+	useEffect(() => setUser(userReq?.success[0]), [userReq]);
 
 	return (
 		<>
 			<Button
 				data-copied={isCopied}
 				onClick={async () => copyLink()}
-				className='rounded-full data-[copied=true]:pointer-events-none hover:bg-black/35 data-[copied=true]:text-green-foreground relative bg-black/35 backdrop-blur-2xl'
+				className='rounded-full data-[copied=true]:pointer-events-none hover:bg-[#333333]/40 data-[copied=true]:text-green-foreground relative bg-[#333333]/40 w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] backdrop-blur-[80px]'
 				size='icon'
 			>
 				<Svg
 					data-copied={isCopied}
 					icon={icons["link"]}
-					className='absolute duration-200 ease-out data-[copied=false]:opacity-100 data-[copied=false]:translate-y-0 data-[copied=true]:translate-y-4 data-[copied=true]:opacity-0 !w-8 !h-8'
+					className='absolute duration-200 ease-out data-[copied=false]:opacity-100 data-[copied=false]:translate-y-0 data-[copied=true]:translate-y-4 data-[copied=true]:opacity-0 !w-7 !h-7'
 				/>
 				<Svg
 					data-copied={isCopied}
 					icon={icons["checkmark"]}
-					className='absolute duration-200 data-[copied=true]:opacity-100 data-[copied=false]:opacity-0 data-[copied=false]:-translate-y-4 data-[copied=true]:translate-y-0 ease-out !w-7 !h-7'
+					className='absolute duration-200 data-[copied=true]:opacity-100 data-[copied=false]:opacity-0 data-[copied=false]:-translate-y-4 data-[copied=true]:translate-y-0 ease-out !w-6 !h-6'
 				/>
 			</Button>
 			<Button
-			data-active={open}
+				data-active={open}
 				onClick={() => setOpen(true)}
 				size='icon'
-				className='rounded-full data-[open=true]:bg-white hover:bg-black/35 data-[copied=true]:text-black relative bg-black/35 backdrop-blur-2xl'
+				className='rounded-full data-[open=true]:bg-white hover:bg-[#333333]/40 data-[copied=true]:text-black relative bg-[#333333]/40 w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] backdrop-blur-[80px]'
 			>
-					<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons["gear"]} />
+				<Svg className='!w-7 !h-7' icon={icons["gear"]} />
 			</Button>
-			<SettingsModal user={user} setUser={setUser} open={open} setOpen={setOpen}/>
+			<SettingsModal user={user} setUser={setUser} open={open} setOpen={setOpen} />
 		</>
 	);
 }

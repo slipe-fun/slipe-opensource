@@ -38,10 +38,10 @@ export default function ActionsBlock({ reactions, currentReaction, post, isPostM
 	};
 
 	return (
-		<div className='w-full z-10 p-5 pr-0 flex items-end overflow-hidden gap-5 bg-gradient-to-t from-[#00000060] to-[#00000000]'>
+		<div className='w-full z-10 p-4 pr-0 flex items-end overflow-hidden gap-5 bg-gradient-to-t from-[#00000060] to-[#00000000]'>
 			<div
 				data-isexpanded={isReactions}
-				className='relative flex text-white rounded-full ease-out duration-200 data-[isexpanded=false]:w-[3.125rem] data-[isexpanded=true]:w-[calc(100%-1rem)] data-[isexpanded=true]:p-2 data-[isexpanded=true]:bg-[#1f1f1f]'
+				className='relative flex text-white rounded-full ease-out duration-200 data-[isexpanded=false]:w-[3.125rem] data-[isexpanded=true]:w-[calc(100%-1rem)] data-[isexpanded=true]:p-[0.375rem] data-[isexpanded=true]:bg-[#1f1f1f]'
 			>
 				<QuickReactions
 					currentReaction={localCurrentReaction}
@@ -52,11 +52,11 @@ export default function ActionsBlock({ reactions, currentReaction, post, isPostM
 				<button
 					data-isactive={isReactions}
 					onClick={() => (isReactions ? reactionsModalOpen() : setIsReactions(true))}
-					className='min-w-[3.125rem] h-[3.125rem] data-[isactive=true]:h-[2.625rem] data-[isactive=true]:min-w-[2.625rem] bg-black/50 data-[isactive=true]:bg-white/[0.12] flex justify-center items-center text-white rounded-full duration-200 ease-out'
+					className='min-w-12 h-12 data-[isactive=true]:h-10 data-[isactive=true]:min-w-10 bg-black/50 data-[isactive=true]:bg-white/[0.08] flex justify-center items-center text-white rounded-full duration-200 ease-out'
 				>
 					<Svg
 						data-isactive={isReactions}
-						className='!w-[1.875rem] duration-200 ease-out data-[isactive=true]:!w-7 data-[isactive=true]:!h-7 !h-[1.875rem]'
+						className='!w-7 duration-200 ease-out data-[isactive=true]:!w-[1.625rem] data-[isactive=true]:!h-[1.625rem] !h-7'
 						icon={icons["smile"]}
 					/>
 				</button>
@@ -75,7 +75,7 @@ export default function ActionsBlock({ reactions, currentReaction, post, isPostM
 						onClick={() => setComments(true)}
 						className='relative data-[ishidden=true]:opacity-0 flex data-[isactive=true]:bg-white data-[isactive=true]:text-black text-white rounded-full ease-out duration-200 bg-black/50 p-[0.625rem]'
 					>
-						<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons["message"]} />
+						<Svg className='!w-7 !h-7' icon={icons["message"]} />
 					</button>
 					<CommentsModal setOpen={setComments} open={isComments} post={post}/>
 				</>
@@ -85,10 +85,9 @@ export default function ActionsBlock({ reactions, currentReaction, post, isPostM
 				ref={reactionsRef}
 				className='w-full overflow-x-scroll flex duration-200 ease-out gap-5 data-[ishidden=true]:opacity-0 data-[ishidden=true]:-mr-[130%]'
 			>
-				<AnimatePresence mode='popLayout'>
+				<AnimatePresence>
 					{localReactions.map((reaction, index) => (
 						<motion.button
-							layout='position'
 							key={index}
 							initial={{ opacity: 0, x: 4 }}
 							animate={{ opacity: 1, x: 0 }}

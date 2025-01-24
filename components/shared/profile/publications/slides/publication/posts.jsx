@@ -45,7 +45,7 @@ export default function Posts({ user, token, isModal, dateId }) {
 					next={() => setPage(prev => prev + 1)}
 					scrollableTarget={isModal ? `profileScrollModal-${dateId}` : 'profileScroll'}
 					dataLength={publications?.length}
-					className='grid grid-cols-2 h-fit gap-5'
+					className='grid grid-cols-2 h-fit gap-4'
 				>
 					{publications?.map((post, index) => (
 						<Publication isModal={isModal} key={index} post={post} user={user} />
@@ -53,7 +53,7 @@ export default function Posts({ user, token, isModal, dateId }) {
 				</InfiniteScroll>
 			) : null}
 			{isLoading ? (
-				<div className='grid grid-cols-2 h-fit gap-5'>
+				<div className='grid grid-cols-2 h-fit gap-4'>
 					{Array.from({ length: 8 }, (_, i) => i).map(index => (
 						<Skeleton key={index} className='w-full animate-[fadeInOpacity_0.3s_ease-out] aspect-[37/57] rounded-[1.125rem]' />
 					))}

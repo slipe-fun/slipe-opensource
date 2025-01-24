@@ -24,7 +24,7 @@ export default function Publications({ user, isModal, dateId }) {
 
 	return (
 		<div className='flex flex-col gap-4'>
-			<div id={isModal ? "content-switcher-modal" : "content-switcher"} className='flex gap-6 font-medium text-2xl px-5 overflow-x-auto'>
+			<div id={isModal ? "content-switcher-modal" : "content-switcher"} className='flex gap-7 font-medium text-2xl px-4 overflow-x-auto'>
 				<button
 					onClick={() => setActive(0)}
 					id={isModal ? "switcher-modal-button-0" : "switcher-button-0"}
@@ -80,7 +80,7 @@ export default function Publications({ user, isModal, dateId }) {
 					},
 				}}
 				effect='creative'
-				className='w-full px-5 pb-[5.5rem]'
+				className='w-full px-4 pb-[calc(5.5rem+var(--safe-area-inset-bottom))]'
 				slidesPerView={1}
 				modules={[FreeMode, EffectCreative]}
 			>

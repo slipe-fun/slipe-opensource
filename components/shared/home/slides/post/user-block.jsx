@@ -36,7 +36,7 @@ export default function UserBlock({ user, setUser, date }) {
 	}, [user]);
 
 	return (
-		<div className='w-full z-10 p-5 flex gap-3 bg-gradient-to-b from-[#00000060] to-[#00000000]'>
+		<div className='w-full z-10 p-4 flex gap-3 bg-gradient-to-b from-[#00000060] to-[#00000000]'>
 			<div onClick={() => setOpen(true)} className='w-full flex gap-3 duration-200 ease-out items-center overflow-hidden active:opacity-80'>
 				{localUser?.avatar ? (
 					<img loading='lazy' className='rounded-full w-12 h-12' src={`${cdn}/avatars/${localUser?.avatar}`} />
@@ -45,11 +45,11 @@ export default function UserBlock({ user, setUser, date }) {
 				)}
 				<div className='flex flex-col w-full overflow-hidden'>
 					<div className='w-full flex gap-1'>
-						<div className='whitespace-nowrap overflow-hidden max-w-fit text-ellipsis font-medium text-white'>
+						<div className='whitespace-nowrap overflow-hidden text-[0.9375rem] leading-[1.3125rem] max-w-fit text-ellipsis font-medium text-white'>
 							{localUser?.nickname ? localUser?.nickname : localUser?.username}
 						</div>
 					</div>
-					<span className='text-sm text-white/75'>{TimePassedFromDate(date)}</span>
+					<span className='text-[0.8125rem] leading-[1.125rem] text-white/75'>{TimePassedFromDate(date)}</span>
 				</div>
 			</div>
 			<Button data-subscribed={state} className='data-[subscribed=true]:!bg-[#1F1F1F] rounded-full' onClick={subscribe}>

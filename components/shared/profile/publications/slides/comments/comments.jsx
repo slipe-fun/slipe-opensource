@@ -58,7 +58,7 @@ export default function Comments({ user, token, isModal, dateId }) {
 					}}
 					scrollableTarget={isModal ? `profileScrollModal-${dateId}` : 'profileScroll'}
 					dataLength={comments?.length}
-					className='flex flex-col h-fit gap-5'
+					className='flex flex-col h-fit gap-4'
 				>
 					{comments?.filter(isCommentDeleted)?.map((comment, index) => (
 						<Comment key={index} user={user} comment={comment} date={comment?.date} deleteComment={deleteComment} />
@@ -67,7 +67,7 @@ export default function Comments({ user, token, isModal, dateId }) {
 			) : null}
 
 			{isLoading ? (
-				<div className='flex flex-col h-fit gap-5'>
+				<div className='flex flex-col h-fit gap-4'>
 					{Array.from({ length: 6 }, (_, i) => i).map(index => (
 						<Skeleton key={index} className='w-full h-32 rounded-[1.25rem]' />
 					))}

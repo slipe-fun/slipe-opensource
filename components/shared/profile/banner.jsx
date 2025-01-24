@@ -5,23 +5,33 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Banner({ user = {}, scrollProgress }) {
 	const invertInteger = (num, center = 0.5) => center * 2 - num;
+	const [insetVar, setInsetVar] = useState(0);
 	const opacity = useTransform(scrollProgress, value => value * 0.01);
 	const bannerRef = useRef(null);
 	const [bannerSize, setBannerSize] = useState(0);
-	const height = useTransform(scrollProgress, [0, bannerSize <= 0 ? bannerSize : bannerSize - 88], [bannerSize, 88]);
+	const height = useTransform(scrollProgress, [0, bannerSize <= 0 ? bannerSize : bannerSize - 84 - insetVar], [bannerSize, 84 + insetVar]);
 
 	useEffect(() => {
-		setTimeout(() => {
-			setBannerSize(bannerRef.current?.getBoundingClientRect()?.height);
-		}, 300);
+		const insetValue = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-top").trim());
+		setInsetVar(insetValue);
+
+		const observer = new ResizeObserver(([entry]) => {
+			setBannerSize(entry.contentRect.height);
+		});
+
+		if (bannerRef.current) observer.observe(bannerRef.current);
+
+		return () => {
+			if (bannerRef.current) observer.unobserve(bannerRef.current);
+		};
 	}, []);
 
 	return (
 		<>
 			<div
 				ref={bannerRef}
-				style={{ "--top-sticking": `${bannerSize <= 0 ? bannerSize : bannerSize - 88}px` }}
-				className='sticky -top-[--top-sticking] w-full overflow-hidden aspect-[16/11] min-h-fit z-30 rounded-b-[1.25rem]'
+				style={{ "--top-sticking": `${bannerSize <= 0 ? 0 : bannerSize - 84 - insetVar}px` }}
+				className='sticky -top-[--top-sticking] w-full overflow-hidden aspect-[16/10] min-h-fit z-30 rounded-b-2xl'
 			>
 				{user?.banner ? (
 					<img loading='lazy' src={cdn + "/banners/" + user?.banner} className='w-full absolute -z-10 h-full object-cover' />
@@ -42,7 +52,7 @@ export default function Banner({ user = {}, scrollProgress }) {
 				/>
 				<motion.div
 					style={{ opacity, height }}
-					className='bottom-0 w-full flex items-center p-5 justify-center pointer-events-none text-white flex-col absolute bg-black/50'
+					className='bottom-0 w-full flex items-center p-4 pt-[calc(1rem+var(--safe-area-inset-top))] justify-center pointer-events-none text-white flex-col absolute bg-black/50'
 				>
 					<span className='font-medium text-lg overflow-hidden w-full whitespace-nowrap max-w-fit text-ellipsis text-center'>
 						{user?.nickname ? user?.nickname : user?.username}

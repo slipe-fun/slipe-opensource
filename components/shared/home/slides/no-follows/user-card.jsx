@@ -25,7 +25,7 @@ export default function UserCard({ user }) {
 	useEffect(() => setIsFollowed(user?.subscribed), [user])
 
 	return (
-		<div onClick={followUser} className='rounded-3xl relative w-full aspect-square overflow-hidden'>
+		<div onClick={followUser} className='rounded-[1.125rem] relative w-full aspect-square overflow-hidden'>
 			{user?.banner ? (
 				 <img loading="lazy" src={`${cdn}/banners/${user?.banner}`} className="w-full absolute -z-10 h-full object-cover"/>
 			) : (

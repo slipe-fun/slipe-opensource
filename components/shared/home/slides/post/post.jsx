@@ -10,7 +10,7 @@ const Post = forwardRef(({ user, setUser, post, isPostDeleted, className, isPost
 			ref={ref}
 			{...props}
 			className={cn(
-				"flex bg-[#161616] w-[calc(200%-2rem)] absolute rounded-[1.75rem] justify-between h-full overflow-hidden items-center flex-col",
+				"flex bg-[#242424] w-[calc(200%-2rem)] absolute rounded-[1.75rem] justify-between h-full overflow-hidden items-center flex-col",
 				className
 			)}
 		>

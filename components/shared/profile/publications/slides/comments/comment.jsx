@@ -11,7 +11,7 @@ export default function Comment({ user, comment, date, deleteComment }) {
 	const [isDelete, setIsDelete] = useState(false);
 
 	return (
-		<div className='p-4 bg-card flex rounded-[1.25rem] origin-center flex-col gap-2'>
+		<div className='p-3 bg-card flex rounded-[1.125rem] origin-center flex-col gap-[0.375rem]'>
 			<div className='w-full flex gap-3 items-center'>
 				<div className='w-full flex gap-3 duration-200 ease-out items-center overflow-hidden'>
 					{user?.avatar ? (
@@ -21,11 +21,11 @@ export default function Comment({ user, comment, date, deleteComment }) {
 					)}
 					<div className='flex flex-col w-full overflow-hidden'>
 						<div className='w-full flex gap-1'>
-							<div className='whitespace-nowrap overflow-hidden max-w-fit text-ellipsis font-medium text-foreground'>
+							<div className='whitespace-nowrap overflow-hidden max-w-fit text-[0.9375rem] leading-[1.3125rem] text-ellipsis font-medium text-foreground'>
 								{user?.nickname ? user?.nickname : user?.username}
 							</div>
 						</div>
-						<span className='text-sm text-foreground/50'>{TimePassedFromDate(date)}</span>
+						<span className='text-sm text-[0.8125rem] leading-[1.125rem] text-foreground/50'>{TimePassedFromDate(date)}</span>
 					</div>
 				</div>
 				<DeleteModal open={isDelete} setOpen={setIsDelete} object={comment} deleteComment={deleteComment} content='comment' nested={false}>

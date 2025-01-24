@@ -44,7 +44,7 @@ export default function Reactions({ token, isModal, dateId }) {
 					next={() => setPage(page => page + 1)}
 					scrollableTarget={isModal ? `profileScrollModal-${dateId}` : 'profileScroll'}
 					dataLength={reactions?.length}
-					className='grid grid-cols-3 h-fit min-h-[50vh] gap-5'
+					className='grid grid-cols-3 h-fit min-h-[50vh] gap-4'
 				>
 					{reactions?.map((reaction, index) => (
 						<Reaction key={index} reaction={reaction.name} post={reaction.post} />
@@ -52,7 +52,7 @@ export default function Reactions({ token, isModal, dateId }) {
 				</InfiniteScroll>
 			) : null}
 			{isLoading ? (
-				<div className='grid grid-cols-3 h-fit gap-5'>
+				<div className='grid grid-cols-3 h-fit gap-4'>
 					{Array.from({ length: 12 }, (_, i) => i).map(index => (
 						<Skeleton key={index} className='w-full aspect-square rounded-[1.125rem]' />
 					))}
