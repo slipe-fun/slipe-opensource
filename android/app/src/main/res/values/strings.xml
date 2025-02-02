@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">android</string>
-    <string name="title_activity_main">android</string>
+    <string name="app_name">Slipe pre-alpha</string>
+    <string name="title_activity_main">Slipe pre-alpha</string>
     <string name="package_name">com.slipe.app</string>
     <string name="custom_url_scheme">com.slipe.app</string>
 </resources>
