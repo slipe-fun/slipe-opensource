@@ -74,7 +74,7 @@ export default function ReactionsModal({ children, currentReaction, onReactionCl
 							data-active={category.id == activeCategory}
 							onClick={() => categoryClicked(category.id)}
 							size='icon'
-							className='rounded-full data-[active=true]:bg-primary hover:opacity-100 data-[active=true]:text-white hover:text-white data-[active=true]:opacity-100 text-foreground opacity-50 bg-transparent h-[3.25rem] min-h-[3.25rem] px-[1.375rem] min-w-fit w-fit'
+							className='rounded-full data-[active=true]:bg-primary data-[active=true]:text-white hover:text-white data-[active=true]:opacity-100 hover:bg-transparent hover:opacity-50 text-foreground opacity-50 bg-transparent h-[3.25rem] min-h-[3.25rem] px-[1.375rem] min-w-fit w-fit'
 							key={index}
 						>
 							<Svg icon={category.icon} className='!w-8 !h-8' />
