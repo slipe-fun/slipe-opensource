@@ -4,6 +4,7 @@ import UserCard from "@/components/shared/home/slides/no-follows/user-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect } from "react";
 import { fetcher } from "@/lib/utils";
+import NoContent from "@/components/shared/no-content";
 
 export default function Similar({ token, user_id }) {
 	const {
@@ -12,7 +13,7 @@ export default function Similar({ token, user_id }) {
 		error: error
 	} = useCacheFetcher(`${api.v2}/user/${user_id}/similar`, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
-	if (error) 
+	if (error)
 		return <NoContent image='error.png' title='No data' primary='Try reloading the page or app' className='py-12 animate-[fadeIn_0.3s_ease-out]' />;
 	if (isLoading)
 		<div className='grid grid-cols-2 h-fit min-h-[50vh] gap-4'>
@@ -22,10 +23,14 @@ export default function Similar({ token, user_id }) {
 		</div>
 
 	return (
-		<div className='grid grid-cols-2 h-fit min-h-[50vh] gap-4'>
-			{users?.length ? users?.map(user => (
-				<UserCard user={user} />
-			)) : <>Error dikiy do error output here pls</>}
-		</div>
+		<>
+			{users?.success?.length > 0 ?
+				<div className='grid grid-cols-2 h-fit min-h-[50vh] gap-4'>
+					{users?.success?.map(user => (
+						<UserCard user={user} />
+					))}
+				</div> 
+			: <NoContent image='error.png' title='No data' primary='Similar users not found' className='py-12 animate-[fadeIn_0.3s_ease-out]' />}
+		</>
 	);
 }
