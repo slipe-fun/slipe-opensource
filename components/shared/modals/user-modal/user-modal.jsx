@@ -14,7 +14,7 @@ export default function UserModal({ open, setOpen, user, subscribe }) {
 	return (
 		<PageModal id='profileModal' className='bg-background duration-300 ease-out overflow-hidden' open={open}>
 			<Header user={user} setOpen={setOpen} />
-			<div id={`profileScrollModal-${dateId}`} ref={open ? profileModalRef : null} className='overflow-y-auto flex flex-col w-full h-full'>
+			<div id={`profileScrollModal-${dateId}`} ref={open ? profileModalRef : null} className='overflow-y-auto w-full h-full'>
 				<Banner user={user} scrollProgress={scrollY} />
 				<div className='w-full min-h-full flex flex-col gap-5'>
 					<User user={user} scrollProgress={scrollY} subscribe={subscribe} isModal />

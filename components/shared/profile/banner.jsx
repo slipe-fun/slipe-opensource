@@ -32,7 +32,7 @@ export default function Banner({ user = {}, scrollProgress }) {
 			<div
 				ref={bannerRef}
 				style={{ "--top-sticking": `${bannerSize <= 0 ? 0 : bannerSize - 84 - insetVar}px` }}
-				className='sticky -top-[--top-sticking] w-full overflow-hidden min-h-fit z-30 rounded-b-2xl'
+				className='sticky -top-[--top-sticking] w-full overflow-hidden aspect-[16/10] z-30 rounded-b-2xl'
 			>
 				{user?.banner ? (
 					<img loading='lazy' src={cdn + "/banners/" + user?.banner} className='w-full aspect-[16/10] -z-10 object-cover' />
