@@ -64,7 +64,7 @@ export default function CommentsModal({ children, post, open, setOpen }) {
 			<DrawerContent className='bg-modal border-0'>
 				<DrawerHeader
 					data-shadowed={inputFocus}
-					className='p-5 duration-200 ease-out data-[shadowed=true]:opacity-30 data-[shadowed=true]:pointer-events-none'
+					className='p-4 duration-200 ease-out data-[shadowed=true]:opacity-30 data-[shadowed=true]:pointer-events-none'
 				>
 					<DrawerTitle className='font-medium'>{commentsCount ? commentsCount : 0} comments</DrawerTitle>
 				</DrawerHeader>
@@ -79,7 +79,7 @@ export default function CommentsModal({ children, post, open, setOpen }) {
 					setComments={setComments}
 					inputFocus={inputFocus}
 				/>
-				<DrawerFooter id='categories-scroller' className='p-5 w-full flex-row fixed items-end bottom-0 bg-modal z-10 flex gap-5'>
+				<DrawerFooter id='categories-scroller' className='p-4 pb-[calc(8px+var(--safe-area-inset-bottom))] w-full flex-row fixed items-end bottom-0 bg-modal z-10 flex gap-4'>
 					<CommentInput
 						setCommentText={setCommentText}
 						sendComment={sendComment}

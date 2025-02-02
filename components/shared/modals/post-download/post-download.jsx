@@ -7,10 +7,10 @@ export default function PostDownloadModal({ children, open, setOpen, post }) {
 		<NestedDrawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>{children}</DrawerTrigger>
 			<DrawerContent className='bg-modal border-0'>
-				<DrawerHeader className='p-5'>
+				<DrawerHeader className='p-4'>
 					<DrawerTitle className='font-medium'>Post download</DrawerTitle>
 				</DrawerHeader>
-				<div className='w-full h-[32.5rem] px-5 flex pb-24 flex-col gap-5 items-center justify-center'>
+				<div className='w-full h-[32.5rem] px-4 flex pb-24 flex-col gap-4 items-center justify-center'>
 					<div className='relative flex justify-center items-center'>
 						{/* <svg id='progress' width='256' height='256' viewBox='0 0 100 100'>
 							<circle cx='40' cy='40' r='40' pathLength='1' className='opacity-35 stroke-primary/35 [stroke-dashoffset:0] stroke-[15%] fill-none' />
@@ -19,7 +19,7 @@ export default function PostDownloadModal({ children, open, setOpen, post }) {
 					</div>
 					<span className='text-lg text-center text-foreground/50'>Downloading...</span>
 				</div>
-				<DrawerFooter className='p-5 fixed w-full z-10 bg-modal bottom-0'>
+				<DrawerFooter className='p-4 fixed pb-[calc(8px+var(--safe-area-inset-bottom))] w-full z-10 bg-modal bottom-0'>
 					<Button variant='secondary' size='full'>
 						Cancel download
 					</Button>

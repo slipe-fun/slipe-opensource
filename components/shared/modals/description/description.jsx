@@ -51,10 +51,10 @@ export default function DescriptionModal({ children, open, setOpen, user, change
 		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>{children}</DrawerTrigger>
 			<DrawerContent className='bg-modal border-0'>
-				<DrawerHeader className='p-5 duration-200 ease-out data-[shadowed=true]:opacity-30 data-[shadowed=true]:pointer-events-none'>
+				<DrawerHeader className='p-4 duration-200 ease-out data-[shadowed=true]:opacity-30 data-[shadowed=true]:pointer-events-none'>
 					<DrawerTitle className='font-medium'>Edit about me</DrawerTitle>
 				</DrawerHeader>
-				<div className='w-full h-[32.5rem] flex flex-col px-5 gap-3'>
+				<div className='w-full h-[32.5rem] flex flex-col px-4 gap-3'>
 					<Textarea
 						maxLength={165}
 						value={description}
@@ -67,7 +67,7 @@ export default function DescriptionModal({ children, open, setOpen, user, change
 					/>
 					<Counter value={description.length} maxValue={165} />
 				</div>
-				<DrawerFooter className='p-5 fixed flex flex-row gap-5 w-full z-10 bg-modal bottom-0'>
+				<DrawerFooter className='p-4 fixed pb-[calc(8px+var(--safe-area-inset-bottom))] flex flex-row gap-4 w-full z-10 bg-modal bottom-0'>
 					<Button onClick={() => setOpen(false)} variant='secondary' className='rounded-full' size='full'>
 						Cancel
 					</Button>

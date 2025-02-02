@@ -40,7 +40,7 @@ export default function ContentSlider({ setProgess, setIsTransition, user, setUs
 			effect='creative'
 			slidesPerView='auto'
 			modules={[EffectCreative]}
-			className='w-full h-full px-5 data-[shadowed=true]:opacity-40 duration-200 ease-out'
+			className='w-full h-full px-4 data-[shadowed=true]:opacity-40 duration-200 ease-out'
 		>
 			<SwiperSlide className='pt-24'>
 				<Post isPostDeleted={deletedPost} className='w-full relative min-h-[calc(100%-6rem)] h-[calc(100%-6rem)]' user={user} isPostModal setUser={setUser} post={post} />
