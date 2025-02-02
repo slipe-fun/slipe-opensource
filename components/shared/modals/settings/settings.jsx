@@ -23,7 +23,7 @@ export default function SettingsModal({ user, setUser, open, setOpen }) {
 			<PageModal open={open}>
 				<div id='settingsModal' className='flex flex-col overflow-hidden duration-300 ease-out bg-background w-full h-full'>
 					<Header setOpen={setOpen} scrollProgress={scrollY} user={user} />
-					<div ref={settingsModalRef} className='overflow-y-auto flex flex-col pt-[16.75rem+var(--safe-area-inset-top)] gap-5 p-5 w-full h-full'>
+					<div ref={settingsModalRef} className='overflow-y-auto flex flex-col pt-[calc(16.75rem+var(--safe-area-inset-top))] gap-5 p-5 w-full h-full'>
 						{!user?.email ? <EmailAlert setActiveModal={setActiveModal} /> : null}
 						{settings.map(category => (
 							<div className='flex flex-col gap-3'>

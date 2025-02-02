@@ -17,6 +17,7 @@ export default function Banner({ user = {}, scrollProgress }) {
 
 		const observer = new ResizeObserver(([entry]) => {
 			setBannerSize(entry.contentRect.height);
+			console.log(entry, entry.contentRect, bannerSize)
 		});
 
 		if (bannerRef.current) observer.observe(bannerRef.current);
@@ -31,12 +32,12 @@ export default function Banner({ user = {}, scrollProgress }) {
 			<div
 				ref={bannerRef}
 				style={{ "--top-sticking": `${bannerSize <= 0 ? 0 : bannerSize - 84 - insetVar}px` }}
-				className='sticky -top-[--top-sticking] w-full overflow-hidden aspect-[16/10] min-h-fit z-30 rounded-b-2xl'
+				className='sticky -top-[--top-sticking] w-full overflow-hidden min-h-fit z-30 rounded-b-2xl'
 			>
 				{user?.banner ? (
-					<img loading='lazy' src={cdn + "/banners/" + user?.banner} className='w-full absolute -z-10 h-full object-cover' />
+					<img loading='lazy' src={cdn + "/banners/" + user?.banner} className='w-full aspect-[16/10] -z-10 object-cover' />
 				) : (
-					<div className='grid grid-cols-7 bg-black grid-rows-1 absolute -z-10 h-full w-full'>
+					<div className='grid grid-cols-7 bg-black grid-rows-1 -z-10 aspect-[16/10] w-full'>
 						{ShufflePixels(user?.pixel_order)?.map((pixel, index) => (
 							<span
 								key={index}
@@ -48,7 +49,7 @@ export default function Banner({ user = {}, scrollProgress }) {
 				)}
 				<motion.span
 					style={{ opacity: invertInteger(opacity) }}
-					className='w-full h-full bg-gradient-to-b from-[#00000040] to-50% to-[#00000000] block'
+					className='w-full h-full bg-gradient-to-b from-[#00000040] absolute to-50% to-[#00000000] block'
 				/>
 				<motion.div
 					style={{ opacity, height }}

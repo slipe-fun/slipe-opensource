@@ -38,7 +38,7 @@ export default function StateProfile() {
 			<Button
 				data-copied={isCopied}
 				onClick={async () => copyLink()}
-				className='rounded-full data-[copied=true]:pointer-events-none hover:bg-[#333333]/40 data-[copied=true]:text-green-foreground relative bg-[#333333]/40 w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] backdrop-blur-[80px]'
+				className='rounded-full data-[copied=true]:pointer-events-none hover:bg-[#000000]/40 data-[copied=true]:text-green-foreground relative bg-[#000000]/40 w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] backdrop-blur-[80px]'
 				size='icon'
 			>
 				<Svg
@@ -56,7 +56,7 @@ export default function StateProfile() {
 				data-active={open}
 				onClick={() => setOpen(true)}
 				size='icon'
-				className='rounded-full data-[open=true]:bg-white hover:bg-[#333333]/40 data-[copied=true]:text-black relative bg-[#333333]/40 w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] backdrop-blur-[80px]'
+				className='rounded-full data-[open=true]:bg-white hover:bg-[#000000]/40 data-[copied=true]:text-black relative bg-[#000000]/40 w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] backdrop-blur-[80px]'
 			>
 				<Svg className='!w-7 !h-7' icon={icons["gear"]} />
 			</Button>
