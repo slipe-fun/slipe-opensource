@@ -67,7 +67,7 @@ export default function DescriptionModal({ children, open, setOpen, user, change
 					/>
 					<Counter value={description.length} maxValue={165} />
 				</div>
-				<DrawerFooter className='p-4 fixed pb-[calc(8px+var(--safe-area-inset-bottom))] flex flex-row gap-4 w-full z-10 bg-modal bottom-0'>
+				<DrawerFooter className='p-4 fixed pb-[calc(1rem+var(--safe-area-inset-bottom))] flex flex-row gap-4 w-full z-10 bg-modal bottom-0'>
 					<Button onClick={() => setOpen(false)} variant='secondary' className='rounded-full' size='full'>
 						Cancel
 					</Button>

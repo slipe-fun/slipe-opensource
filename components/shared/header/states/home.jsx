@@ -18,7 +18,7 @@ export default function StateHome({ url }) {
 				data-isactive={url == "/notifs"}
 				size='icon'
 				asChild
-				className='rounded-full data-[isactive=false]:bg-foreground/[0.08] w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] data-[isactive=true]:bg-foreground data-[isactive=false]:text-foreground data-[isactive=true]:text-background'
+				className='rounded-full data-[isactive=false]:bg-foreground/[0.08]  data-[isactive=true]:bg-foreground data-[isactive=false]:text-foreground data-[isactive=true]:text-background'
 			>
 				<Link to='/notifs'>
 					<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons["bell"]} />
@@ -52,7 +52,7 @@ export default function StateHome({ url }) {
 				data-isactive={url == "/search"}
 				size='icon'
 				asChild
-				className='rounded-full data-[isactive=false]:bg-foreground/[0.08] w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] data-[isactive=true]:bg-foreground data-[isactive=false]:text-foreground data-[isactive=true]:text-background'
+				className='rounded-full data-[isactive=false]:bg-foreground/[0.08]  data-[isactive=true]:bg-foreground data-[isactive=false]:text-foreground data-[isactive=true]:text-background'
 			>
 				<Link to='/search'>
 					<Svg className='!w-7 !h-7' icon={icons["search"]} />

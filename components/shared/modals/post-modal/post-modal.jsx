@@ -26,9 +26,13 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 		data: sessionUser,
 		error: error,
 		isLoading: isLoading,
-	} = useCacheFetcher(isModal ? api.v1 + "/account/info/get" : null, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }), {
-		cache: true
-	});
+	} = useCacheFetcher(
+		isModal ? api.v1 + "/account/info/get" : null,
+		async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }),
+		{
+			cache: true,
+		}
+	);
 
 	async function sendComment() {
 		setIsButtonLoading(true);
@@ -51,7 +55,7 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 			]);
 			setCommentsCount(commentsCount + 1);
 			setCommentText("");
-			await updatePreference(post?.category, store)
+			await updatePreference(post?.category, store);
 		} else toast.error(result?.error, { className: "bg-red text-red-foreground z-50" });
 
 		setIsButtonLoading(false);
@@ -77,10 +81,10 @@ export default function PostModal({ post, open, setOpen, user, setUser, isModal 
 				style={{ opacity: progess }}
 				data-transition={isTransition}
 				data-touchable={progess === 1}
-				className='w-full p-5 gap-5 data-[touchable=true]:pointer-events-auto items-end pointer-events-none data-[transition=true]:duration-200 flex bottom-0 z-50 bg-background/90 fixed backdrop-blur-2xl'
+				className='w-full p-4 gap-4 pb-[calc(1rem+var(--safe-area-inset-bottom))] data-[touchable=true]:pointer-events-auto items-end pointer-events-none data-[transition=true]:duration-200 flex bottom-0 border-t-[1px] border-foreground/10 z-50 bg-navigation fixed backdrop-blur-[80px]'
 			>
 				<CommentInput
-					className="bg-foreground/[0.12]"
+					className='bg-foreground/[0.08]'
 					sendComment={sendComment}
 					isButtonLoading={isButtonLoading}
 					setInputFocus={setInputFocus}

@@ -56,7 +56,7 @@ export default function ReportModal({ children, open, setOpen, post }) {
 						/>
 					))}
 				</ul>
-				<DrawerFooter className='p-4 pb-[calc(8px+var(--safe-area-inset-bottom))] fixed w-full z-10 bg-modal bottom-0'>
+				<DrawerFooter className='p-4 pb-[calc(1rem+var(--safe-area-inset-bottom))] fixed w-full z-10 bg-modal bottom-0'>
 					<Button onClick={send} disabled={isLoading || choosenReport.length <= 1} size='full'>
 						Send report
 					</Button>

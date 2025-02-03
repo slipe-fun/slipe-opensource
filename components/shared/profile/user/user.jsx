@@ -66,7 +66,7 @@ export default function User({ user = {}, scrollProgress, subscribe, isModal }) 
 					/>
 				)}
 				<FollowersModal user={user} open={isFollowers} setOpen={setIsFollowers} scrollableTarget={isModal ? `followersScrollModal-${dateId}` : 'followersScroll'}>
-					<div className='h-1/2 flex items-center active:opacity-80 duration-200 ease-out'>
+					<div className='h-14 flex items-center active:opacity-80 duration-200 ease-out'>
 						<p className='font-medium text-lg'>
 							<span>{user.subscribers || 0}</span> <span className='text-foreground/50'>Followers</span>
 						</p>

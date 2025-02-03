@@ -105,7 +105,7 @@
 		@apply border-border;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-background text-foreground select-none;
 	}
 	.home-swiper .swiper-slide-shadow {
 		@apply !left-auto !bg-swiperShadow w-[calc(200%-2.5rem)];

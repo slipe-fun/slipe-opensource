@@ -66,7 +66,7 @@ export default function DeleteModal({ children, open, setOpen, deleteBlog, delet
 						<span className='text-lg text-center text-foreground/50'>This action cannot be undone</span>
 					</div>
 				</div>
-				<DrawerFooter className='p-4 fixed flex pb-[calc(8px+var(--safe-area-inset-bottom))] flex-row gap-4 w-full z-10 bg-modal bottom-0'>
+				<DrawerFooter className='p-4 fixed flex pb-[calc(+var(--safe-area-inset-bottom))] flex-row gap-4 w-full z-10 bg-modal bottom-0'>
 					<Button variant='secondary' className='rounded-full' size='full'>
 						Cancel
 					</Button>

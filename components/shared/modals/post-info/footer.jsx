@@ -36,7 +36,7 @@ export default function Footer({ post, deleteBlog }) {
 	};
 
 	return (
-		<DrawerFooter className='p-4 pb-[calc(8px+var(--safe-area-inset-bottom))] flex-row overflow-x-auto flex gap-4'>
+		<DrawerFooter className='p-4 pb-[calc(1rem+var(--safe-area-inset-bottom))] flex-row overflow-x-auto flex gap-4'>
 			<ReportModal open={isReport} setOpen={setIsReport} post={post}>
 				<Button
 					data-active={isReport}

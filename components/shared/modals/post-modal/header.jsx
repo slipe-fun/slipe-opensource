@@ -9,13 +9,13 @@ export default function Header({ post, user, setOpen, inputFocus, setDeletedBlog
 	return (
 		<div
 			data-shadowed={inputFocus}
-			className='w-full p-4 pt-[calc(1rem+var(--safe-area-inset-top))] gap-5 data-[shadowed=true]:opacity-40 duration-200 ease-out flex top-0 z-50 bg-background/90 items-center fixed backdrop-blur-2xl'
+			className='w-full p-4 pt-[calc(1rem+var(--safe-area-inset-top))] gap-7 data-[shadowed=true]:opacity-40 duration-200 ease-out flex top-0 border-b-[1px] border-foreground/10 z-50 bg-navigation items-center fixed backdrop-blur-[80px]'
 		>
 			<Button
 				onClick={() => setOpen(false)}
 				size='icon'
 				variant='secondary'
-				className='rounded-full w-[3.25rem] h-[3.25rem] min-w-[3.25rem] min-h-[3.25rem] bg-foreground/[0.12] hover:foreground[0.8]'
+				className='rounded-full bg-foreground/[0.08] hover:foreground[0.06]'
 			>
 				<Svg className='!w-[1.625rem] !h-[1.625rem]' icon={icons["chevronLeft"]} />
 			</Button>
@@ -30,7 +30,7 @@ export default function Header({ post, user, setOpen, inputFocus, setDeletedBlog
 					data-active={isInfo}
 					size='icon'
 					variant='secondary'
-					className='rounded-full w-[3.25rem] h-[3.25rem] data-[active=true]:bg-foreground data-[active=true]:text-background min-w-[3.25rem] min-h-[3.25rem] bg-foreground/[0.12] hover:bg-foreground[0.8]'
+					className='rounded-full data-[active=true]:bg-foreground data-[active=true]:text-background bg-foreground/[0.08] hover:bg-foreground[0.06]'
 				>
 					<Svg className='!w-[1.625rem] !h-[1.625rem]' icon={icons["menu"]} />
 				</Button>

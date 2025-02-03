@@ -19,7 +19,7 @@ export default function PostDownloadModal({ children, open, setOpen, post }) {
 					</div>
 					<span className='text-lg text-center text-foreground/50'>Downloading...</span>
 				</div>
-				<DrawerFooter className='p-4 fixed pb-[calc(8px+var(--safe-area-inset-bottom))] w-full z-10 bg-modal bottom-0'>
+				<DrawerFooter className='p-4 fixed pb-[calc(1rem+var(--safe-area-inset-bottom))] w-full z-10 bg-modal bottom-0'>
 					<Button variant='secondary' size='full'>
 						Cancel download
 					</Button>

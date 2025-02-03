@@ -111,7 +111,7 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 					<DrawerFooter
 						data-shadowed={user?.subscribers === "1"}
 						id='categories-scroller'
-						className='p-4 w-full data-[shadowed=true]:opacity-40 data-[shadowed=true]:pointer-events-none flex-row fixed items-end bottom-0 pb-[calc(8px+var(--safe-area-inset-bottom))] bg-modal z-10 flex gap-4'
+						className='p-4 w-full data-[shadowed=true]:opacity-40 data-[shadowed=true]:pointer-events-none flex-row fixed items-end bottom-0 pb-[calc(1rem+var(--safe-area-inset-bottom))] bg-modal z-10 flex gap-4'
 					>
 						<SearchBar value={searchValue} setValue={setSearchValue} className='bg-foreground/[0.08]' placeholder='Search for followers' />
 					</DrawerFooter>
