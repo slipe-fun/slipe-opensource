@@ -19,6 +19,8 @@ export default {
 				yellow: "hsl(var(--yellow))",
 				purple: "hsl(var(--purple))",
 				navigation: "hsl(var(--navigation))",
+				loading: "hsl(var(--loading-background))",
+				loadingSecond: "hsl(var(--loading-2-background))",
 				gray: "hsl(var(--gray))",
 				swiperShadow: "hsl(var(--swiper-shadow))",
 				red: {

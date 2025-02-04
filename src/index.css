@@ -12,6 +12,8 @@
 		--card-foreground: 222.2 84% 4.9%;
 		--popover: 0 0% 88%;
 		--popover-foreground: 222.2 84% 4.9%;
+		--loading-background: 0 0% 92%;
+		--loading-children-background: 0 0% 84%;
 		--primary: 210 100% 52%;
 		--red: 0 100% 62%;
 		--yellow: 43 100% 63%;
@@ -49,6 +51,8 @@
 		--swiper-shadow: 0, 0%, 0%, 0.5;
 		--foreground: 210 40% 98%;
 		--card: 0 0% 12%;
+		--loading-background: 0 0% 8%;
+		--loading-children-background: 0 0% 16%;
 		--card-foreground: 210 40% 98%;
 		--popover: 0 0% 12%;
 		--popover-foreground: 210 40% 98%;
