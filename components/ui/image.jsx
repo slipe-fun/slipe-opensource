@@ -8,7 +8,7 @@ const Img = forwardRef(({ className, src, alt, children, placeholderClassname, w
 	const [loaded, setLoaded] = useState(false);
 
 	return (
-		<div className={cn('relative', wrapperClassname)}>
+		<div className={cn('relative overflow-hidden', wrapperClassname)}>
 			<motion.img
 				onLoad={() => setLoaded(true)}
 				ref={ref}
