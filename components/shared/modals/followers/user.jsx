@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import cdn from "@/constants/cdn";
 import PixelAvatar from "@/components/shared/pixels-avatar";
 import follow from "@/lib/users/follow";
+import Img from "@/components/ui/image";
 
 export default function User({ user, setCurrentUser, setModalOpen, setUserModalOpen }) {
 	const [localUser, setLocalUser] = useState(user);
@@ -38,7 +39,7 @@ export default function User({ user, setCurrentUser, setModalOpen, setUserModalO
 				className='w-full flex gap-3 active:opacity-80 items-center overflow-hidden'
 			>
 				{localUser?.avatar ? (
-					<img loading='lazy' className='rounded-full w-12 h-12' src={`${cdn}/avatars/${localUser?.avatar}`} />
+					<Img wrapperClassName='rounded-full min-w-12 h-12' src={`${cdn}/avatars/${localUser?.avatar}`} />
 				) : (
 					<PixelAvatar size={48} username={localUser?.username} pixels={localUser?.pixel_order} />
 				)}

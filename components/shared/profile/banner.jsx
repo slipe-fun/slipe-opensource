@@ -36,7 +36,7 @@ export default function Banner({ user = {}, scrollProgress }) {
 				className='sticky -top-[--top-sticking] w-full overflow-hidden aspect-[16/10] z-30 rounded-b-2xl'
 			>
 				{user?.banner ? (
-					<Img src={cdn + "/banners/" + user?.banner} wrapperClassname="w-full aspect-[16/10] -z-10" className="object-cover"/>
+					<Img src={cdn + "/banners/" + user?.banner} wrapperClassName="w-full aspect-[16/10] -z-10" className="object-cover"/>
 				) : (
 					<div className='grid grid-cols-7 bg-black grid-rows-1 -z-10 aspect-[16/10] w-full'>
 						{ShufflePixels(user?.pixel_order)?.map((pixel, index) => (

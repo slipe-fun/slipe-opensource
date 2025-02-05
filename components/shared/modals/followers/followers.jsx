@@ -89,7 +89,7 @@ export default function FollowersModal({ children, user, open, scrollableTarget,
 											? [...Array(8).keys()].map(index => (
 												<div className='flex justify-between' key={index}>
 													<div className='flex gap-2'>
-														<Skeleton className='rounded-full w-12 h-12' />
+														<Skeleton className='rounded-full min-w-12 h-12' />
 														<div className='h-12 flex flex-col gap-[0.375rem]'>
 															<Skeleton className='h-full w-28' />
 															<Skeleton className='h-full w-20' />

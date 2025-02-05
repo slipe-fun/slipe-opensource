@@ -5,6 +5,7 @@ import follow from "@/lib/users/follow";
 import { useStorage } from "@/hooks/contexts/session";
 import { useEffect, useState } from "react";
 import { ShufflePixels, PixelsColors } from "@/lib/utils";
+import Img from "@/components/ui/image";
 
 export default function UserCard({ user }) {
 	const [isFollowed, setIsFollowed] = useState(false);
@@ -27,7 +28,7 @@ export default function UserCard({ user }) {
 	return (
 		<div onClick={followUser} className='rounded-[1.125rem] relative w-full aspect-square overflow-hidden'>
 			{user?.banner ? (
-				 <img loading="lazy" src={`${cdn}/banners/${user?.banner}`} className="w-full absolute -z-10 h-full object-cover"/>
+				 <Img src={`${cdn}/banners/${user?.banner}`} wrapperClassName="w-full absolute -z-10 h-full" className="object-cover"/>
 			) : (
 				<div className='grid grid-cols-7 grid-rows-7 absolute -z-10 h-full w-full'>
 					{ShufflePixels(user?.pixel_order)?.map((pixel, index) => (
@@ -38,7 +39,7 @@ export default function UserCard({ user }) {
            
 			<div className='w-full h-full items-center flex flex-col justify-center bg-black/50 gap-[0.375rem]'>
 				{user?.avatar ? (
-					<img loading="lazy" src={cdn + `/avatars/${user?.avatar}`} className='aspect-square w-16 max-[384px]:w-14 min-[420px]:w-[4.5rem] rounded-full object-cover' />
+					<Img src={cdn + `/avatars/${user?.avatar}`} wrapperClassName='aspect-square w-16 max-[384px]:w-14 min-[420px]:w-[4.5rem] rounded-full' className="object-cover" />
 				) : (
 					<PixelAvatar className="aspect-square w-16 max-[384px]:w-14 min-[420px]:w-[4.5rem]" username={user?.username} pixels={user?.pixel_order} />
 				)}

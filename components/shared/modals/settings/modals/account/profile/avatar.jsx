@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
+import Img from "@/components/ui/image";
 
 export default function Avatar({ user, setAvatar }) {
 	const [rawImage, setRawImage] = useState("");
@@ -80,7 +81,7 @@ export default function Avatar({ user, setAvatar }) {
 				</SwiperSlide>
 				{user?.avatar || avatar ? (
 					<SwiperSlide className='w-40 !h-40'>
-						<img src={avatar ? avatar : `${cdn}/avatars/${user?.avatar}`} className='h-full w-full rounded-full' />
+						<Img src={avatar ? avatar : `${cdn}/avatars/${user?.avatar}`} wrapperClassName='h-full w-full rounded-full' />
 					</SwiperSlide>
 				) : null}
 

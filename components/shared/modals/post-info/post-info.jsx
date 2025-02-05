@@ -2,6 +2,7 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTrigger } from "@/components
 import Footer from "./footer";
 import { TimePassedFromDate } from "@/lib/utils";
 import cdn from "@/constants/cdn";
+import Img from "@/components/ui/image";
 
 export default function PostInfoModal({ children, open, setOpen, post, deleteBlog }) {
 	return (
@@ -13,7 +14,7 @@ export default function PostInfoModal({ children, open, setOpen, post, deleteBlo
 				</DrawerHeader>
 				<div className='w-full h-[32.5rem] overflow-y-auto rounded-t-[1.25rem] flex flex-col gap-4'>
 					<div className='relative w-full overflow-hidden aspect-[16/10] min-h-fit rounded-b-[1.25rem]'>
-						<img loading="lazy" src={cdn + "/posts/" + post?.image} className='w-full absolute -z-10 h-full object-cover' />
+						<Img src={cdn + "/posts/" + post?.image} wrapperClassName='w-full absolute -z-10 h-full' className="object-cover" />
 						<span className='w-full h-full bg-gradient-to-b from-[#00000040] to-50% to-[#00000000] block' />
 					</div>
 					<div className='flex flex-col gap-1 px-4'>

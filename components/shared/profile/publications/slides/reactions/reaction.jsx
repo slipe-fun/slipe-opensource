@@ -1,10 +1,11 @@
+import Img from "@/components/ui/image";
 import cdn from "@/constants/cdn";
 
 export default function Reaction({ reaction, post }) {
 	return (
 		<div className='rounded-[1.125rem] relative w-full aspect-square overflow-hidden'>
 			{post?.image ? (
-				<img loading='lazy' src={cdn + "/posts/" + post?.image} className='w-full absolute -z-10 h-full object-cover' />
+				<Img src={cdn + "/posts/" + post?.image} wrapperClassName='w-full absolute -z-10 h-full' className="object-cover" />
 			) : (
 				<div className='w-full h-full absolute -z-10 bg-card' />
 			)}

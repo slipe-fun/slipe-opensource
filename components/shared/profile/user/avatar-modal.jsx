@@ -6,6 +6,7 @@ import { useRef } from "react";
 import icons from "@/components/ui/icons/icons";
 import Svg from "@/components/ui/icons/svg";
 import { Button } from "@/components/ui/button";
+import Img from "@/components/ui/image";
 
 export default function AvatarModal({ user, open, setOpen, isModal }) {
 	const avatarModalRef = useRef(null);
@@ -22,7 +23,7 @@ export default function AvatarModal({ user, open, setOpen, isModal }) {
 		>
 			<div className='flex w-full justify-center h-full items-center'>
 				{user.avatar ? (
-					<img ref={avatarModalRef} className='rounded-full w-full aspect-square object-cover' src={`${cdn}/avatars/${user.avatar}`} />
+					<Img ref={avatarModalRef} wrapperClassName='rounded-full w-full aspect-square' className="object-cover" src={`${cdn}/avatars/${user.avatar}`} />
 				) : (
 					<PixelAvatar ref={avatarModalRef} size={128} username={user.username} className='w-full aspect-square' pixels={user.pixel_order} />
 				)}

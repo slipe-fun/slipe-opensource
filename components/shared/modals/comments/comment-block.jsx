@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useStorage } from "@/hooks/contexts/session";
 import { fetcher } from "@/lib/utils";
 import api from "@/constants/api";
+import Img from "@/components/ui/image";
 
 export default function CommentBlock({ id, user, content, likes, liked, date, setOpen, setSheetOpen, updateComment }) {
 	const [localLikes, setLikes] = useState();
@@ -40,7 +41,7 @@ export default function CommentBlock({ id, user, content, likes, liked, date, se
 			<div className='w-full flex gap-3 items-center'>
 					<div onClick={() => {setOpen(true); setSheetOpen ? setSheetOpen(false) : null}} className='w-full flex gap-3 duration-200 ease-out items-center overflow-hidden'>
 						{user?.avatar ? (
-							<img loading='lazy' className='rounded-full min-w-12 object-cover bg-center w-12 h-12' src={`${cdn}/avatars/${user?.avatar}`} />
+							<Img wrapperClassName='rounded-full min-w-12 h-12' className="object-cover bg-center" src={`${cdn}/avatars/${user?.avatar}`} />
 						) : (
 							<PixelAvatar size={48} username={user?.username} pixels={user?.pixel_order} />
 						)}

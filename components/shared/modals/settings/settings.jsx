@@ -43,7 +43,7 @@ export default function SettingsModal({ user, setUser, open, setOpen }) {
 													"--background": `hsl(${action.color} / 0.35)`,
 													"--icon": `hsl(${action.color === "var(--gray)" ? "0 0% 100%" : action.color})`,
 												}}
-												className='w-12 min-w-12 h-12 m-3 mr-0 rounded-xl flex justify-center items-center bg-[--background] text-[--icon]'
+												className='min-w-12 h-12 m-3 mr-0 rounded-xl flex justify-center items-center bg-[--background] text-[--icon]'
 											>
 												<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons[action.icon]} />
 											</div>

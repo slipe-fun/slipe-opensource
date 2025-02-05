@@ -54,7 +54,7 @@ export default function NavBar() {
 							{!error ? (
 								<>
 									{user?.success[0].avatar ? (
-										<Img data-active={url.pathname === "/profile"} src={`${cdn}/avatars/${user?.success[0]?.avatar}`} wrapperClassname="w-[1.875rem] h-[1.875rem] rounded-full" className="duration-200 ease-out data-[active=false]:opacity-25"/>
+										<Img data-active={url.pathname === "/profile"} src={`${cdn}/avatars/${user?.success[0]?.avatar}`} wrapperClassName="w-[1.875rem] h-[1.875rem] rounded-full" className="duration-200 ease-out data-[active=false]:opacity-25"/>
 									) : (
 										<PixelAvatar data-active={url.pathname === "/profile"} className="duration-200 ease-out data-[active=false]:opacity-25" size={36} username={user?.success[0]?.username} pixels={user?.success[0]?.pixel_order} />
 									)}

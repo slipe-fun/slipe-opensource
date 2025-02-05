@@ -6,6 +6,7 @@ import cdn from "@/constants/cdn";
 import { TimePassedFromDate } from "@/lib/utils";
 import { DeleteModal } from "@/components/shared/modals";
 import { useState } from "react";
+import Img from "@/components/ui/image";
 
 export default function Comment({ user, comment, date, deleteComment }) {
 	const [isDelete, setIsDelete] = useState(false);
@@ -15,7 +16,7 @@ export default function Comment({ user, comment, date, deleteComment }) {
 			<div className='w-full flex gap-3 items-center'>
 				<div className='w-full flex gap-3 duration-200 ease-out items-center overflow-hidden'>
 					{user?.avatar ? (
-						<img loading='lazy' className='rounded-full min-w-12 object-cover bg-center w-12 h-12' src={`${cdn}/avatars/${user?.avatar}`} />
+						<Img className="object-cover bg-center" wrapperClassName='rounded-full min-w-12 h-12' src={`${cdn}/avatars/${user?.avatar}`} />
 					) : (
 						<PixelAvatar size={48} username={user?.username} pixels={user?.pixel_order} />
 					)}

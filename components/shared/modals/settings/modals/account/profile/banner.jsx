@@ -1,6 +1,7 @@
 import { ShufflePixels, PixelsColors } from "@/lib/utils";
 import cdn from "@/constants/cdn";
 import { useEffect, useState } from "react";
+import Img from "@/components/ui/image";
 
 export default function Banner({ user, setBanner }) {
 	const [rawImage, setRawImage] = useState("");
@@ -39,7 +40,7 @@ export default function Banner({ user, setBanner }) {
 			</div>
 			<div className='w-full active:opacity-90 aspect-[16/11] relative flex p-3 duration-200 ease-out overflow-hidden rounded-2xl justify-center items-end'>
 				{banner ? (
-					<img loading='lazy' src={banner ? banner : cdn + "/banners/" + user?.banner} className='w-full absolute top-0 left-0 h-full -z-10 object-cover' />
+					<Img src={banner ? banner : cdn + "/banners/" + user?.banner} wrapperClassName='w-full absolute top-0 left-0 h-full -z-10' className="object-cover" />
 				) : (
 					<div className='grid grid-cols-7 bg-black top-0 left-0 grid-rows-1 absolute -z-10 h-full w-full'>
 						{ShufflePixels(user?.pixel_order)?.map((pixel, index) => (
