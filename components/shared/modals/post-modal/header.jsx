@@ -23,7 +23,7 @@ export default function Header({ post, user, setOpen, inputFocus, setDeletedBlog
 				<span className='font-medium overflow-hidden w-full whitespace-nowrap max-w-fit text-center text-ellipsis'>
 					{post?.in_search || "Untitled post"}
 				</span>
-				<span className='opacity-50 overflow-hidden w-full whitespace-nowrap text-center max-w-fit text-ellipsis'>@{user?.username}</span>
+				<span className='opacity-50 overflow-hidden w-full whitespace-nowrap text-sm text-center max-w-fit text-ellipsis'>@{user?.username}</span>
 			</div>
 			<PostInfoModal deleteBlog={setDeletedBlog} post={post} open={isInfo} setOpen={setIsInfo}>
 				<Button

@@ -1,11 +1,13 @@
 import { PagesContentTypeContext } from "@/hooks/contexts/posts-type";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import Svg from "@/components/ui/icons/svg";
 import icons from "@/components/ui/icons/icons";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
+import { NotificationsModal } from "../../modals";
 
 export default function StateHome({ url }) {
+	const [notifsOpen, setNotifsOpen] = useState(false);
 	const { activeContent, setActiveContent } = useContext(PagesContentTypeContext);
 
 	useEffect(() => {
@@ -15,14 +17,12 @@ export default function StateHome({ url }) {
 	return (
 		<>
 			<Button
-				data-isactive={url == "/notifs"}
+				data-isactive={notifsOpen}
+				onClick={() => setNotifsOpen(true)}
 				size='icon'
-				asChild
 				className='rounded-full data-[isactive=false]:bg-foreground/[0.08]  data-[isactive=true]:bg-foreground data-[isactive=false]:text-foreground data-[isactive=true]:text-background'
 			>
-				<Link to='/notifs'>
 					<Svg className='!w-[1.875rem] !h-[1.875rem]' icon={icons["bell"]} />
-				</Link>
 			</Button>
 			<div className='rounded-full p-1 relative flex h-[3.25rem] w-full bg-foreground/[0.08]'>
 				<div
@@ -58,6 +58,7 @@ export default function StateHome({ url }) {
 					<Svg className='!w-7 !h-7' icon={icons["search"]} />
 				</Link>
 			</Button>
+			<NotificationsModal open={notifsOpen} setOpen={setNotifsOpen}/>
 		</>
 	);
 }
