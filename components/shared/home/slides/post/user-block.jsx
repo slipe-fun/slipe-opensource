@@ -40,7 +40,7 @@ export default function UserBlock({ user, setUser, date }) {
 		<div className='w-full z-10 p-4 flex gap-3 bg-gradient-to-b from-[#00000060] to-[#00000000]'>
 			<div onClick={() => setOpen(true)} className='w-full flex gap-3 duration-200 ease-out items-center overflow-hidden active:opacity-80'>
 				{localUser?.avatar ? (
-					<Img wrapperClassName='rounded-full min-w-12 h-12' src={`${cdn}/avatars/${localUser?.avatar}`} />
+					<Img wrapperClassName='rounded-full min-w-12 h-12' iconClassName="!w-8 !h-8" src={`${cdn}/avatars/${localUser?.avatar}`} />
 				) : (
 					<PixelAvatar size={48} username={localUser?.username} pixels={localUser?.pixel_order} />
 				)}
