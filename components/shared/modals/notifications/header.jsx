@@ -15,6 +15,7 @@ export default function Header({ setOpen, reload }) {
 				<span className='opacity-50 text-sm overflow-hidden w-full whitespace-nowrap text-center max-w-fit text-ellipsis'>30,607 Notifications</span>
 			</div>
 			<Button
+				onClick={reload}
 				size='icon'
 				variant='secondary'
 				className='rounded-full bg-foreground/[0.08] hover:bg-foreground[0.06]'
