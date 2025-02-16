@@ -22,6 +22,7 @@ export default function NotificationsModal({ open, setOpen }) {
 	const [subscribers, setSubscribers] = useState([]);
 	const [comments, setComments] = useState([]);
 	const [pages, setPages] = useState([1, 1, 1]);
+	const [counts, setCounts] = useState([0,0,0]);
 	const { token, store } = useStorage();
 
 	const types = ["reaction", "subscribe", "comment"];
@@ -38,6 +39,8 @@ export default function NotificationsModal({ open, setOpen }) {
 	useEffect(() => {
 		if (!notificationsError && !notificationsLoading) {
 			const notificationType = notificationsRequest?.success[0]?.type || types[active];
+
+			setCounts(prev => prev.map((count, index) => index === types.indexOf(notificationType) ? notificationsRequest?.count : count))
 
 			switch (notificationType) {
 				case "reaction":
@@ -65,7 +68,7 @@ export default function NotificationsModal({ open, setOpen }) {
 
 	return (
 		<PageModal open={open}>
-			<Header setOpen={setOpen} reload={() => setPages([1, 1, 1])} />
+			<Header setOpen={setOpen} reload={() => setPages([1, 1, 1])} count={counts[active]}/>
 			<div className='flex flex-col overflow-hidden duration-300 ease-out bg-background w-full h-full'>
 				<Swiper
 					onSwiper={setSwiper}
