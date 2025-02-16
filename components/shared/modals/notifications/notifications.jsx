@@ -80,13 +80,13 @@ export default function NotificationsModal({ open, setOpen }) {
 					modules={[EffectCreative]}
 				>
 					<SwiperSlide className='overflow-y-scroll space-y-4'>
-						{!notificationsError ? reactions.map(notification => <ReactionBlock notification={notification} />) : null}
+						{!notificationsError ? reactions.map(notification => <ReactionBlock notification={notification} token={token} />) : null}
 					</SwiperSlide>
 					<SwiperSlide className='overflow-y-scroll space-y-4'>
-						{!notificationsError ? subscribers.map(notification => <FollowBlock notification={notification} />) : null}
+						{!notificationsError ? subscribers.map(notification => <FollowBlock notification={notification} token={token} />) : null}
 					</SwiperSlide>
 					<SwiperSlide className='overflow-y-scroll space-y-4'>
-						{!notificationsError ? reactions.map(notification => <ReactionBlock notification={notification} />) : null}
+						{!notificationsError ? reactions.map(notification => <ReactionBlock notification={notification} token={token} />) : null}
 					</SwiperSlide>
 				</Swiper>
 			</div>
