@@ -25,7 +25,7 @@ export default function NotificationsModal({ open, setOpen }) {
 	const { token, store } = useStorage();
 
 	const types = ["reaction", "subscribe", "comment"];
-	const url = `${api.v1}/notifications/get?page=${pages[active]}&type=${types[active]}`
+	const url = open ? `${api.v1}/notifications/get?page=${pages[active]}&type=${types[active]}` : null;
 
 	const {
 		data: notificationsRequest,
@@ -55,9 +55,17 @@ export default function NotificationsModal({ open, setOpen }) {
 		}
 	}, [notificationsRequest]);
 
+	function addPage(newValue) {
+		setPages(prev => prev.map((page, index) =>
+			index === active
+				? (typeof newValue === "function" ? newValue(page) : newValue)
+				: page
+		));
+	}
+
 	return (
 		<PageModal open={open}>
-			<Header setOpen={setOpen} />
+			<Header setOpen={setOpen} reload={() => setPages([1, 1, 1])} />
 			<div className='flex flex-col overflow-hidden duration-300 ease-out bg-background w-full h-full'>
 				<Swiper
 					onSwiper={setSwiper}
