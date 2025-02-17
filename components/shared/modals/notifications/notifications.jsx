@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { EffectCreative } from "swiper/modules";
 import ReactionBlock from "./blocks/reaction";
+import { Skeleton } from "@/components/ui/skeleton";
 import FollowBlock from "./blocks/follow";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import api from "@/constants/api";
@@ -114,6 +115,8 @@ export default function NotificationsModal({ open, setOpen }) {
 						>
 							{!notificationsError &&
 								reactions.map(notification => <ReactionBlock key={notification.id} notification={notification} token={token} />)}
+							{notificationsLoading &&
+								Array.from({ length: 10 }, (_, i) => i).map(index => <Skeleton key={index} className='w-full rounded-lg min-h-24' />)}
 						</InfiniteScroll>
 					</SwiperSlide>
 					<SwiperSlide
@@ -129,6 +132,8 @@ export default function NotificationsModal({ open, setOpen }) {
 						>
 							{!notificationsError &&
 								subscribers.map(notification => <FollowBlock key={notification.id} notification={notification} token={token} />)}
+							{notificationsLoading &&
+								Array.from({ length: 10 }, (_, i) => i).map(index => <Skeleton key={index} className='w-full rounded-lg min-h-24' />)}
 						</InfiniteScroll>
 					</SwiperSlide>
 					<SwiperSlide
@@ -143,6 +148,8 @@ export default function NotificationsModal({ open, setOpen }) {
 							className='space-y-4'
 						>
 							{!notificationsError && comments.map(notification => <CommentBlock key={notification.id} notification={notification} token={token} />)}
+							{notificationsLoading &&
+								Array.from({ length: 10 }, (_, i) => i).map(index => <Skeleton key={index} className='w-full rounded-lg min-h-24' />)}
 						</InfiniteScroll>
 					</SwiperSlide>
 				</Swiper>
