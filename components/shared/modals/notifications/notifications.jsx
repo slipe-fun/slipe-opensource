@@ -96,7 +96,7 @@ export default function NotificationsModal({ open, setOpen }) {
 						{!notificationsError ? subscribers.map(notification => <FollowBlock notification={notification} token={token} />) : null}
 					</SwiperSlide>
 					<SwiperSlide className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'>
-						{!notificationsError ? reactions.map(notification => <CommentBlock notification={notification} token={token} />) : null}
+						{!notificationsError ? comments.map(notification => <CommentBlock notification={notification} token={token} />) : null}
 					</SwiperSlide>
 				</Swiper>
 			</div>

@@ -5,9 +5,11 @@ import Img from "@/components/ui/image";
 import Svg from "@/components/ui/icons/svg";
 import { useState, useRef, useEffect } from "react";
 import icons from "@/components/ui/icons/icons";
+import cdn from "@/constants/cdn";
 
-export default function CommentBlock() {
-	const [user, setUser] = useState(null);
+export default function CommentBlock({ notification, token }) {
+	const [user, setUser] = useState(notification?.from_user);
+	const [comment, setComment] = useState(notification?.object);
 	const [isOpen, setIsOpen] = useState(false);
 	const [canOpen, setCanOpen] = useState(false);
 	const textRef = useRef(null);
@@ -29,6 +31,8 @@ export default function CommentBlock() {
 	const toggleText = () => {
 		setIsOpen(prev => !prev);
 	};
+
+	console.log(notification)
 
 	return (
 		<div className='w-full border border-foreground/[0.1] bg-block rounded-lg flex p-3 flex-col gap-[0.125rem]'>
@@ -68,7 +72,7 @@ export default function CommentBlock() {
 						ref={textRef}
 						className='break-words block text-ellipsis overflow-hidden data-[open=true]:whitespace-normal data-[open=false]:whitespace-nowrap'
 					>
-						хуй
+						{comment.text}
 					</span>
 				</motion.span>
 			</div>
