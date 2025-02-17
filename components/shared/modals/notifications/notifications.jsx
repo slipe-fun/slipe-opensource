@@ -26,7 +26,7 @@ export default function NotificationsModal({ open, setOpen }) {
 	const [pages, setPages] = useState([1, 1, 1]);
 	const [counts, setCounts] = useState([0, 0, 0]);
 	const { token, store } = useStorage();
-	const [reloadCounts, setReloadCounts] = useState(1)
+	const [reloadCounts, setReloadCounts] = useState(1);
 
 	const types = ["reaction", "subscribe", "comment"];
 	const url = open ? `${api.v1}/notifications/get?page=${pages[active]}&type=${types[active]}&${reloadCounts}` : null;
@@ -39,29 +39,29 @@ export default function NotificationsModal({ open, setOpen }) {
 
 	useEffect(() => {
 		swiper?.slideTo(active);
-	}, [active]);
+	}, [active, swiper]);
 
 	useEffect(() => {
-		if (!notificationsError && !notificationsLoading) {
+		if (!notificationsError && !notificationsLoading && notificationsRequest) {
 			const notificationType = notificationsRequest?.success[0]?.type || types[active];
 
 			setCounts(prev => prev.map((count, index) => (index === types.indexOf(notificationType) ? notificationsRequest?.count : count)));
 
 			switch (notificationType) {
 				case "reaction":
-					setReactions(GetUniqueById([...reactions, ...notificationsRequest?.success]));
+					setReactions(prev => GetUniqueById([...prev, ...notificationsRequest?.success]));
 					break;
 				case "subscribe":
-					setSubscribers(GetUniqueById([...subscribers, ...notificationsRequest?.success]));
+					setSubscribers(prev => GetUniqueById([...prev, ...notificationsRequest?.success]));
 					break;
 				case "comment":
-					setComments(GetUniqueById([...comments, ...notificationsRequest?.success]));
+					setComments(prev => GetUniqueById([...prev, ...notificationsRequest?.success]));
 					break;
 				default:
 					break;
 			}
 		}
-	}, [notificationsRequest]);
+	}, [notificationsRequest, notificationsError, notificationsLoading, active]);
 
 	function addPage(newValue) {
 		setPages(prev => prev.map((page, index) => (index === active ? (typeof newValue === "function" ? newValue(page) : newValue) : page)));
@@ -69,7 +69,17 @@ export default function NotificationsModal({ open, setOpen }) {
 
 	return (
 		<PageModal open={open}>
-			<Header setOpen={setOpen} reload={() => { setReactions([]); setComments([]); setSubscribers([]); setPages([1, 1, 1]); setReloadCounts(prev => prev + 1) }} count={counts[active]} />
+			<Header
+				setOpen={setOpen}
+				reload={() => {
+					setReactions([]);
+					setComments([]);
+					setSubscribers([]);
+					setPages([1, 1, 1]);
+					setReloadCounts(prev => prev + 1);
+				}}
+				count={counts[active]}
+			/>
 			<div className='flex flex-col overflow-hidden duration-300 ease-out bg-background w-full h-full'>
 				<Swiper
 					onSwiper={setSwiper}
@@ -96,13 +106,14 @@ export default function NotificationsModal({ open, setOpen }) {
 						className='!overflow-y-scroll h-full pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'
 					>
 						<InfiniteScroll
-							hasMore={reactions?.length < Number(counts[0])}
-							dataLength={Number(counts[0])}
+							hasMore={reactions.length < Number(counts[0])}
+							dataLength={reactions.length}
 							next={() => addPage(prev => prev + 1)}
 							scrollableTarget='notifisReactions'
 							className='space-y-4'
 						>
-							{!notificationsError ? reactions.map(notification => <ReactionBlock notification={notification} token={token} />) : null}
+							{!notificationsError &&
+								reactions.map(notification => <ReactionBlock key={notification.id} notification={notification} token={token} />)}
 						</InfiniteScroll>
 					</SwiperSlide>
 					<SwiperSlide
@@ -110,24 +121,28 @@ export default function NotificationsModal({ open, setOpen }) {
 						className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'
 					>
 						<InfiniteScroll
-							hasMore={subscribers?.length < Number(counts[1])}
-							dataLength={Number(counts[1])}
+							hasMore={subscribers.length < Number(counts[1])}
+							dataLength={subscribers.length}
 							next={() => addPage(prev => prev + 1)}
 							scrollableTarget='notifisFollows'
 							className='space-y-4'
 						>
-							{!notificationsError ? subscribers.map(notification => <FollowBlock notification={notification} token={token} />) : null}
+							{!notificationsError &&
+								subscribers.map(notification => <FollowBlock key={notification.id} notification={notification} token={token} />)}
 						</InfiniteScroll>
 					</SwiperSlide>
-					<SwiperSlide className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'>
+					<SwiperSlide
+						id='notifisComments'
+						className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'
+					>
 						<InfiniteScroll
-							hasMore={comments?.length < Number(counts[2])}
-							dataLength={Number(counts[2])}
+							hasMore={comments.length < Number(counts[2])}
+							dataLength={comments.length}
 							next={() => addPage(prev => prev + 1)}
 							scrollableTarget='notifisComments'
 							className='space-y-4'
 						>
-							{!notificationsError ? comments.map(notification => <CommentBlock notification={notification} token={token} />) : null}
+							{!notificationsError && comments.map(notification => <CommentBlock key={notification.id} notification={notification} token={token} />)}
 						</InfiniteScroll>
 					</SwiperSlide>
 				</Swiper>
