@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import FollowBlock from "./blocks/follow";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import api from "@/constants/api";
+import NoContent from "../../no-content";
 import { useStorage } from "@/hooks/contexts/session";
 import { fetcher, GetUniqueById } from "@/lib/utils";
 import CommentBlock from "./blocks/comment";
@@ -117,6 +118,14 @@ export default function NotificationsModal({ open, setOpen }) {
 								reactions.map(notification => <ReactionBlock key={notification.id} notification={notification} token={token} />)}
 							{notificationsLoading &&
 								Array.from({ length: 10 }, (_, i) => i).map(index => <Skeleton key={index} className='w-full rounded-lg min-h-24' />)}
+							{!notificationsLoading && reactions.length === 0 && (
+								<NoContent
+									title='No notifications here yet'
+									primary="maybe they'll be here soon"
+									className='h-full animate-[fadeIn_0.3s_ease-out]'
+									image='nothing.png'
+								/>
+							)}
 						</InfiniteScroll>
 					</SwiperSlide>
 					<SwiperSlide
@@ -134,6 +143,14 @@ export default function NotificationsModal({ open, setOpen }) {
 								subscribers.map(notification => <FollowBlock key={notification.id} notification={notification} token={token} />)}
 							{notificationsLoading &&
 								Array.from({ length: 10 }, (_, i) => i).map(index => <Skeleton key={index} className='w-full rounded-lg min-h-24' />)}
+							{!notificationsLoading && subscribers.length === 0 && (
+								<NoContent
+									title='No notifications here yet'
+									primary="maybe they'll be here soon"
+									className='h-full animate-[fadeIn_0.3s_ease-out]'
+									image='nothing.png'
+								/>
+							)}
 						</InfiniteScroll>
 					</SwiperSlide>
 					<SwiperSlide
@@ -149,7 +166,15 @@ export default function NotificationsModal({ open, setOpen }) {
 						>
 							{!notificationsError && comments.map(notification => <CommentBlock key={notification.id} notification={notification} token={token} />)}
 							{notificationsLoading &&
-								Array.from({ length: 10 }, (_, i) => i).map(index => <Skeleton key={index} className='w-full rounded-lg min-h-24' />)}
+								Array.from({ length: 10 }, (_, i) => i).map(index => <Skeleton key={index} className='w-full rounded-lg min-h-[5.75rem]' />)}
+							{!notificationsLoading && comments.length === 0 && (
+								<NoContent
+									title='No notifications here yet'
+									primary="maybe they'll be here soon"
+									className='h-full animate-[fadeIn_0.3s_ease-out]'
+									image='nothing.png'
+								/>
+							)}
 						</InfiniteScroll>
 					</SwiperSlide>
 				</Swiper>
