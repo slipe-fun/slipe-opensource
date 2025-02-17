@@ -3,17 +3,18 @@ import Header from "./header";
 import SwitcherBar from "./switcher-bar";
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { EffectCreative } from "swiper/modules";
 import ReactionBlock from "./blocks/reaction";
-
-import "swiper/css";
-import "swiper/css/effect-creative";
 import FollowBlock from "./blocks/follow";
 import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import api from "@/constants/api";
 import { useStorage } from "@/hooks/contexts/session";
 import { fetcher, GetUniqueById } from "@/lib/utils";
 import CommentBlock from "./blocks/comment";
+
+import "swiper/css";
+import "swiper/css/effect-creative";
 
 export default function NotificationsModal({ open, setOpen }) {
 	const [swiper, setSwiper] = useState(null);
@@ -89,14 +90,44 @@ export default function NotificationsModal({ open, setOpen }) {
 					slidesPerView={1}
 					modules={[EffectCreative]}
 				>
-					<SwiperSlide className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'>
-						{!notificationsError ? reactions.map(notification => <ReactionBlock notification={notification} token={token} />) : null}
+					<SwiperSlide
+						id='notifisReactions'
+						className='!overflow-y-scroll h-full pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'
+					>
+						<InfiniteScroll
+							hasMore={reactions?.length < Number(counts[0])}
+							dataLength={Number(counts[0])}
+							next={() => addPage(prev => prev + 1)}
+							scrollableTarget='notifisReactions'
+							className='space-y-4'
+						>
+							{!notificationsError ? reactions.map(notification => <ReactionBlock notification={notification} token={token} />) : null}
+						</InfiniteScroll>
+					</SwiperSlide>
+					<SwiperSlide
+						id='notifisFollows'
+						className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'
+					>
+						<InfiniteScroll
+							hasMore={subscribers?.length < Number(counts[1])}
+							dataLength={Number(counts[1])}
+							next={() => addPage(prev => prev + 1)}
+							scrollableTarget='notifisFollows'
+							className='space-y-4'
+						>
+							{!notificationsError ? subscribers.map(notification => <FollowBlock notification={notification} token={token} />) : null}
+						</InfiniteScroll>
 					</SwiperSlide>
 					<SwiperSlide className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'>
-						{!notificationsError ? subscribers.map(notification => <FollowBlock notification={notification} token={token} />) : null}
-					</SwiperSlide>
-					<SwiperSlide className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'>
-						{!notificationsError ? comments.map(notification => <CommentBlock notification={notification} token={token} />) : null}
+						<InfiniteScroll
+							hasMore={comments?.length < Number(counts[2])}
+							dataLength={Number(counts[2])}
+							next={() => addPage(prev => prev + 1)}
+							scrollableTarget='notifisComments'
+							className='space-y-4'
+						>
+							{!notificationsError ? comments.map(notification => <CommentBlock notification={notification} token={token} />) : null}
+						</InfiniteScroll>
 					</SwiperSlide>
 				</Swiper>
 			</div>
