@@ -24,11 +24,11 @@ export default function FollowBlock({ notification, token }) {
 					{user?.avatar ? (
 						<Img wrapperClassName='rounded-full min-w-11 h-11' iconClassName='!w-7 !h-7' src={`${cdn}/avatars/${user?.avatar}`} />
 					) : (
-						<PixelAvatar size={44} username={user?.username} pixels={user?.pixel_order} />
+						<PixelAvatar size={44} username={user?.username || "Anonymous"} pixels={user?.pixel_order} />
 					)}
 					<div className='flex flex-col w-full overflow-hidden'>
 						<div className='w-full flex gap-1'>
-							<div className='whitespace-nowrap overflow-hidden text-sm max-w-fit text-ellipsis font-medium text-foreground'>{user?.nickname || user?.username}</div>
+							<div className='whitespace-nowrap overflow-hidden text-sm max-w-fit text-ellipsis font-medium text-foreground'>{user?.nickname || user?.username || "Anonymous"}</div>
 						</div>
 						<span className='text-xs leading-[1.125rem] text-white/50'>{TimePassedFromDate(notification.date)}</span>
 					</div>

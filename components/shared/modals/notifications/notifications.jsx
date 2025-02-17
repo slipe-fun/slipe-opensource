@@ -26,9 +26,10 @@ export default function NotificationsModal({ open, setOpen }) {
 	const [pages, setPages] = useState([1, 1, 1]);
 	const [counts, setCounts] = useState([0, 0, 0]);
 	const { token, store } = useStorage();
+	const [reloadCounts, setReloadCounts] = useState(1)
 
 	const types = ["reaction", "subscribe", "comment"];
-	const url = open ? `${api.v1}/notifications/get?page=${pages[active]}&type=${types[active]}` : null;
+	const url = open ? `${api.v1}/notifications/get?page=${pages[active]}&type=${types[active]}&${reloadCounts}` : null;
 
 	const {
 		data: notificationsRequest,
@@ -68,7 +69,7 @@ export default function NotificationsModal({ open, setOpen }) {
 
 	return (
 		<PageModal open={open}>
-			<Header setOpen={setOpen} reload={() => setPages([1, 1, 1])} count={counts[active]} />
+			<Header setOpen={setOpen} reload={() => { setReactions([]); setComments([]); setSubscribers([]); setPages([1, 1, 1]); setReloadCounts(prev => prev + 1) }} count={counts[active]} />
 			<div className='flex flex-col overflow-hidden duration-300 ease-out bg-background w-full h-full'>
 				<Swiper
 					onSwiper={setSwiper}

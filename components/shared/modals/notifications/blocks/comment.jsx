@@ -6,6 +6,7 @@ import Svg from "@/components/ui/icons/svg";
 import { useState, useRef, useEffect } from "react";
 import icons from "@/components/ui/icons/icons";
 import cdn from "@/constants/cdn";
+import { TimePassedFromDate } from "@/lib/utils";
 
 export default function CommentBlock({ notification, token }) {
 	const [user, setUser] = useState(notification?.from_user);
@@ -32,7 +33,6 @@ export default function CommentBlock({ notification, token }) {
 		setIsOpen(prev => !prev);
 	};
 
-	console.log(notification)
 
 	return (
 		<div className='w-full border border-foreground/[0.1] bg-block rounded-lg flex p-3 flex-col gap-[0.125rem]'>
@@ -41,15 +41,15 @@ export default function CommentBlock({ notification, token }) {
 					{user?.avatar ? (
 						<Img wrapperClassName='rounded-full min-w-11 h-11' iconClassName='!w-7 !h-7' src={`${cdn}/avatars/${user?.avatar}`} />
 					) : (
-						<PixelAvatar size={44} username={user?.username} pixels={user?.pixel_order} />
+						<PixelAvatar size={44} username={user?.username || "Anonymous"} pixels={user?.pixel_order} />
 					)}
 					<div className='flex flex-col w-full overflow-hidden'>
 						<div className='w-full flex gap-1'>
 							<div className='whitespace-nowrap overflow-hidden text-sm max-w-fit text-ellipsis font-medium text-foreground'>
-								{user?.nickname || user?.username}
+								{user?.nickname || user?.username || "Anonymous"}
 							</div>
 						</div>
-						<span className='text-xs leading-[1.125rem] text-white/50'>2 Days ago</span>
+						<span className='text-xs leading-[1.125rem] text-white/50'>{TimePassedFromDate(notification?.date) || "Unknown"}</span>
 					</div>
 				</div>
 				<Button
@@ -72,7 +72,7 @@ export default function CommentBlock({ notification, token }) {
 						ref={textRef}
 						className='break-words block text-ellipsis overflow-hidden data-[open=true]:whitespace-normal data-[open=false]:whitespace-nowrap'
 					>
-						{comment.text}
+						{comment.text || "Empty comment"}
 					</span>
 				</motion.span>
 			</div>
