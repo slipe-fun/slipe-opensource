@@ -13,6 +13,7 @@ import { useCacheFetcher } from "@/hooks/useCacheFetcher";
 import api from "@/constants/api";
 import { useStorage } from "@/hooks/contexts/session";
 import { fetcher, GetUniqueById } from "@/lib/utils";
+import CommentBlock from "./blocks/comment";
 
 export default function NotificationsModal({ open, setOpen }) {
 	const [swiper, setSwiper] = useState(null);
@@ -22,7 +23,7 @@ export default function NotificationsModal({ open, setOpen }) {
 	const [subscribers, setSubscribers] = useState([]);
 	const [comments, setComments] = useState([]);
 	const [pages, setPages] = useState([1, 1, 1]);
-	const [counts, setCounts] = useState([0,0,0]);
+	const [counts, setCounts] = useState([0, 0, 0]);
 	const { token, store } = useStorage();
 
 	const types = ["reaction", "subscribe", "comment"];
@@ -31,16 +32,18 @@ export default function NotificationsModal({ open, setOpen }) {
 	const {
 		data: notificationsRequest,
 		error: notificationsError,
-		isLoading: notificationsLoading
+		isLoading: notificationsLoading,
 	} = useCacheFetcher(url, async url => await fetcher(url, "get", null, { Authorization: "Bearer " + token }));
 
-	useEffect(() => { swiper?.slideTo(active) }, [active])
+	useEffect(() => {
+		swiper?.slideTo(active);
+	}, [active]);
 
 	useEffect(() => {
 		if (!notificationsError && !notificationsLoading) {
 			const notificationType = notificationsRequest?.success[0]?.type || types[active];
 
-			setCounts(prev => prev.map((count, index) => index === types.indexOf(notificationType) ? notificationsRequest?.count : count))
+			setCounts(prev => prev.map((count, index) => (index === types.indexOf(notificationType) ? notificationsRequest?.count : count)));
 
 			switch (notificationType) {
 				case "reaction":
@@ -59,16 +62,12 @@ export default function NotificationsModal({ open, setOpen }) {
 	}, [notificationsRequest]);
 
 	function addPage(newValue) {
-		setPages(prev => prev.map((page, index) =>
-			index === active
-				? (typeof newValue === "function" ? newValue(page) : newValue)
-				: page
-		));
+		setPages(prev => prev.map((page, index) => (index === active ? (typeof newValue === "function" ? newValue(page) : newValue) : page)));
 	}
 
 	return (
 		<PageModal open={open}>
-			<Header setOpen={setOpen} reload={() => setPages([1, 1, 1])} count={counts[active]}/>
+			<Header setOpen={setOpen} reload={() => setPages([1, 1, 1])} count={counts[active]} />
 			<div className='flex flex-col overflow-hidden duration-300 ease-out bg-background w-full h-full'>
 				<Swiper
 					onSwiper={setSwiper}
@@ -86,18 +85,18 @@ export default function NotificationsModal({ open, setOpen }) {
 						},
 					}}
 					effect='creative'
-					className='w-full h-full px-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'
+					className='w-full h-full px-4'
 					slidesPerView={1}
 					modules={[EffectCreative]}
 				>
-					<SwiperSlide className='overflow-y-scroll space-y-4'>
+					<SwiperSlide className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'>
 						{!notificationsError ? reactions.map(notification => <ReactionBlock notification={notification} token={token} />) : null}
 					</SwiperSlide>
-					<SwiperSlide className='overflow-y-scroll space-y-4'>
+					<SwiperSlide className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'>
 						{!notificationsError ? subscribers.map(notification => <FollowBlock notification={notification} token={token} />) : null}
 					</SwiperSlide>
-					<SwiperSlide className='overflow-y-scroll space-y-4'>
-						{!notificationsError ? reactions.map(notification => <ReactionBlock notification={notification} token={token} />) : null}
+					<SwiperSlide className='!overflow-y-scroll h-full space-y-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(5.9375rem+var(--safe-area-inset-bottom))]'>
+						{!notificationsError ? reactions.map(notification => <CommentBlock notification={notification} token={token} />) : null}
 					</SwiperSlide>
 				</Swiper>
 			</div>
