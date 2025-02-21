@@ -20,8 +20,9 @@ export default function Header() {
 			{currentPage !== "/auth" ? (
 				<header
 					id='header-wrapper'
+					data-hidden={currentPage === "/publish"}
 					data-isbg={currentPage == "/profile"}
-					className='w-screen opacity-100 data-[isbg=false]:bg-navigation data-[isbg=false]:border-b-[1px] data-[isbg=false]:border-foreground/10 pt-[calc(1rem+var(--safe-area-inset-top))] data-[isbg=false]:backdrop-blur-[80px] fixed z-50 p-4'
+					className='w-screen opacity-100 data-[isbg=false]:bg-navigation data-[isbg=false]:border-b-[1px] data-[hidden=true]:!opacity-0 data-[isbg=false]:border-foreground/10 pt-[calc(1rem+var(--safe-area-inset-top))] data-[isbg=false]:backdrop-blur-[80px] fixed z-50 p-4'
 				>
 					<div className='flex opacity-100 w-full gap-7 justify-between'>
 						{currentPage == "/" ? <HomeState url={currentPage} /> : currentPage == "/profile" ? <ProfileState /> : null}

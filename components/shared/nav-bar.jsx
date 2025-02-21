@@ -28,22 +28,22 @@ export default function NavBar() {
 	return (
 		<>
 			{url.pathname !== "/auth" ? (
-				<div className='bg-navigation pb-[--safe-area-inset-bottom] w-screen border-t-[1px] border-foreground/10 fixed flex bottom-0 backdrop-blur-[80px] z-50'>
+				<div data-hidden={url.pathname === "/publish"} className='bg-navigation pb-[--safe-area-inset-bottom] w-screen border-t-[1px] duration-200 ease-out border-foreground/10 data-[hidden=true]:opacity-0 data-[hidden=true]:translate-y-full fixed flex bottom-0 data-[hidden=false]:backdrop-blur-[80px] z-50'>
 					<NavLink
 						to='/'
 						data-active={url.pathname === "/"}
 						className='w-full items-center flex justify-center flex-col h-[4.5rem] data-[active=false]:text-foreground/25 data-[active=true]:text-primary text-foreground'
 					>
 						<Svg className='!w-[2.3125rem] !h-[2.3125rem] duration-200 ease-out' icon={icons["blogs"]} />
-						<span className="text-[0.8125rem] duration-200 ease-out">Blogs feed</span>
+						<span className='text-[0.8125rem] duration-200 ease-out'>Blogs feed</span>
 					</NavLink>
 					<NavLink
-						data-active={url.pathname === "/add"}
-						to='/add'
+						data-active={url.pathname === "/publish"}
+						to='/publish'
 						className='w-full items-center flex justify-center flex-col h-[4.5rem] data-[active=false]:text-foreground/25 data-[active=true]:text-primary text-foreground'
 					>
 						<Svg className='!w-[2.3125rem] !h-[2.3125rem] duration-200 ease-out' icon={icons["plus"]} />
-						<span className="text-[0.8125rem] duration-200 ease-out">Publishing</span>
+						<span className='text-[0.8125rem] duration-200 ease-out'>Publishing</span>
 					</NavLink>
 					<NavLink
 						data-active={url.pathname === "/profile"}
@@ -54,14 +54,25 @@ export default function NavBar() {
 							{!error ? (
 								<>
 									{user?.success[0].avatar ? (
-										<Img data-active={url.pathname === "/profile"} src={`${cdn}/avatars/${user?.success[0]?.avatar}`} wrapperClassName="w-[1.875rem] h-[1.875rem] rounded-full" className="duration-200 ease-out data-[active=false]:opacity-25"/>
+										<Img
+											data-active={url.pathname === "/profile"}
+											src={`${cdn}/avatars/${user?.success[0]?.avatar}`}
+											wrapperClassName='w-[1.875rem] h-[1.875rem] rounded-full'
+											className='duration-200 ease-out data-[active=false]:opacity-25'
+										/>
 									) : (
-										<PixelAvatar data-active={url.pathname === "/profile"} className="duration-200 ease-out data-[active=false]:opacity-25" size={36} username={user?.success[0]?.username} pixels={user?.success[0]?.pixel_order} />
+										<PixelAvatar
+											data-active={url.pathname === "/profile"}
+											className='duration-200 ease-out data-[active=false]:opacity-25'
+											size={36}
+											username={user?.success[0]?.username}
+											pixels={user?.success[0]?.pixel_order}
+										/>
 									)}
 								</>
 							) : null}
 						</div>
-						<span className="text-[0.8125rem] duration-200 ease-out">My profile</span>
+						<span className='text-[0.8125rem] duration-200 ease-out'>My profile</span>
 					</NavLink>
 				</div>
 			) : null}

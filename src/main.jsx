@@ -13,8 +13,10 @@ import NavBar from "@/components/shared/nav-bar";
 import PagesContentTypeContextProvider from "@/hooks/contexts/posts-type";
 import { SessionContextProvider } from "@/hooks/contexts/session";
 import { createPortal } from "react-dom";
+import Publish from "./pages/publish/page";
 
 import "./index.css";
+
 
 // Some native code for transparent bars, insets and etc.
 StatusBar.setOverlaysWebView({ overlay: true });
@@ -49,6 +51,7 @@ createRoot(document.getElementById("root")).render(
 							<Route path='/auth' element={<Auth />} />
 							<Route path='/' element={<Home />} />
 							<Route path='/profile' element={<Profile />} />
+							<Route path='/publish' element={<Publish />} />
 						</Routes>
 					</main>
 					<NavBar />

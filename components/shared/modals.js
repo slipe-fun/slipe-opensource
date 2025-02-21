@@ -10,4 +10,4 @@ export { default as DescriptionModal } from "@/components/shared/modals/descript
 export { default as FollowersModal } from "@/components/shared/modals/followers/followers"
 export { default as UserModal } from "@/components/shared/modals/user-modal/user-modal"
 export { default as SettingsModal } from "@/components/shared/modals/settings/settings"
-export { default as NotificationsModal } from "@/components/shared/modals/notifications/notifications"
+export { default as NotificationsModal } from "@/components/shared/modals/notifications-modal/notifications"
