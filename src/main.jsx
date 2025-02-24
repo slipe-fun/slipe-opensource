@@ -14,6 +14,7 @@ import PagesContentTypeContextProvider from "@/hooks/contexts/posts-type";
 import { SessionContextProvider } from "@/hooks/contexts/session";
 import { createPortal } from "react-dom";
 import Publish from "./pages/publish/page";
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
 import "./index.css";
 
@@ -27,6 +28,9 @@ SafeArea.getSafeAreaInsets().then(({ insets }) => {
 	document.documentElement.style.setProperty("--safe-area-inset-top", `${insets.top}px`);
 	document.documentElement.style.setProperty("--safe-area-inset-bottom", `${insets.bottom}px`);
 });
+
+defineCustomElements(window);
+
 //
 
 createRoot(document.getElementById("root")).render(

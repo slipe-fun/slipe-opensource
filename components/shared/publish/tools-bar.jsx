@@ -16,7 +16,7 @@ export default function ToolsBar({ slide }) {
 			<Button disabled={slide === 0} variant='secondary' size='full' className='min-h-[3.125rem] rounded-full h-[3.125rem]'>
 				<Svg className='!w-7 !h-7 text-foreground' icon={icons["image"]} />
 			</Button>
-			<Button disabled={slide === 0} size='full' className='min-h-[3.125rem] rounded-full h-[3.125rem]'>
+			<Button disabled={slide === 0} size='full' className='min-h-[3.125rem] font-medium rounded-full h-[3.125rem]'>
 				Next
 			</Button>
 		</div>
