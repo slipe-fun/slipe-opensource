@@ -7,14 +7,24 @@ import { EffectCreative } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/effect-creative";
+import Editor from "@/components/shared/publish/slides/editor";
 
 export default function Publish() {
 	const [swiper, setSwiper] = useState(null);
 	const [active, setActive] = useState(0);
+	const [image, setImage] = useState(null);
+	const [chooseConfrim, setChooseConfirm] = useState(false);
 
 	useEffect(() => {
 		swiper?.slideTo(active);
 	}, [active, swiper]);
+
+	useEffect(() => {
+		console.log(image);
+		if (image) {
+			setActive(1);
+		}
+	}, [image]);
 
 	return (
 		<>
@@ -34,21 +44,21 @@ export default function Publish() {
 					},
 				}}
 				effect='creative'
-				className='w-full h-full px-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(6rem+var(--safe-area-inset-bottom))]'
+				className='w-full h-full px-4 pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(6.1875rem+var(--safe-area-inset-bottom))]'
 				slidesPerView={1}
 				modules={[EffectCreative]}
 			>
 				<SwiperSlide className='h-full flex gap-4 flex-col'>
-					<Choose />
+					<Choose output={setImage} />
 				</SwiperSlide>
 				<SwiperSlide className='h-full flex gap-4 flex-col'>
-					<Choose />
+					<Editor confirmed={chooseConfrim} image={image} />
 				</SwiperSlide>
 				<SwiperSlide className='h-full flex gap-4 flex-col'>
 					<Choose />
 				</SwiperSlide>
 			</Swiper>
-			<ToolsBar slide={active} />
+			<ToolsBar confirmed={chooseConfrim} setConfirmed={setChooseConfirm} setSlide={setActive} setImage={setImage} slide={active} />
 		</>
 	);
 }
