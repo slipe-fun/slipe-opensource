@@ -24,7 +24,7 @@ export default function Editor({ image, confirmed }) {
     }
 
 	return (
-		<div onClick={!confirmed && toggleActiveTab} className='rounded-[1.75rem] overflow-hidden relative w-full h-full'>
+		<div onClick={!confirmed && toggleActiveTab} className='rounded-[1.75rem] bg-[#242424] overflow-hidden relative w-full h-full'>
 			<motion.div
 				className='w-full h-full absolute top-0 left-0'
 				animate={{
