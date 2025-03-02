@@ -29,16 +29,16 @@ export default function ToolsBar({ slide, confirmed, setSlide, setConfirmed, set
 			<AnimatePresence mode='wait'>
 				{slide !== 1 || confirmed ? (
 					<motion.div key='groupA' variants={containerVariants} initial='hidden' animate='visible' exit='exit' className='flex gap-4 w-full'>
-						{[0, 1, 2].map((_, index) => (
+						{["image", "text", "brush"].map((icon, index) => (
 							<motion.div key={`groupA-image-${index}`} variants={buttonVariants} className='w-full'>
 								<Button disabled={slide === 0} variant='secondary' size='full' className='min-h-[3.125rem] rounded-full h-[3.125rem]'>
-									<Svg className='!w-7 !h-7 text-foreground' icon={icons["image"]} />
+									<Svg className='!w-7 !h-7 text-foreground' icon={icons[icon]} />
 								</Button>
 							</motion.div>
 						))}
-						<motion.div key='groupA-next' variants={buttonVariants} className='w-full'>
-							<Button disabled={slide === 0} size='full' className='min-h-[3.125rem] font-medium rounded-full h-[3.125rem]'>
-								Next
+						<motion.div key='groupA-next' variants={buttonVariants}>
+							<Button disabled={slide === 0} className='min-h-[3.125rem] gap-[0.375rem] pr-[0.875rem] font-medium rounded-full h-[3.125rem]'>
+								Next <Svg className='!w-[1.125rem] !h-[1.125rem] text-foreground' icon={icons["chevronRight"]} />
 							</Button>
 						</motion.div>
 					</motion.div>

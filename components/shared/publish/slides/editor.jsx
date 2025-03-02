@@ -19,8 +19,12 @@ export default function Editor({ image, confirmed }) {
 		exit: { opacity: 0, y: 10 },
 	};
 
+    const switcherTransition = {
+        type: "spring", stiffness: 50, damping: 7, duration: 0.45
+    }
+
 	return (
-		<div onClick={toggleActiveTab} className='rounded-[1.75rem] overflow-hidden relative w-full h-full'>
+		<div onClick={!confirmed && toggleActiveTab} className='rounded-[1.75rem] overflow-hidden relative w-full h-full'>
 			<motion.div
 				className='w-full h-full absolute top-0 left-0'
 				animate={{
@@ -61,8 +65,8 @@ export default function Editor({ image, confirmed }) {
 									{activeTab === index && (
 										<motion.div
 											layoutId='tab-indicator'
+                                            transition={{ type: "spring", duration: 0.45 }}
 											className='absolute inset-0 bg-white/[0.12] rounded-full'
-											transition={{ duration: 0.15, ease: "easeOut" }}
 										/>
 									)}
 									<Svg className='!w-7 !h-7' icon={tab} />
