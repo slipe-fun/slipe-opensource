@@ -20,7 +20,6 @@ export default function Publish() {
 	}, [active, swiper]);
 
 	useEffect(() => {
-		console.log(image);
 		if (image) {
 			setActive(1);
 		}

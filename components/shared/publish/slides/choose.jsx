@@ -7,11 +7,11 @@ export default function Choose({ output }) {
 		const image = await Camera.getPhoto({
 		  quality: 100,
 		  allowEditing: false,
-		  resultType: CameraResultType.DataUrl,
+		  resultType: CameraResultType.Uri,
 		  source: camera ? CameraSource.Camera : CameraSource.Photos
 		});
 
-		output(image.dataUrl)
+		output(image.webPath)
 	  };
 
 	return (
