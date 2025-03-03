@@ -14,7 +14,7 @@ const buttonVariants = cva(
         semiTransparent: "bg-black/50 text-white hover:bg-black/30",
         whiteActive: "bg-white text-black hover:bg-white/90",
         transparent: "text-foreground",
-        deleting: "bg-red-foreground/35 text-red-foreground hover:bg-red-foreground/30",
+        deleting: "bg-red-foreground text-white hover:bg-red-foreground/90",
         success: "bg-green-foreground/35 text-green-foreground hover:bg-green-foreground/30"
       },
       size: {

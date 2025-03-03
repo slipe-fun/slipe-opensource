@@ -19,6 +19,12 @@ export default function Publish() {
 		swiper?.slideTo(active);
 	}, [active, swiper]);
 
+	const discardChanges = () => {
+		setImage(null)
+		setChooseConfirm(false)
+		setActive(0)
+	}
+
 	useEffect(() => {
 		if (image) {
 			setActive(1);
@@ -27,7 +33,7 @@ export default function Publish() {
 
 	return (
 		<>
-			<Header slide={active} />
+			<Header confirmed={chooseConfrim} discardChanges={discardChanges} slide={active} />
 			<Swiper
 				onSwiper={setSwiper}
 				allowTouchMove={false}

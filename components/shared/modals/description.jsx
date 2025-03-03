@@ -3,7 +3,7 @@ import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerFooter, Drawe
 import { Textarea } from "@/components/ui/textarea";
 import { AdjustHeight } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import Counter from "../../counter";
+import Counter from "../counter";
 import {fetcher} from "@/lib/utils";
 import cdn from "@/constants/cdn";
 import api from "@/constants/api";

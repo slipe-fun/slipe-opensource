@@ -30,7 +30,7 @@ export default function Editor({ image, confirmed }) {
 				animate={{
 					scale: activeTab === 0 ? 1 : 1.05,
 				}}
-				transition={{ duration: 0.15 }}
+				transition={{ duration: 0.45, type: "spring" }}
 			>
 				<Img
 					src={image}
