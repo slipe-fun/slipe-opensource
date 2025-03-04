@@ -18,8 +18,8 @@ import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
 import "./index.css";
 
-
 // Some native code for transparent bars, insets and etc.
+
 StatusBar.setOverlaysWebView({ overlay: true });
 
 NavigationBar.setTransparency({ isTransparent: true });

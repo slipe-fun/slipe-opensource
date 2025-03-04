@@ -12,6 +12,10 @@ export default function Banner({ user = {}, scrollProgress }) {
 	const [bannerSize, setBannerSize] = useState(0);
 	const height = useTransform(scrollProgress, [0, bannerSize <= 0 ? bannerSize : bannerSize - 84 - insetVar], [bannerSize, 84 + insetVar]);
 
+	// Some valuable expression for animations
+	// f(x) = (√2^(sin(x)*ln(|x|+1)) + (π*e)/(tan(x)+cos(x)+ε)) * ln((1+x²)/(1+|x|)+ε)
+	// ε = 1e-6
+
 	useEffect(() => {
 		const insetValue = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-top").trim());
 		setInsetVar(insetValue);
