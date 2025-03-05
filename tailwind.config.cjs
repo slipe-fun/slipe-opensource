@@ -5,7 +5,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				Geist: "Geist",
+				OpenRunde: "Open Runde",
 			},
 			borderRadius: {
 				lg: "var(--radius)",

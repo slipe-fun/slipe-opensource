@@ -103,15 +103,30 @@
 
 @layer base {
 	@font-face {
-		font-family: "Geist";
-		font-display: swap;
-		src: url(/static/GeistVF.woff) format("woff");
+		font-family: "Open Runde";
+		src: url(/static/fonts/OpenRunde-Regular.woff2) format(woff2), url(/static/fonts/OpenRunde-Regular.woff) format(woff);
+		font-weight: 400;
+	}
+	@font-face {
+		font-family: "Open Runde";
+		src: url(/static/fonts/OpenRunde-Medium.woff2) format(woff2), url(/static/fonts/OpenRunde-Medium.woff) format(woff);
+		font-weight: 500;
+	}
+	@font-face {
+		font-family: "Open Runde";
+		src: url(/static/fonts/OpenRunde-Semibold.woff2) format(woff2), url(/static/fonts/OpenRunde-Semibold.woff) format(woff);
+		font-weight: 600;
+	}
+	@font-face {
+		font-family: "Open Runde";
+		src: url(/static/fonts/OpenRunde-Bold.woff2) format(woff2), url(/static/fonts/OpenRunde-Bold.woff) format(woff);
+		font-weight: 700;
 	}
 	* {
 		@apply border-border;
 	}
 	body {
-		@apply bg-background text-foreground select-none;
+		@apply bg-background text-foreground [-webkit-font-smoothing:antialiased] [-webkit-user-select:none];
 	}
 	.home-swiper .swiper-slide-shadow {
 		@apply !left-auto !bg-swiperShadow w-[calc(200%-2.5rem)];
@@ -124,4 +139,3 @@
 ::-webkit-scrollbar {
 	display: none;
 }
-
