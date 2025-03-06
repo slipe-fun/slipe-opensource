@@ -1,7 +1,7 @@
 import Header from "@/components/shared/publish/header";
 import Choose from "@/components/shared/publish/slides/choose";
 import ToolsBar from "@/components/shared/publish/tools-bar";
-import PublishSlide from "@/components/shared/publish/slides/publish";
+import PublishSlide from "@/components/shared/publish/slides/publish/publish";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { EffectCreative } from "swiper/modules";
