@@ -101,6 +101,10 @@
 	transition: 0.2s ease-out;
 }
 
+.no3d-swiper .swiper-wrapper {
+	transform-style: flat;
+}
+
 @layer base {
 	@font-face {
 		font-family: "Open Runde";

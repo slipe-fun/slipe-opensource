@@ -26,7 +26,7 @@ export default function Publish() {
 	//
 
 	const slideClassName = useMemo(
-		() => "h-full flex gap-4 flex-col pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(6.1875rem+var(--safe-area-inset-bottom))]",
+		() => "h-full flex gap-4 flex-col pt-[calc(6.3125rem+var(--safe-area-inset-top))] pb-[calc(6.1875rem+var(--safe-area-inset-bottom))] px-4",
 		[]
 	);
 
@@ -70,7 +70,7 @@ export default function Publish() {
 					},
 				}}
 				effect='creative'
-				className='w-full h-full px-4'
+				className='w-full h-full no3d-swiper'
 				slidesPerView={1}
 				modules={[EffectCreative]}
 			>
