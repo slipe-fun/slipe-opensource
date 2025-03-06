@@ -37,7 +37,7 @@ function Editor({ image, confirmed, hidden }) {
 	}, []);
 
 	return (
-		<AnimatePresence mode='wait'>
+		<AnimatePresence>
 			{!hidden && (
 				<motion.div
 					key='editor-container'

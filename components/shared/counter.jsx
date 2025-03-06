@@ -9,11 +9,11 @@ const Counter = forwardRef(({ value, maxValue, className, ...props }, ref) => {
 			<AnimatePresence mode='popLayout'>
 				<motion.span
 					layout
-					initial={{ opacity: 0, y: 6 }}
-					animate={{ opacity: 1, y: 0 }}
+					initial={{ opacity: 0, y: 8, scale: 0.7 }}
+					animate={{ opacity: 1, y: 0, scale: 1 }}
 					transition={{ duration: 0.3, type: "spring" }}
-					exit={{ opacity: 0, y: -6 }}
-					className='text-foreground block'
+					exit={{ opacity: 0, y: -8, scale: 0.7 }}
+					className='text-foreground origin-center block'
 					key={value}
 				>
 					{value}

@@ -32,13 +32,14 @@ export default function ToolsBar({ slide, confirmed, setSlide, setConfirmed, set
 					<motion.div key='groupA' variants={containerVariants} initial='hidden' animate='visible' exit='exit' className='flex gap-4 w-full'>
 						{["image", "text", "brush"].map((icon, index) => (
 							<motion.div key={`groupA-icon-${index}`} variants={buttonVariants} className='w-full'>
-								<Button variant='secondary' size='full' className='min-h-[3.125rem] rounded-full h-[3.125rem]'>
+								<Button disabled={slide !== 1} variant='secondary' size='full' className='min-h-[3.125rem] rounded-full h-[3.125rem]'>
 									<Svg className='!w-7 !h-7 text-foreground' icon={icons[icon]} />
 								</Button>
 							</motion.div>
 						))}
 						<motion.div key='groupA-next' variants={buttonVariants}>
 							<Button
+								disabled={slide !== 1}
 								onClick={() => {
 									if (slide === 0) {
 										setSlide(1);
