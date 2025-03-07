@@ -14,6 +14,7 @@ export default function Publish() {
 	const [swiper, setSwiper] = useState(null);
 	const [active, setActive] = useState(0);
 	const [image, setImage] = useState(null);
+	const [categoryFocused, setCategoryFocused] = useState(false);
 	const [chooseConfirm, setChooseConfirm] = useState(false);
 
 	// Publish slide states
@@ -91,10 +92,20 @@ export default function Publish() {
 						reactions={reactions}
 						setReactions={setReactions}
 						hidden={active !== 2}
+						categoryFocused={categoryFocused}
+						setCategoryFocused={setCategoryFocused}
 					/>
 				</SwiperSlide>
 			</Swiper>
-			<ToolsBar confirmed={chooseConfirm} setConfirmed={setChooseConfirm} setSlide={setActive} setImage={setImage} slide={active} />
+			<ToolsBar
+				setCategoryFocused={setCategoryFocused}
+				categoryFocused={categoryFocused}
+				confirmed={chooseConfirm}
+				setConfirmed={setChooseConfirm}
+				setSlide={setActive}
+				setImage={setImage}
+				slide={active}
+			/>
 		</>
 	);
 }

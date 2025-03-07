@@ -27,8 +27,8 @@ export default function PublishPostName({setName, name, focused, setFocused, blo
 			variants={blockVariants}
 			transition={{ type: "spring" }}
 			whileTap={{ scale: 0.99, opacity: 0.8 }}
-			className={`relative z-10 w-full h-[9.25rem] flex flex-col justify-between p-5 rounded-[1.25rem] bg-gradient-to-b from-[#C685FF] to-[#AF53FF] overflow-hidden ${
-				focused ? "z-[70]" : "z-10"
+			className={`relative w-full h-[9.25rem] flex flex-col justify-between p-5 rounded-[1.25rem] bg-gradient-to-b from-[#C685FF] to-[#AF53FF] overflow-hidden ${
+				focused ? "z-[20]" : ""
 			}`}
 		>
 			<div className='w-full flex justify-between'>

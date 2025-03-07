@@ -24,7 +24,7 @@ const buttonVariants = {
 	exit: { opacity: 0, y: 10 },
 };
 
-export default function ToolsBar({ slide, confirmed, setSlide, setConfirmed, setImage }) {
+export default function ToolsBar({ slide, confirmed, setSlide, setConfirmed, setImage, categoryFocused, setCategoryFocused }) {
 	return (
 		<div className='bg-navigation pb-[calc(var(--safe-area-inset-bottom)+1rem)] w-screen border-t-[1px] p-4 duration-200 ease-out border-foreground/10 animate-[fadeIn_0.3s_ease-out] flex gap-4 fixed bottom-0 z-50'>
 			<AnimatePresence mode='wait'>
@@ -78,10 +78,17 @@ export default function ToolsBar({ slide, confirmed, setSlide, setConfirmed, set
 					</motion.div>
 				)}
 
-				{slide === 2 && (
+				{slide === 2 && !categoryFocused && (
 					<motion.div key='button-publish' variants={buttonVariants} initial='hidden' animate='visible' exit='exit' className='w-full'>
 						<Button size='full' className='min-h-[3.125rem] font-medium rounded-full h-[3.125rem]'>
 							Publish post
+						</Button>
+					</motion.div>
+				)}
+				{slide === 2 && categoryFocused && (
+					<motion.div key='button-categoryConfirm' variants={buttonVariants} initial='hidden' animate='visible' exit='exit' className='w-full'>
+						<Button onClick={() => setCategoryFocused(false)} size='full' className='min-h-[3.125rem] font-medium rounded-full h-[3.125rem]'>
+							Confirm
 						</Button>
 					</motion.div>
 				)}

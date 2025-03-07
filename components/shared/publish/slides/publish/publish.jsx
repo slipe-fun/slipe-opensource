@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import PublishBottomText from "./bottom-text";
 import PublishPostName from "./post-name";
-import PublishPostCategory from "./post-category";
+import PublishPostCategory, { PostCategorySelector } from "./post-category";
 
 const containerVariants = {
 	hidden: {},
@@ -25,27 +25,25 @@ const blockVariants = {
 	exit: { opacity: 0, y: 15 },
 };
 
-export default function PublishSlide({
-	name,
-	setName,
-	category,
-	setCategory,
-	comments,
-	setComments,
-	reactions,
-	setReactions,
-	hidden,
-}) {
-
+export default function PublishSlide({ name, setName, category, setCategory, comments, setComments, reactions, setReactions, hidden, categoryFocused, setCategoryFocused}) {
 	const [focused, setFocused] = useState(false);
+	const [active, setActive] = useState(0);
 
 	return (
 		<>
 			<AnimatePresence>
 				{!hidden && (
 					<motion.div variants={containerVariants} className='flex flex-col gap-4' initial='hidden' animate='visible' exit='exit'>
-						<PublishPostName name={name} setName={setName} setFocused={setFocused} focused={focused} blockVariants={blockVariants}/>
-						<PublishPostCategory blockVariants={blockVariants} setCategory={setCategory} category={category} />
+						<PublishPostName name={name} setName={setName} setFocused={setFocused} focused={focused} blockVariants={blockVariants} />
+						<PublishPostCategory
+							categoryFocused={categoryFocused}
+							active={active}
+							setActive={setActive}
+							setCategoryFocused={setCategoryFocused}
+							blockVariants={blockVariants}
+							setCategory={setCategory}
+							category={category}
+						/>
 						<div className='w-full flex gap-4'>
 							<motion.div
 								transition={{ type: "spring" }}
@@ -113,23 +111,32 @@ export default function PublishSlide({
 								/>
 							</motion.div>
 						</div>
-						<PublishBottomText/>
+						<PublishBottomText />
 					</motion.div>
-					
 				)}
 			</AnimatePresence>
-			<AnimatePresence>
-				{focused && (
+			<AnimatePresence mode="wait">
+				{focused || categoryFocused ? (
 					<motion.div
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.3 }}
-						className='fixed top-0 right-0 w-screen h-screen z-[60] bg-black/40 backdrop-blur-lg'
-					/>
-				)}
+						className='fixed top-0 right-0 w-screen pt-[calc(16.5625rem+var(--safe-area-inset-top))] pb-[calc(5.1875rem+var(--safe-area-inset-bottom))] px-4 h-screen z-[10] bg-black/40 backdrop-blur-lg'
+					>
+						<motion.ul exit='exit' initial="hidden" animate="visible" variants={blockVariants} className='h-full w-full gap-2 pb-4 overflow-y-scroll flex flex-col'>
+							{categoryFocused && (
+								<PostCategorySelector
+									active={active}
+									setActive={setActive}
+									category={category}
+									setCategory={setCategory}
+								/>
+							)}
+						</motion.ul>
+					</motion.div>
+				) : null}
 			</AnimatePresence>
-			
 		</>
 	);
 }
