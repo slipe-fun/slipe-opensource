@@ -1,0 +1,18 @@
+export default [
+    { name: "Science", emoji: "science", gradient: "#98A8E2, #6F86D6" },
+    { name: "Education", emoji: "education", gradient: "#C990E4, #B465DA" },
+    { name: "Ecology", emoji: "ecology", gradient: "#0ED27C, #0BA360" },
+    { name: "Programming", emoji: "programming", gradient: "#FFB2D2, #FF7EB3" },
+    { name: "Sport", emoji: "sport", gradient: "#FF8A8A, #FF5858" },
+    { name: "Traveling", emoji: "traveling", gradient: "#34536A, #243949" },
+    { name: "Food", emoji: "food", gradient: "#FFAD66, #FF9233" },
+    { name: "Volunteering", emoji: "volunteering", gradient: "#8385B4, #65689F" },
+    { name: "Movies", emoji: "movies", gradient: "#3D9EFF, #0A84FF" },
+    { name: "Creativity", emoji: "creativity", gradient: "#F6C388, #F3AA57" },
+    { name: "Jokes", emoji: "jokes", gradient: "#FF9494, #FF3333" },
+    { name: "Diy", emoji: "diy", gradient: "#77D5D0, #50C9C3" },
+    { name: "Animals", emoji: "animals", gradient: "#D966FF, #CC33FF" },
+    { name: "Fashion", emoji: "fashion", gradient: "#3CEBD0, #17DEBF" },
+    { name: "Finance", emoji: "finance", gradient: "#CD9E50, #B78534" },
+    { name: "Shitpost", emoji: "shitpost", gradient: "#C48354, #AB6A3B" },
+];
